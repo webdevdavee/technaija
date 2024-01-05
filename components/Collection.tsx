@@ -1,12 +1,20 @@
 import ProductCard from "./ProductCard";
+import { getAllProducts } from "@/libs/actions/product.action";
+import { IProduct } from "@/libs/database/models/product.model";
 
 type CollectionProps = {
-  data?: any;
   title: string;
   subtitle?: string;
 };
 
-const Collection = ({ data, title, subtitle }: CollectionProps) => {
+const Collection = async ({ title, subtitle }: CollectionProps) => {
+  const fetchedProducts = await getAllProducts(4);
+  console.log(fetchedProducts);
+
+  let products: IProduct[] = [];
+  if (fetchedProducts !== undefined) {
+    products = fetchedProducts.product;
+  }
   return (
     <section className="px-20 py-8 overflow-hidden">
       <div className="text-center">
@@ -14,7 +22,9 @@ const Collection = ({ data, title, subtitle }: CollectionProps) => {
         <h3 className="text-base">{subtitle}</h3>
       </div>
       <div className="flex flex-wrap justify-between items-center gap-4">
-        <ProductCard />
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
       </div>
     </section>
   );

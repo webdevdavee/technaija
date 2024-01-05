@@ -1,11 +1,17 @@
 "use client";
 
+import { IProduct } from "@/libs/database/models/product.model";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-const ProductCard = () => {
+type CardProp = {
+  product: IProduct;
+};
+
+const ProductCard = ({ product }: CardProp) => {
   const [heartHover, setHeartHover] = useState(false);
+  const { id, name, price, sales_price, featured_image } = product;
   return (
     <section className="w-fit group">
       <div className="relative mb-4 overflow-hidden">
@@ -14,7 +20,7 @@ const ProductCard = () => {
             width={270}
             height={670}
             quality={100}
-            src="/test-img.jpg"
+            src={featured_image}
             alt="product"
           />
         </Link>
@@ -42,9 +48,20 @@ const ProductCard = () => {
       </div>
       <div>
         <Link href={"#"}>
-          <p className="capitalize text-center font-semibold">One of many</p>
+          <p className="capitalize text-center font-semibold">{name}</p>
         </Link>
-        <p className="text-center">NGN 52,000</p>
+        <div className="text-center">
+          {sales_price ? (
+            <div>
+              <span className="line-through font-medium text-red-500">
+                {price}
+              </span>{" "}
+              <span className="ml-3">{sales_price}</span>
+            </div>
+          ) : (
+            price
+          )}
+        </div>
       </div>
     </section>
   );
