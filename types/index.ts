@@ -19,3 +19,11 @@ type HeroImages = {
   subtext: string;
   link: string;
 };
+
+type FeaturedCategories = {
+  id: number;
+  text: string;
+  subtext: string;
+  image: string;
+  link: string;
+};

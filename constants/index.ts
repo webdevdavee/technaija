@@ -38,3 +38,27 @@ export const heroImages: HeroImages[] = [
     link: "cases",
   },
 ];
+
+export const featuredCategories: FeaturedCategories[] = [
+  {
+    id: 1,
+    text: "Accessories",
+    subtext: "shop now",
+    image: "/featured-category (1).webp",
+    link: "/accessories",
+  },
+  {
+    id: 2,
+    text: "Android Cases",
+    subtext: "shop now",
+    image: "/featured-category (2).webp",
+    link: "/android-cases",
+  },
+  {
+    id: 3,
+    text: "iPhone Cases",
+    subtext: "shop now",
+    image: "/featured-category (3).webp",
+    link: "/iphone-cases",
+  },
+];
