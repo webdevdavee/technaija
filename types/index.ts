@@ -27,3 +27,50 @@ type FeaturedCategories = {
   image: string;
   link: string;
 };
+
+type FooterMenu1 = {
+  id: number;
+  title: string;
+  data: [
+    { id: number; text: string },
+    { id: number; text: string },
+    { id: number; text: string },
+    { id: number; text: string },
+    { id: number; text: string },
+    { id: number; text: string }
+  ];
+};
+
+type FooterMenu2 = {
+  id: number;
+  title: string;
+  data: [
+    { id: number; text: string },
+    { id: number; text: string },
+    { id: number; text: string },
+    { id: number; text: string },
+    { id: number; text: string }
+  ];
+};
+
+type FooterMenu3 = {
+  id: number;
+  title: string;
+  data: [
+    { id: number; text: string },
+    { id: number; text: string },
+    { id: number; text: string },
+    { id: number; text: string }
+  ];
+};
+
+type FooterMenu4 = {
+  id: number;
+  title: string;
+  data: [{ id: number; text: string }];
+};
+
+type FooterMenu5 = {
+  id: number;
+  text: string;
+};

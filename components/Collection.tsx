@@ -13,7 +13,9 @@ const Collection = ({ data, title, subtitle }: CollectionProps) => {
         <h1 className="text-3xl font-medium mb-2">{title}</h1>
         <h3 className="text-base">{subtitle}</h3>
       </div>
-      <ProductCard />
+      <div className="flex flex-wrap justify-between items-center gap-4">
+        <ProductCard />
+      </div>
     </section>
   );
 };

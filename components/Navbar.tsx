@@ -9,7 +9,7 @@ const Navbar = () => {
   const { isScrolled } = useScrollHeader();
   return (
     <header
-      className={`w-full px-20 py-4 flex items-center justify-between g-4 bg-transparent z-10 transition-[0.3s] fixed ${
+      className={`w-full px-20 py-4 flex items-center justify-between g-4 bg-transparent z-50 transition-[0.3s] fixed drop-shadow-sm ${
         isScrolled ? "bg-white" : "bg-transparent"
       }`}
     >

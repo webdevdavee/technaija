@@ -62,3 +62,58 @@ export const featuredCategories: FeaturedCategories[] = [
     link: "/iphone-cases",
   },
 ];
+
+export const footerMenu1: FooterMenu1[] = [
+  {
+    id: 1,
+    title: "Shop",
+    data: [
+      { id: 1, text: "Popular" },
+      { id: 2, text: "New" },
+      { id: 3, text: "Mattee Cases" },
+      { id: 4, text: "Bio Cases" },
+      { id: 5, text: "Clear Cases" },
+      { id: 6, text: "Skude Cases" },
+    ],
+  },
+];
+
+export const footerMenu2: FooterMenu2[] = [
+  {
+    id: 2,
+    title: "Help",
+    data: [
+      { id: 1, text: "FAQs" },
+      { id: 2, text: "Reviews" },
+      { id: 3, text: "Contact" },
+      { id: 4, text: "Shipping" },
+      { id: 5, text: "Returns" },
+    ],
+  },
+];
+
+export const footerMenu3: FooterMenu3[] = [
+  {
+    id: 3,
+    title: "Account",
+    data: [
+      { id: 1, text: "Login" },
+      { id: 2, text: "Register" },
+      { id: 3, text: "Orders" },
+      { id: 4, text: "Tracking" },
+    ],
+  },
+];
+
+export const footerMenu4: FooterMenu4[] = [
+  {
+    id: 4,
+    title: "Store",
+    data: [{ id: 1, text: "About Us" }],
+  },
+];
+
+export const footerMenu5: FooterMenu5[] = [
+  { id: 1, text: "Terms of service" },
+  { id: 2, text: "Privacy policy" },
+];
