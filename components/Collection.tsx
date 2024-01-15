@@ -9,11 +9,10 @@ type CollectionProps = {
 
 const Collection = async ({ title, subtitle }: CollectionProps) => {
   const fetchedProducts = await getAllProducts(4);
-  console.log(fetchedProducts);
 
   let products: IProduct[] = [];
   if (fetchedProducts !== undefined) {
-    products = fetchedProducts.product;
+    products = fetchedProducts.products;
   }
   return (
     <section className="px-20 py-8 overflow-hidden">

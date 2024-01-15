@@ -8,14 +8,20 @@ export interface IProduct extends Document {
   short_description?: string;
   description: string;
   reviews?: {
+    _id?: string;
     user: string;
-    date: Date;
+    email: string;
+    date: string;
     comment: string;
-    rating: string;
+    rating: number;
+    saveDetails: boolean;
   }[];
   sku?: string;
   additional_information?: {
-    model?: string[];
+    model?: {
+      id: string;
+      text: string;
+    }[];
   };
   category: string;
   original_category: string;
@@ -35,17 +41,21 @@ const ProductSchema = new Schema({
   reviews: [
     {
       user: { type: String, required: true },
-      date: { type: Date, default: Date.now },
+      email: { type: String, required: true },
+      date: { type: String, required: true },
       comment: { type: String, required: true },
-      rating: { type: String, required: true },
+      rating: { type: Number, required: true },
+      saveDetails: { type: Boolean, default: false },
     },
   ],
   sku: { type: String },
   additional_information: {
-    model: {
-      type: [String],
-      default: undefined,
-    },
+    model: [
+      {
+        id: String,
+        text: String,
+      },
+    ],
   },
   category: { type: Schema.Types.ObjectId, ref: "categories" },
   original_category: { type: String, required: true },
@@ -53,6 +63,6 @@ const ProductSchema = new Schema({
   featured_image: { type: String, required: true },
 });
 
-const products = models.products || model("products", ProductSchema);
+const Product = models.Product || model("Product", ProductSchema);
 
-export default products;
+export default Product;

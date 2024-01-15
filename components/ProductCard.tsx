@@ -11,11 +11,11 @@ type CardProp = {
 
 const ProductCard = ({ product }: CardProp) => {
   const [heartHover, setHeartHover] = useState(false);
-  const { id, name, price, sales_price, featured_image } = product;
+  const { _id, name, price, sales_price, featured_image } = product;
   return (
     <section className="w-fit group">
       <div className="relative mb-4 overflow-hidden">
-        <Link href={"#"}>
+        <Link href={`/product/${_id}`}>
           <Image
             width={270}
             height={670}
@@ -47,7 +47,7 @@ const ProductCard = ({ product }: CardProp) => {
         </div>
       </div>
       <div>
-        <Link href={"#"}>
+        <Link href={`/product/${_id}`}>
           <p className="capitalize text-center font-semibold">{name}</p>
         </Link>
         <div className="text-center">

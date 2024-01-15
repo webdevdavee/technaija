@@ -74,3 +74,38 @@ type FooterMenu5 = {
   id: number;
   text: string;
 };
+
+type UpdateProductParams = {
+  updatedProduct: {
+    _id: string;
+    name: string;
+    price: string;
+    sales_price?: string;
+    short_description?: string;
+    description: string;
+    reviews?: {
+      _id?: string;
+      user: string;
+      email: string;
+      date: string;
+      comment: string;
+      rating: number;
+      saveDetails: boolean;
+    }[];
+    sku?: string;
+    additional_information?: {
+      model?: {
+        id: string;
+        text: string;
+      }[];
+    };
+    category: string;
+    original_category: string;
+    gallery?: {
+      id: string;
+      image: string;
+    }[];
+    featured_image: string;
+  };
+  path: string;
+};

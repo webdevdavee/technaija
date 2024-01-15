@@ -3,10 +3,12 @@ import FeaturedCategory from "@/components/FeaturedCategory";
 import Collection from "@/components/Collection";
 import CollectionBanner from "@/components/CollectionBanner";
 import Newsletter from "@/components/Newsletter";
+import QuickView from "@/components/QuickView";
 
 export default function Home() {
   return (
     <main>
+      <QuickView />
       <Hero />
       <FeaturedCategory />
       <Collection

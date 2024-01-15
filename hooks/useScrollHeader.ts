@@ -7,7 +7,7 @@ export const useScrollHeader = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollHeight = window.scrollY;
-      const scrollThreshold = 100; // Adjust this threshold as needed
+      const scrollThreshold = 50; // Adjust this threshold as needed
 
       // Check if the scroll height has reached the threshold
       setIsScrolled(scrollHeight > scrollThreshold);
