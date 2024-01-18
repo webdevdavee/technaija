@@ -1,4 +1,4 @@
-import ProductCard from "./ProductCard";
+import ProductCard from "../ui/ProductCard";
 import { getAllProducts } from "@/libs/actions/product.action";
 import { IProduct } from "@/libs/database/models/product.model";
 

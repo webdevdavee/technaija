@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { getProductById } from "@/libs/actions/product.action";
 import { getAllProducts } from "@/libs/actions/product.action";
 import { IProduct } from "@/libs/database/models/product.model";
-import ProductDetails from "@/components/ProductDetails";
+import ProductDetails from "@/components/shared/ProductDetails";
+import { getAllUsers } from "@/libs/actions/user.action";
+import { IUser } from "@/libs/database/models/user.model";
 
 type Params = {
   params: {
@@ -23,6 +25,12 @@ export async function generateMetadata({
 const ProductPage = async ({ params: { id } }: Params) => {
   const product: IProduct = await getProductById(id);
 
+  const fetchedUsers = await getAllUsers();
+  let users: IUser[] = [];
+  if (fetchedUsers !== undefined) {
+    users = fetchedUsers.users;
+  }
+
   return (
     <section className="relative mt-16 px-20 py-4">
       <ProductDetails product={product} />
@@ -37,7 +45,7 @@ export async function generateStaticParams() {
     products = fetchedProducts.products;
   }
   return products.map((product) => ({
-    id: product.id,
+    id: product._id,
   }));
 }
 

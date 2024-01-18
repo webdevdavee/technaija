@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { IProduct } from "@/libs/database/models/product.model";
 import Image from "next/image";
-import ReviewForm from "./ReviewForm";
+import ReviewForm from "../ui/ReviewForm";
 
 type Prop = {
   product: IProduct;
@@ -17,7 +17,7 @@ const ProductTabs = ({ product }: Prop) => {
     // Render filled stars
     for (let i = 0; i < rating; i++) {
       stars.push(
-        <img
+        <Image
           key={`filled-${i}`}
           src="/star.svg"
           width={12}
@@ -29,7 +29,7 @@ const ProductTabs = ({ product }: Prop) => {
     // Render grayed-out stars
     for (let i = rating; i < totalStars; i++) {
       stars.push(
-        <img
+        <Image
           key={`gray-${i}`}
           src="/gray-star.svg"
           width={12}
@@ -93,33 +93,41 @@ const ProductTabs = ({ product }: Prop) => {
           <>
             <div className="flex items-center justify-center mt-8">
               <span className="w-[65%] p-8 border-[1px] border-gray-400 flex flex-col item-center gap-12">
-                {product.reviews?.map((review, index) => (
-                  <span
-                    key={index}
-                    className="relative flex items-start justify-between overflow-hidden pb-10 border-b-[1px] border-gray-400"
-                  >
-                    <span className="flex items-start gap-6">
-                      <Image
-                        className="rounded-[50%]"
-                        src="/avatar.png"
-                        width={70}
-                        height={70}
-                        alt="avatar"
-                      />
-                      <span>
-                        <span className="flex items-start flex-col gap-3">
-                          <p className="text-sm">{review.date}</p>
-                          <p className="text-xl font-medium">{review.user}</p>
-                          <p className="text-sm">{review.comment}</p>
+                {product.reviews && product.reviews.length > 0 ? (
+                  product.reviews?.map((review, index) => (
+                    <span
+                      key={index}
+                      className={`relative flex items-start justify-between overflow-hidden pb-10 ${
+                        product.reviews && index === product.reviews.length - 1
+                          ? "border-b-0"
+                          : "border-b-[1px] border-gray-400"
+                      }`}
+                    >
+                      <span className="flex items-start gap-6">
+                        <Image
+                          className="rounded-[50%]"
+                          src="/avatar.png"
+                          width={70}
+                          height={70}
+                          alt="avatar"
+                        />
+                        <span>
+                          <span className="flex items-start flex-col gap-3">
+                            <p className="text-sm">{review.date}</p>
+                            <p className="text-xl font-medium">{review.user}</p>
+                            <p className="text-sm">{review.comment}</p>
+                          </span>
                         </span>
                       </span>
-                    </span>
 
-                    <span className="absolute top-0 right-0">
-                      {renderStars(review.rating)}
+                      <span className="absolute top-0 right-0">
+                        {renderStars(review.rating)}
+                      </span>
                     </span>
-                  </span>
-                ))}
+                  ))
+                ) : (
+                  <p className="text-center">No reviews to display</p>
+                )}
               </span>
             </div>
             <ReviewForm product={product} />

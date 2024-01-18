@@ -1,5 +1,5 @@
-import FixedNavbar from "@/components/FixedNavbar";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/ui/Navbar";
+import Footer from "@/components/shared/Footer";
 
 export default function RootLayout({
   children,
@@ -9,7 +9,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <FixedNavbar />
+        <Navbar />
         {children}
         <Footer />
       </body>

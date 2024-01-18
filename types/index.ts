@@ -4,13 +4,6 @@ type MainNavigation = {
   link: string;
 };
 
-type MainIconNavigation = {
-  id: number;
-  src: string;
-  alt: string;
-  link?: string;
-};
-
 type HeroImages = {
   id: number;
   image: string;
@@ -75,6 +68,15 @@ type FooterMenu5 = {
   text: string;
 };
 
+type UserCart = {
+  _id: string;
+  name: string;
+  price: string;
+  quantity: number;
+  photo: string;
+  model: string;
+};
+
 type UpdateProductParams = {
   updatedProduct: {
     _id: string;
@@ -106,6 +108,33 @@ type UpdateProductParams = {
       image: string;
     }[];
     featured_image: string;
+  };
+  path: string;
+};
+
+type UpdateUserParams = {
+  updatedUser: {
+    _id: string;
+    clerkId?: string;
+    email: string;
+    username: string;
+    firstName: string;
+    lastName: string;
+    photo: string;
+    cart: {
+      _id?: string;
+      name: string;
+      price: string;
+      quantity: number;
+      photo: string;
+      model: string;
+    }[];
+    wishlist: {
+      _id?: string;
+      name: string;
+      image: string;
+      price: string;
+    }[];
   };
   path: string;
 };

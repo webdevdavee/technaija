@@ -1,9 +1,9 @@
-import Hero from "@/components/Hero";
-import FeaturedCategory from "@/components/FeaturedCategory";
-import Collection from "@/components/Collection";
-import CollectionBanner from "@/components/CollectionBanner";
-import Newsletter from "@/components/Newsletter";
-import QuickView from "@/components/QuickView";
+import Hero from "@/components/ui/Hero";
+import FeaturedCategory from "@/components/ui/FeaturedCategory";
+import Collection from "@/components/shared/Collection";
+import CollectionBanner from "@/components/ui/CollectionBanner";
+import Newsletter from "@/components/ui/Newsletter";
+import QuickView from "@/components/ui/QuickView";
 
 export default function Home() {
   return (

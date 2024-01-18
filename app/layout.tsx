@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Newsletter from "@/components/Newsletter";
+import ReduxProvider from "@/libs/redux-state/ReduxProvider";
 
 export const metadata: Metadata = {
   title: "Technaija",
@@ -14,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ReduxProvider>{children}</ReduxProvider>
+      </body>
     </html>
   );
 }

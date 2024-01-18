@@ -1,15 +1,9 @@
 export const mainNavigation: MainNavigation[] = [
-  { id: 1, text: "Home", link: "/home" },
+  { id: 1, text: "Home", link: "/" },
   { id: 2, text: "Cases", link: "/cases" },
   { id: 3, text: "Accessories", link: "/accessories" },
   { id: 4, text: "Contact us", link: "/contact-us" },
   { id: 5, text: "About us", link: "about-us" },
-];
-
-export const mainIconNavigation: MainIconNavigation[] = [
-  { id: 1, src: "/search.svg", alt: "search" },
-  { id: 2, src: "/heart.svg", alt: "wishlist", link: "/wishlist" },
-  { id: 3, src: "/shopping-bag.svg", alt: "cart", link: "/cart" },
 ];
 
 export const heroImages: HeroImages[] = [

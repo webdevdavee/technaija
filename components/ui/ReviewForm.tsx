@@ -22,7 +22,7 @@ const ReviewForm = ({ product }: ReviewFormProp) => {
   } = useForm<TReviewSchema>({ resolver: zodResolver(reviewSchema) });
 
   const onSubmit = async (data: TReviewSchema) => {
-    const newReview = { ...data, date: formatDate(new Date()) };
+    const newReview = { ...data, date: formatDate(new Date()) as string };
     const updatedProduct = {
       ...product,
       reviews: product.reviews && [...product.reviews, newReview],
