@@ -9,7 +9,7 @@ const WishlistPage = async () => {
 
   return (
     <section className="relative mt-16 px-20 py-12">
-      <h1 className="text-center text-3xl font-medium py-6">Cart</h1>
+      <h1 className="text-center text-3xl font-medium py-6">Wishlist</h1>
       <WishlistItem fetchedUser={fetchedUser} />
     </section>
   );
