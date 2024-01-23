@@ -1,5 +1,7 @@
+import Loader from "@/components/ui/Loader";
+
 const Loading = () => {
-  return <span className="loader"></span>;
+  return <Loader className="loader" />;
 };
 
 export default Loading;

@@ -31,12 +31,12 @@ const ProductInfo = ({ product }: ProductInfoProp) => {
       {product.sales_price ? (
         <div className="flex items-center gap-2">
           <p className="line-through text-2xl font-medium text-red-500">
-            {product.price}
+            ₦{product.price}
           </p>
-          <p className="ml-3 text-2xl">{product.sales_price}</p>
+          <p className="ml-3 text-2xl">₦{product.sales_price}</p>
         </div>
       ) : (
-        <p className="text-2xl">{product.price}</p>
+        <p className="text-2xl">₦{product.price}</p>
       )}
       <p className="text-sm">{product.short_description}</p>
     </section>

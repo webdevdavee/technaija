@@ -2,6 +2,7 @@ import { IProduct } from "@/libs/database/models/product.model";
 import { IUser } from "@/libs/database/models/user.model";
 import Image from "next/image";
 import { updateUser } from "@/libs/actions/user.action";
+import { Dispatch, SetStateAction } from "react";
 
 type Item = {
   _id: string;
@@ -20,6 +21,7 @@ type QuantityCounterProps = {
   quantity: number;
   incrementQuantity?: () => void;
   decrementQuantity?: () => void;
+  setShowLoader?: Dispatch<SetStateAction<boolean>>;
 };
 
 const QuantityCounter = ({
@@ -30,6 +32,7 @@ const QuantityCounter = ({
   quantity,
   incrementQuantity,
   decrementQuantity,
+  setShowLoader,
 }: QuantityCounterProps) => {
   const incrementCartProductQuantity = async () => {
     // Check if user and item are defined
@@ -41,6 +44,7 @@ const QuantityCounter = ({
       // If the item is found, increment its quantity by 1
       if (itemIndex !== -1) {
         user.cart[itemIndex].quantity += 1;
+        setShowLoader && setShowLoader(true);
       }
       // Otherwise, push the item to the user's cart
       else {
@@ -51,6 +55,7 @@ const QuantityCounter = ({
         updatedUser: user,
         path: `/product/${product && product._id}`,
       });
+      setShowLoader && setShowLoader(false);
     }
   };
 
@@ -61,9 +66,11 @@ const QuantityCounter = ({
       const itemIndex = user.cart.findIndex(
         (cartItem) => cartItem._id === item._id
       );
-      // If the item is found, increment its quantity by 1
+      // If the item is found, decrement its quantity by 1
       if (itemIndex !== -1) {
         user.cart[itemIndex].quantity -= 1;
+        if (user.cart[itemIndex]._id === item._id)
+          setShowLoader && setShowLoader(true);
       }
       // Otherwise, push the item to the user's cart
       else {
@@ -74,6 +81,7 @@ const QuantityCounter = ({
         updatedUser: user,
         path: `/product/${product && product._id}`,
       });
+      setShowLoader && setShowLoader(false);
     }
   };
 

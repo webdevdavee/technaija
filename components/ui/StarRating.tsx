@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
-import { UseFormSetValue, FieldValues } from "react-hook-form";
+import { UseFormSetValue } from "react-hook-form";
 import { TReviewSchema } from "@/libs/zod";
 
 type StarRatingProp = {

@@ -27,7 +27,7 @@ const ProductGallery = ({
 
   return (
     <span className="flex gap-2 items-start overflow-hidden">
-      <span className="gallery-scroll h-[90%] flex flex-col gap-8 overflow-y-scroll">
+      <span className="custom-scrollbar h-[90%] flex flex-col gap-8 hover:overflow-y-scroll">
         {data.gallery &&
           data.gallery.map((img, index) => (
             <Image

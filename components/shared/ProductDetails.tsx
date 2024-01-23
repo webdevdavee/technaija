@@ -3,17 +3,13 @@
 import { useState } from "react";
 import { IProduct } from "@/libs/database/models/product.model";
 import ProductTabs from "./ProductTabs";
-import Overlay from "./Overlay";
-import SlideInCart from "./SlideInCart";
-import { useSelector } from "react-redux";
-import { overlayState } from "@/libs/redux-state/features/overlay/overSlice";
-import { slideInCartState } from "@/libs/redux-state/features/slide-in-cart/slideInCart";
-import { updateUser, getAllUsers } from "@/libs/actions/user.action";
+import { updateUser, getUserById } from "@/libs/actions/user.action";
 import { IUser } from "@/libs/database/models/user.model";
 import ProductGallery from "./ProductGallery";
 import ProductOptions from "./ProductOptions";
 import ProductInfo from "./ProductInfo";
-import { getCartItems } from "@/libs/actions/user.action";
+import AlertBox from "../ui/AlertBox";
+import { currentUserID } from "@/userID";
 
 type Prop = {
   product: IProduct;
@@ -27,6 +23,8 @@ type CartItem = {
   model: string;
 };
 
+type WishlistItem = { name: string; image: string; price: string };
+
 const ProductDetails = ({ product }: Prop) => {
   const [selectedModel, setSelectedModel] = useState(
     product.additional_information?.model?.[0].text
@@ -34,47 +32,104 @@ const ProductDetails = ({ product }: Prop) => {
 
   const [currentImage, setCurrentImage] = useState(product.featured_image);
 
+  const [showCartAlertBox, setShowCartAlertBox] = useState(false);
+
+  const [showWishlistAlertBox, setShowWishlistAlertBox] = useState(false);
+
   const [quantity, setQuantity] = useState(1);
 
-  const theoverlay = useSelector(overlayState);
-  const { overlay } = theoverlay;
+  const [showLoader, setShowLoader] = useState(false);
 
-  const theCart = useSelector(slideInCartState);
-  const { showSlideInCart } = theCart;
-
+  // Define an async function that takes a product of type IProduct as a parameter
   const addToCart = async (product: IProduct) => {
-    const fetchedUsers = await getAllUsers();
-    let users: IUser[] = [];
-    if (fetchedUsers !== undefined) {
-      users = fetchedUsers.users;
-    }
+    // Await the response from the getUserById function and store it in a variable
+    // The function takes a user id as an argument and returns a user object of type IUser
+    const fetchedUser: IUser = await getUserById(currentUserID);
 
-    console.log(users);
-
+    // Create an object of type CartItem with the product's details
     const cartedProduct: CartItem = {
       name: product.name,
-      model: selectedModel!,
+      model: selectedModel!, // Use the non-null assertion operator to indicate that selectedModel is not null or undefined
       quantity: quantity,
       photo: currentImage,
-      price: product.sales_price ? product.sales_price : product.price,
+      price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
     };
 
+    // Use the spread operator to copy the properties of the fetched user
     const updatedUser = {
-      ...users[0],
-      cart: [...users[0].cart, cartedProduct],
+      ...fetchedUser,
+      // Use the spread operator to add the cartedProduct to the beginning of the user's cart array
+      cart: [cartedProduct, ...fetchedUser.cart],
     };
 
+    // Show loader on the add to cart button
+    setShowLoader(true);
+
+    // Update the user's data on the server using the updateUser function
+    // Pass an object with the updatedUser and the product's path as properties
     await updateUser({
       updatedUser,
       path: `/product/${product._id}`,
     });
+
+    // Show a success status message or alert box when a product is added to cart
+    setShowCartAlertBox(true);
+
+    // Remove loader from the add to cart button
+    setShowLoader(false);
+
+    // After 3 seconds remove the alert message or alert box
+    setTimeout(() => {
+      setShowCartAlertBox(false);
+    }, 4000);
+  };
+
+  const addToWishlist = async (product: IProduct) => {
+    // Await the response from the getUserById function and store it in a variable
+    // The function takes a user id as an argument and returns a user object of type IUser
+    const fetchedUser: IUser = await getUserById(currentUserID);
+
+    // Create an object of type WishlistItem with the product's details
+    const wishlistProduct: WishlistItem = {
+      name: product.name,
+      price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
+      image: currentImage,
+    };
+
+    // Use the spread operator to copy the properties of the fetched user
+    const updatedUser = {
+      ...fetchedUser,
+      // Use the spread operator to add the cartedProduct to the beginning of the user's cart array
+      wishlist: [wishlistProduct, ...fetchedUser.wishlist],
+    };
+
+    // Show loader on the add to cart button
+    setShowLoader(true);
+
+    // Update the user's data on the server using the updateUser function
+    // Pass an object with the updatedUser and the product's path as properties
+    await updateUser({
+      updatedUser,
+      path: `/product/${product._id}`,
+    });
+
+    // Show a success status message or alert box when a product is added to cart
+    setShowWishlistAlertBox(true);
+
+    // Remove loader from the add to cart button
+    setShowLoader(false);
+
+    // After 3 seconds remove the alert message or alert box
+    setTimeout(() => {
+      setShowWishlistAlertBox(false);
+    }, 4000);
   };
 
   return (
     <>
       <div className="relative w-full grid grid-cols-2 justify-between bg-white py-8">
-        {overlay && <Overlay />}
-        {showSlideInCart && <SlideInCart product={product} />}
+        {showCartAlertBox && <AlertBox type="success" feature="cart" />}
+        {showWishlistAlertBox && <AlertBox type="success" feature="wishlist" />}
         <ProductGallery
           data={product}
           currentImage={currentImage}
@@ -89,6 +144,8 @@ const ProductDetails = ({ product }: Prop) => {
             quantity={quantity}
             setQuantity={setQuantity}
             addToCart={addToCart}
+            addToWishlist={addToWishlist}
+            showLoader={showLoader}
           />
         </div>
       </div>
@@ -96,16 +153,4 @@ const ProductDetails = ({ product }: Prop) => {
     </>
   );
 };
-
-export async function generateStaticParams() {
-  const cartItems = await getCartItems("65a7fe321e748784eb40b55c");
-  let cart: UserCart[] = [];
-  if (cartItems !== undefined) {
-    cart = cartItems;
-  }
-  return cart.map((cartItem) => ({
-    id: cartItem._id,
-  }));
-}
-
 export default ProductDetails;

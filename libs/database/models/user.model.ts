@@ -17,7 +17,7 @@ export interface IUser extends Document {
     model: string;
   }[];
   wishlist: {
-    _id: string;
+    _id?: string;
     name: string;
     image: string;
     price: string;
@@ -49,6 +49,6 @@ const UserSchema = new Schema({
   ],
 });
 
-const Users = models.Users || model("Users", UserSchema);
+const users = models.users || model("users", UserSchema);
 
-export default Users;
+export default users;

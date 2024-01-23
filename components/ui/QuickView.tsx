@@ -1,99 +1,200 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
+import { useSelector, useDispatch } from "react-redux";
+import { productState } from "@/libs/redux-state/features/product/productSlice";
+import { quickviewState } from "@/libs/redux-state/features/quickview/quickviewSlice";
+import { setQuickview } from "@/libs/redux-state/features/quickview/quickviewSlice";
+import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
+import { useState } from "react";
+import { IUser } from "@/libs/database/models/user.model";
+import { IProduct } from "@/libs/database/models/product.model";
+import { getUserById, updateUser } from "@/libs/actions/user.action";
+import { usePathname } from "next/navigation";
+import AlertBox from "./AlertBox";
+import Link from "next/link";
+import ProductInfo from "../shared/ProductInfo";
+import ProductOptions from "../shared/ProductOptions";
+import { currentUserID } from "@/userID";
+
+type CartItem = {
+  name: string;
+  price: string;
+  quantity: number;
+  photo: string;
+  model: string;
+};
+
+type WishlistItem = { name: string; image: string; price: string };
 
 const QuickView = () => {
-  const stars = ["1", "2", "3", "4", "5"];
+  const [quantity, setQuantity] = useState(1);
+
+  const dispatch = useDispatch();
+  const pathname = usePathname();
+
+  const currentProduct = useSelector(productState);
+  const { product } = currentProduct;
+
+  const quickview = useSelector(quickviewState);
+  const { showQuickview } = quickview;
+
+  const currentImage = product.featured_image;
+
+  const [selectedModel, setSelectedModel] = useState(
+    product.additional_information?.model?.[0].text
+  );
+
+  const [showCartAlertBox, setShowCartAlertBox] = useState(false);
+
+  const [showWishlistAlertBox, setShowWishlistAlertBox] = useState(false);
+
+  const [showLoader, setShowLoader] = useState(false);
+
+  const [modelError, setModelError] = useState(false);
+
+  // Define an async function that takes a product of type IProduct as a parameter
+  const addToCart = async (product: IProduct) => {
+    // Await the response from the getUserById function and store it in a variable
+    // The function takes a user id as an argument and returns a user object of type IUser
+    const fetchedUser: IUser = await getUserById(currentUserID);
+
+    // Create an object of type CartItem with the product's details
+    const cartedProduct: CartItem = {
+      name: product.name,
+      model: selectedModel!, // Use the non-null assertion operator to indicate that selectedModel is not null or undefined
+      quantity: quantity,
+      photo: currentImage,
+      price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
+    };
+
+    if (selectedModel !== undefined) {
+      // Create an object of type IUser with the updated cart
+      // Use the spread operator to copy the properties of the fetched user
+      const updatedUser = {
+        ...fetchedUser,
+        // Use the spread operator to add the cartedProduct to the beginning of the user's cart array
+        cart: [cartedProduct, ...fetchedUser.cart],
+      };
+
+      // Show loader on the add to cart button
+      setShowLoader(true);
+
+      // Update the user's data on the server using the updateUser function
+      // Pass an object with the updatedUser and the product's path as properties
+      await updateUser({
+        updatedUser,
+        path: pathname,
+      });
+
+      // Show a success status message or alert box when a product is added to cart
+      setShowCartAlertBox(true);
+
+      // Remove loader from the add to cart button
+      setShowLoader(false);
+
+      // After 3 seconds remove the alert message or alert box
+      setTimeout(() => {
+        setShowCartAlertBox(false);
+      }, 4000);
+    } else {
+      setModelError(true);
+    }
+  };
+
+  const addToWishlist = async (product: IProduct) => {
+    // Await the response from the getUserById function and store it in a variable
+    // The function takes a user id as an argument and returns a user object of type IUser
+    const fetchedUser: IUser = await getUserById(currentUserID);
+
+    // Create an object of type WishlistItem with the product's details
+    const wishlistProduct: WishlistItem = {
+      name: product.name,
+      price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
+      image: currentImage,
+    };
+
+    // Use the spread operator to copy the properties of the fetched user
+    const updatedUser = {
+      ...fetchedUser,
+      // Use the spread operator to add the cartedProduct to the beginning of the user's cart array
+      wishlist: [wishlistProduct, ...fetchedUser.wishlist],
+    };
+
+    // Show loader on the add to cart button
+    setShowLoader(true);
+
+    // Update the user's data on the server using the updateUser function
+    // Pass an object with the updatedUser and the product's path as properties
+    await updateUser({
+      updatedUser,
+      path: `/product/${product._id}`,
+    });
+
+    // Show a success status message or alert box when a product is added to cart
+    setShowWishlistAlertBox(true);
+
+    // Remove loader from the add to cart button
+    setShowLoader(false);
+
+    // After 3 seconds remove the alert message or alert box
+    setTimeout(() => {
+      setShowWishlistAlertBox(false);
+    }, 4000);
+  };
+
+  const closeQuickview = () => {
+    dispatch(setQuickview(false));
+    dispatch(setOverlay(false));
+  };
+
   return (
-    <section className="hidden relative quickview z-[55] w-[85%]">
+    <section
+      className="relative quickview z-[55] w-[85%] drop-shadow-xl"
+      style={{ display: showQuickview ? "block" : "none" }}
+    >
+      {showCartAlertBox && <AlertBox type="success" feature="cart" />}
+      {showWishlistAlertBox && <AlertBox type="success" feature="wishlist" />}
       <div className="grid grid-cols-2 bg-white p-8">
-        <Image
-          src="/test-img.jpg"
-          width={450}
-          height={450}
-          quality={100}
-          alt="product-img"
-        />
-        <div className="flex flex-col items-start gap-8">
-          <span className="flex items-center gap-1">
-            {stars.map((_, index) => (
-              <Image
-                key={index}
-                src="/star.svg"
-                width={20}
-                height={20}
-                alt="star"
-              />
-            ))}
-            <p className="text-sm ml-2">Reviews (1)</p>
-          </span>
-          <h1 className="text-2xl font-semibold">In Bloom</h1>
-          <p className="text-xl font-medium">NGN 15,000</p>
-          <p className="text-sm">
-            Designed for simplicity and made from high quality materials. Its
-            sleek geometry and material combinations creates a modern look.
+        <Link
+          href={`product/${product._id}`}
+          onClick={() => dispatch(setOverlay(false))}
+        >
+          <Image
+            src={product.featured_image}
+            width={450}
+            height={450}
+            quality={100}
+            alt="product-img"
+          />
+          <p className="absolute bottom-0 left-0 right-0 w-full bg-red-500 p-4 text-center text-white">
+            See more product info
           </p>
-          <span className="w-full flex items-center justify-between">
-            <p>
-              model: <span className="font-semibold">iPhone 12</span>
-            </p>
-            <Image src="/close.svg" width={20} height={20} alt="close" />
-          </span>
-          <select
-            className="p-2 border-[1px] border-gray-300 focus:outline-none w-full"
-            name="options"
-          >
-            <option value="">Choose an option</option>
-            <option value="iPhone 11">iPhone 11</option>
-            <option value="iPhone 11 Pro">iPhone 11 Pro</option>
-            <option value="iPhone 12">iPhone 12</option>
-            <option value="iPhone 12 Pro">iPhone 12 Pro</option>
-          </select>
-          <span className="flex items-center gap-4">
-            <span className="flex gap-8 items-center p-2 border-[1px] border-gray-300">
-              <button type="button">
-                <Image
-                  className="hover:bg-gray-200 hover:transition rounded-[50%]"
-                  src="/minus.svg"
-                  width={20}
-                  height={20}
-                  alt="minus"
-                />
-              </button>
-              <p>1</p>
-              <button type="button">
-                <Image
-                  className="hover:bg-gray-200 hover:transition rounded-[50%]"
-                  src="/plus.svg"
-                  width={20}
-                  height={20}
-                  alt="plus"
-                />
-              </button>
-            </span>
-            <button
-              type="button"
-              className="py-2 px-10 capitalize bg-[#272829] text-white hover:bg-black hover:transition"
-            >
-              add to cart
-            </button>
-          </span>
-          <button
-            type="button"
-            className="flex gap-4 items-center py-2 px-6 capitalize border-[1px] border-gray-300"
-          >
-            wishlist
-            <Image src="/heart.svg" width={20} height={20} alt="wishlist" />
-          </button>
+        </Link>
+        <div className="flex flex-col items-start gap-8">
+          <div className="flex flex-col items-start gap-8">
+            <ProductInfo product={product} />
+            <ProductOptions
+              product={product}
+              selectedModel={selectedModel}
+              setSelectedModel={setSelectedModel}
+              quantity={quantity}
+              setQuantity={setQuantity}
+              addToCart={addToCart}
+              addToWishlist={addToWishlist}
+              showLoader={showLoader}
+              modelError={modelError}
+              setModelError={setModelError}
+            />
+          </div>
         </div>
       </div>
-      <button type="button">
+      <button type="button" onClick={closeQuickview}>
         <Image
-          className="absolute top-7 right-9 text-base"
+          className="absolute top-16 right-5 text-base"
           src="/close.svg"
-          width={30}
-          height={30}
+          width={45}
+          height={45}
           alt="close"
         />
       </button>

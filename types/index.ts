@@ -77,6 +77,13 @@ type UserCart = {
   model: string;
 };
 
+type UserWishlist = {
+  _id?: string;
+  name: string;
+  image: string;
+  price: string;
+};
+
 type UpdateProductParams = {
   updatedProduct: {
     _id: string;
