@@ -51,17 +51,3 @@ export const getUserById = async (userId: string) => {
     handleError(error);
   }
 };
-
-export const getCartItems = async (userId: string) => {
-  try {
-    await connectToDatabase();
-
-    const user = await users.findById(userId);
-    const userCart: UserCart[] = user.cart;
-
-    if (!user) throw new Error("User not found");
-    return JSON.parse(JSON.stringify(userCart));
-  } catch (error) {
-    handleError(error);
-  }
-};

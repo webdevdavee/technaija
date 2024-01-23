@@ -28,8 +28,6 @@ const ReviewForm = ({ product }: ReviewFormProp) => {
       reviews: product.reviews && [...product.reviews, newReview],
     };
 
-    console.log(updatedProduct);
-
     await updateProduct({
       updatedProduct,
       path: `/product/${product._id}`,
