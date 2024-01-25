@@ -2,7 +2,7 @@
 
 import { connectToDatabase } from "../database";
 import { handleError } from "../utils";
-import Product from "../database/models/product.model";
+import Products from "../database/models/product.model";
 import { revalidatePath } from "next/cache";
 
 export const getAllProducts = async (limit: number) => {
@@ -11,7 +11,7 @@ export const getAllProducts = async (limit: number) => {
 
     const conditions = {};
 
-    const productsQuery = Product.find({}).limit(limit);
+    const productsQuery = Products.find({}).limit(limit);
     const productsData = await productsQuery;
 
     return {
@@ -25,7 +25,7 @@ export const getAllProducts = async (limit: number) => {
 export const getProductById = async (productId: string) => {
   try {
     await connectToDatabase();
-    const product = await Product.findById(productId);
+    const product = await Products.findById(productId);
     if (!product) {
       throw new Error("Product not found");
     }
@@ -41,11 +41,11 @@ export const updateProduct = async ({
 }: UpdateProductParams) => {
   try {
     await connectToDatabase();
-    const productToUpdate = await Product.findById(updatedProduct._id);
+    const productToUpdate = await Products.findById(updatedProduct._id);
     if (!productToUpdate) {
       throw new Error("Unauthorized or product not found");
     }
-    const product = await Product.findByIdAndUpdate(
+    const product = await Products.findByIdAndUpdate(
       updatedProduct._id,
       { ...updatedProduct },
       { new: true }

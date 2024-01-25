@@ -63,6 +63,6 @@ const ProductSchema = new Schema({
   featured_image: { type: String, required: true },
 });
 
-const Product = models.Product || model("Product", ProductSchema);
+const Products = models.Products || model("Products", ProductSchema);
 
-export default Product;
+export default Products;
