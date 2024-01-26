@@ -61,7 +61,7 @@ const CartListItem = ({ fetchedUser }: CartListItemProps) => {
   return (
     <section className="flex gap-20 mt-6">
       <div className="flex flex-col gap-6 w-full">
-        {fetchedUser && fetchedUser.cart.length >= 1 ? (
+        {fetchedUser.cart.length >= 1 ? (
           fetchedUser.cart.map((item) => (
             <div
               key={item._id}

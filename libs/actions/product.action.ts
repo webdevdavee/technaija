@@ -9,8 +9,6 @@ export const getAllProducts = async (limit: number) => {
   try {
     await connectToDatabase();
 
-    const conditions = {};
-
     const productsQuery = Products.find({}).limit(limit);
     const productsData = await productsQuery;
 
