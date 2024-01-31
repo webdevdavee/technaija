@@ -7,7 +7,7 @@ type Props = {
   icon?: string;
 };
 
-const Button = ({ link, classname, text, icon }: Props) => {
+const LinkButton = ({ link, classname, text, icon }: Props) => {
   return (
     <Link className={`w-fit ${classname}`} href={`/${link}`}>
       <button>{text}</button>
@@ -15,4 +15,4 @@ const Button = ({ link, classname, text, icon }: Props) => {
   );
 };
 
-export default Button;
+export default LinkButton;

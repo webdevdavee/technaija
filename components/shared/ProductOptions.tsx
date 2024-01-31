@@ -48,44 +48,51 @@ const ProductOptions = ({
 
   return (
     <section className="w-full flex flex-col items-start gap-8">
-      <span className="w-full flex items-center justify-between">
-        <p>
-          model: <span className="font-semibold">{selectedModel}</span>
-        </p>
-        <Image
-          className="cursor-pointer"
-          src="/close.svg"
-          width={20}
-          height={20}
-          alt="close"
-          onClick={() => setSelectedModel("")}
-        />
-      </span>
-      <span className="relative w-full">
-        <Image
-          className="absolute right-3 top-3"
-          src="/arrow-down.svg"
-          width={20}
-          height={20}
-          alt="arrow"
-        />
-        <select
-          className="p-2 border-[1px] border-gray-300 focus:outline-none w-full appearance-none cursor-pointer"
-          name="options"
-          onChange={(e) => selectAModel(e)}
-          value={selectedModel === "" ? "Choose an option" : selectedModel}
-        >
-          {selectedModel === "" && (
-            <option value="Choose an option">Choose an option</option>
-          )}
-          {product.additional_information?.model?.map((data) => (
-            <option key={data.id} value={`${data.text}`}>
-              {data.text}
-            </option>
-          ))}
-        </select>
-        {modelError && <p className="text-red-500 text-base">Select a model</p>}
-      </span>
+      {selectedModel && (
+        <>
+          <span className="w-full flex items-center justify-between">
+            <p>
+              model: <span className="font-semibold">{selectedModel}</span>
+            </p>
+            <Image
+              className="cursor-pointer"
+              src="/close.svg"
+              width={20}
+              height={20}
+              alt="close"
+              onClick={() => setSelectedModel("")}
+            />
+          </span>
+          <span className="relative w-full">
+            <Image
+              className="absolute right-3 top-3"
+              src="/arrow-down.svg"
+              width={20}
+              height={20}
+              alt="arrow"
+            />
+            <select
+              className="p-2 border-[1px] border-gray-300 focus:outline-none w-full appearance-none cursor-pointer"
+              name="options"
+              onChange={(e) => selectAModel(e)}
+              value={selectedModel === "" ? "Choose an option" : selectedModel}
+            >
+              {selectedModel === "" && (
+                <option value="Choose an option">Choose an option</option>
+              )}
+              {product.additional_information?.model?.map((data) => (
+                <option key={data.id} value={`${data.text}`}>
+                  {data.text}
+                </option>
+              ))}
+            </select>
+            {modelError && (
+              <p className="text-red-500 text-base">Select a model</p>
+            )}
+          </span>
+        </>
+      )}
+
       <span className="flex items-center gap-4">
         <QuantityCounter
           type="productpage"

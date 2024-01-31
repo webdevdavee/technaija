@@ -10,6 +10,8 @@ import ProductOptions from "./ProductOptions";
 import ProductInfo from "./ProductInfo";
 import AlertBox from "../ui/AlertBox";
 import { currentUserID } from "@/userID";
+import { setCartCount } from "@/libs/redux-state/features/cart-count/cartCountSlice";
+import { useDispatch } from "react-redux";
 
 type Prop = {
   product: IProduct;
@@ -26,8 +28,10 @@ type CartItem = {
 type WishlistItem = { name: string; image: string; price: string };
 
 const ProductDetails = ({ product }: Prop) => {
+  const dispatch = useDispatch();
+
   const [selectedModel, setSelectedModel] = useState(
-    product.additional_information?.model?.[0].text
+    product.additional_information?.model?.[0]?.text
   );
 
   const [currentImage, setCurrentImage] = useState(product.featured_image);
@@ -69,8 +73,10 @@ const ProductDetails = ({ product }: Prop) => {
     // Pass an object with the updatedUser and the product's path as properties
     await updateUser({
       updatedUser,
-      path: `/product/${product._id}`,
+      path: "/cart",
     });
+
+    dispatch(setCartCount(updatedUser.cart.length));
 
     // Show a success status message or alert box when a product is added to cart
     setShowCartAlertBox(true);
@@ -110,7 +116,7 @@ const ProductDetails = ({ product }: Prop) => {
     // Pass an object with the updatedUser and the product's path as properties
     await updateUser({
       updatedUser,
-      path: `/product/${product._id}`,
+      path: "/wishlist",
     });
 
     // Show a success status message or alert box when a product is added to cart

@@ -36,7 +36,7 @@ const WishlistItem = ({ fetchedUser }: WishListProps) => {
       // Pass the updated user object and the product's path as arguments
       await updateUser({
         updatedUser: fetchedUser,
-        path: pathname,
+        path: "/wishlist",
       });
       // Remove loader
       setShowLoader(false);
@@ -97,7 +97,7 @@ const WishlistItem = ({ fetchedUser }: WishListProps) => {
             Your wishlist is empty
           </p>
           <Link
-            href={"/cases"}
+            href={"/shop"}
             className="w-fit bg-[#272829] text-white p-4 hover:bg-black hover:transition"
           >
             Return to shop

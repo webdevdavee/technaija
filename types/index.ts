@@ -24,37 +24,22 @@ type FeaturedCategories = {
 type FooterMenu1 = {
   id: number;
   title: string;
-  data: [
-    { id: number; text: string },
-    { id: number; text: string },
-    { id: number; text: string },
-    { id: number; text: string },
-    { id: number; text: string },
-    { id: number; text: string }
-  ];
+  data: { id: number; text: string }[];
 };
 
 type FooterMenu2 = {
   id: number;
   title: string;
-  data: [
-    { id: number; text: string },
-    { id: number; text: string },
-    { id: number; text: string },
-    { id: number; text: string },
-    { id: number; text: string }
-  ];
+  data: { id: number; text: string }[];
 };
 
 type FooterMenu3 = {
   id: number;
   title: string;
-  data: [
-    { id: number; text: string },
-    { id: number; text: string },
-    { id: number; text: string },
-    { id: number; text: string }
-  ];
+  data: {
+    id: number;
+    text: string;
+  }[];
 };
 
 type FooterMenu4 = {
@@ -144,4 +129,14 @@ type UpdateUserParams = {
     }[];
   };
   path: string;
+};
+
+type GetProductsCategoryParams = {
+  categoryArray: string[];
+  limit: number;
+  page: number;
+};
+
+type SearchParamProps = {
+  searchParams: { [key: string]: string | string[] };
 };

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { heroImages } from "@/constants";
-import Button from "./Button";
+import LinkButton from "./LinkButton";
 
 const Hero = () => {
   const [index, setIndex] = useState<number>(1);
@@ -42,7 +42,7 @@ const Hero = () => {
           </p>
           <p>{heroImages[index].subtext}</p>
           {index === 0 && (
-            <Button
+            <LinkButton
               link={heroImages[index].link}
               classname={
                 "bg-[#272829] p-3 text-white mt-4 w-fit hover:transition flex items-center justify-center gap-2"
@@ -52,7 +52,7 @@ const Hero = () => {
             />
           )}
           {index === 1 && (
-            <Button
+            <LinkButton
               link={heroImages[index].link}
               classname={
                 "bg-[#272829] p-3 text-white mt-4 w-fit hover:transition flex items-center justify-center gap-2"
@@ -62,7 +62,7 @@ const Hero = () => {
             />
           )}
           {index === 2 && (
-            <Button
+            <LinkButton
               link={heroImages[index].link}
               classname={
                 "bg-[#272829] p-3 text-white mt-4 w-fit hover:transition flex items-center justify-center gap-2"

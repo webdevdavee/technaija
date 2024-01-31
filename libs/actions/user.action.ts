@@ -33,6 +33,7 @@ export const updateUser = async ({ updatedUser, path }: UpdateUserParams) => {
       { new: true }
     );
     revalidatePath(path);
+    revalidatePath("/");
     return JSON.parse(JSON.stringify(user));
   } catch (error) {
     handleError(error);

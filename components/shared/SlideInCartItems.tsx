@@ -3,15 +3,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import QuantityCounter from "../ui/QuantityCounter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
 import { setSlideInCart } from "@/libs/redux-state/features/slide-in-cart/slideInCart";
 import { IUser } from "@/libs/database/models/user.model";
 import Loader from "../ui/Loader";
-import { updateUser } from "@/libs/actions/user.action";
+import { updateUser, getUserById } from "@/libs/actions/user.action";
 import { slideInCartState } from "@/libs/redux-state/features/slide-in-cart/slideInCart";
 import { usePathname } from "next/navigation";
+import { currentUserID } from "@/userID";
 
 type SlideInCartProp = {
   fetchedUser?: IUser;
@@ -21,6 +22,22 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
   const dispatch = useDispatch();
   const pathname = usePathname();
 
+  const [user, setUser] = useState<IUser>();
+
+  useEffect(() => {
+    // Define an async function to get the user data
+    const getUser = async () => {
+      // Await the response from the getUserById function
+      // The getUserById function takes the current user ID as an argument and returns an IUser object
+      const currentUser: IUser = await getUserById(currentUserID);
+      // Update the user state with the fetched user object
+      setUser(currentUser);
+    };
+    getUser();
+  }, [pathname, fetchedUser]);
+  // The pathname is the current URL of the browser
+  // The fetchedUser is the user object returned by the getUserById function
+
   const theCart = useSelector(slideInCartState);
   const { showSlideInCart } = theCart;
 
@@ -28,8 +45,8 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
 
   // Array to hold total amounts for each cart item
   const totals =
-    fetchedUser &&
-    fetchedUser.cart.map((item) => {
+    user &&
+    user.cart.map((item) => {
       const total = parseInt(item.price) * item.quantity;
       return total;
     });
@@ -50,15 +67,15 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
 
   const removeFromCart = async (item: UserCart) => {
     // Check if there is a current user logged in
-    if (fetchedUser) {
+    if (user) {
       // Find the index of the item in the user's cart by matching the item's _id property
-      const itemIndex = fetchedUser.cart.findIndex(
+      const itemIndex = user.cart.findIndex(
         (cartItem) => cartItem._id === item._id
       );
 
       // If the item is found in the cart, remove it using the splice method
       if (itemIndex !== -1) {
-        fetchedUser.cart.splice(itemIndex, 1);
+        user.cart.splice(itemIndex, 1);
         // Show loader
         setShowLoader(true);
       }
@@ -66,8 +83,8 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
       // Update the user's data on the server using the updateUser function
       // Pass the updated user object and the product's path as arguments
       await updateUser({
-        updatedUser: fetchedUser,
-        path: pathname,
+        updatedUser: user,
+        path: "/cart",
       });
       // Remove loader
       setShowLoader(false);
@@ -99,8 +116,8 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
               <Loader className="loader" />
             </section>
           )}
-          {fetchedUser && fetchedUser.cart.length >= 1 ? (
-            fetchedUser.cart.map((item) => (
+          {user && user.cart.length >= 1 ? (
+            user.cart.map((item) => (
               <div
                 key={item._id}
                 className="w-full relative flex items-start gap-6 border-b-[1px] border-gray-300 pb-8"
@@ -117,7 +134,7 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
                   </span>
                   <QuantityCounter
                     item={item}
-                    user={fetchedUser}
+                    user={user}
                     type="cart"
                     quantity={item.quantity}
                     setShowLoader={setShowLoader}
@@ -137,7 +154,7 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
             <div className="no_cart_item w-full flex flex-col gap-3 items-center justify-center">
               <p className="text-xl">Your cart is empty</p>
               <Link
-                href={"/cases"}
+                href={"/shop"}
                 className="bg-[#272829] text-white p-4 w-fit hover:bg-black hover:transition"
               >
                 Go shopping

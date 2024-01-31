@@ -1,38 +1,45 @@
 import ProductCard from "../ui/ProductCard";
-import { getAllProducts } from "@/libs/actions/product.action";
 import { IProduct } from "@/libs/database/models/product.model";
 import { IUser } from "@/libs/database/models/user.model";
-import { getUserById } from "@/libs/actions/user.action";
-import { currentUserID } from "@/userID";
 
 type CollectionProps = {
+  user: IUser;
+  products: IProduct[];
+  type: string;
   title: string;
   subtitle?: string;
 };
 
-const Collection = async ({ title, subtitle }: CollectionProps) => {
-  // Await the response from the getUserById function and store it in a variable
-  // The function takes a user id as an argument and returns a user object of type IUser
-  const fetchedUser: IUser = await getUserById(currentUserID);
-
-  const fetchedProducts = await getAllProducts(4);
-
-  let products: IProduct[] = [];
-  if (fetchedProducts !== undefined) {
-    products = fetchedProducts.products;
-  }
+const Collection = async ({
+  user,
+  products,
+  type,
+  title,
+  subtitle,
+}: CollectionProps) => {
   return (
-    <section className="px-20 py-8 overflow-hidden">
+    <section
+      className={`${
+        type === "shop" ? "px-0 py-0" : "px-20 py-8"
+      } overflow-hidden`}
+    >
       <div className="text-center">
-        <h1 className="text-3xl font-medium mb-2">{title}</h1>
+        <h1
+          className={`text-3xl ${
+            type === "shop" && "text-left"
+          } font-medium mb-2`}
+        >
+          {title}
+        </h1>
         <h3 className="text-base">{subtitle}</h3>
       </div>
-      <div className="flex flex-wrap justify-between items-center gap-4 mt-6">
+      <div className="grid grid-cols-4 gap-4 gap-y-12 mt-6">
         {products.map((product) => (
           <ProductCard
-            key={product.id}
+            key={product._id}
+            type={type}
             product={product}
-            fetchedUser={fetchedUser}
+            user={user}
           />
         ))}
       </div>

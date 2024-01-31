@@ -11,16 +11,16 @@ import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
 import { updateUser } from "@/libs/actions/user.action";
 import { IUser } from "@/libs/database/models/user.model";
 import { usePathname } from "next/navigation";
-import Loader from "./Loader";
 
 type CardProp = {
+  type: string;
   product: IProduct;
-  fetchedUser: IUser;
+  user: IUser;
 };
 
 type WishlistItem = { name: string; image: string; price: string };
 
-const ProductCard = ({ product, fetchedUser }: CardProp) => {
+const ProductCard = ({ type, product, user }: CardProp) => {
   const dispatch = useDispatch();
 
   const { _id, name, price, sales_price, featured_image } = product;
@@ -36,7 +36,7 @@ const ProductCard = ({ product, fetchedUser }: CardProp) => {
   };
 
   // Check if the index of the product or item if it exists in user's wishlist
-  const existingItem = fetchedUser.wishlist.findIndex((item) => {
+  const existingItem = user.wishlist.findIndex((item) => {
     return item.name === product.name;
   });
 
@@ -51,7 +51,7 @@ const ProductCard = ({ product, fetchedUser }: CardProp) => {
   const addToWishlist = async (product: IProduct) => {
     if (existingItem !== -1) {
       // Call splice to remove element from array
-      fetchedUser.wishlist.splice(existingItem, 1)[0];
+      user.wishlist.splice(existingItem, 1)[0];
       setShowIconLoader(true);
     } else {
       // Create an object of type WishlistItem with the product's details
@@ -62,14 +62,14 @@ const ProductCard = ({ product, fetchedUser }: CardProp) => {
       };
 
       // Use the unshift method to add the wishlistProduct to the beginning of the user's cart array
-      fetchedUser.wishlist.unshift(wishlistProduct);
+      user.wishlist.unshift(wishlistProduct);
       setShowIconLoader(true);
     }
     // Update the user's data on the server using the updateUser function
     // Pass an object with the updatedUser and the product's path as properties
     await updateUser({
-      updatedUser: fetchedUser,
-      path: pathname,
+      updatedUser: user,
+      path: "/wishlist",
     });
     setShowIconLoader(false);
   };
@@ -79,8 +79,8 @@ const ProductCard = ({ product, fetchedUser }: CardProp) => {
       <div className="relative mb-4 overflow-hidden">
         <Link href={`/product/${_id}`}>
           <Image
-            width={270}
-            height={670}
+            width={type === "shop" ? 170 : 270}
+            height={type === "shop" ? 570 : 670}
             quality={100}
             src={featured_image}
             alt="product"

@@ -10,12 +10,12 @@ import { useState } from "react";
 import { IUser } from "@/libs/database/models/user.model";
 import { IProduct } from "@/libs/database/models/product.model";
 import { getUserById, updateUser } from "@/libs/actions/user.action";
-import { usePathname } from "next/navigation";
 import AlertBox from "./AlertBox";
 import Link from "next/link";
 import ProductInfo from "../shared/ProductInfo";
 import ProductOptions from "../shared/ProductOptions";
 import { currentUserID } from "@/userID";
+import { setCartCount } from "@/libs/redux-state/features/cart-count/cartCountSlice";
 
 type CartItem = {
   name: string;
@@ -31,7 +31,6 @@ const QuickView = () => {
   const [quantity, setQuantity] = useState(1);
 
   const dispatch = useDispatch();
-  const pathname = usePathname();
 
   const currentProduct = useSelector(productState);
   const { product } = currentProduct;
@@ -42,7 +41,7 @@ const QuickView = () => {
   const currentImage = product.featured_image;
 
   const [selectedModel, setSelectedModel] = useState(
-    product.additional_information?.model?.[0].text
+    product.additional_information?.model?.[0]?.text
   );
 
   const [showCartAlertBox, setShowCartAlertBox] = useState(false);
@@ -84,8 +83,10 @@ const QuickView = () => {
       // Pass an object with the updatedUser and the product's path as properties
       await updateUser({
         updatedUser,
-        path: pathname,
+        path: "/cart",
       });
+
+      dispatch(setCartCount(updatedUser.cart.length));
 
       // Show a success status message or alert box when a product is added to cart
       setShowCartAlertBox(true);
@@ -128,7 +129,7 @@ const QuickView = () => {
     // Pass an object with the updatedUser and the product's path as properties
     await updateUser({
       updatedUser,
-      path: `/product/${product._id}`,
+      path: "/wishlist",
     });
 
     // Show a success status message or alert box when a product is added to cart
@@ -156,10 +157,7 @@ const QuickView = () => {
       {showCartAlertBox && <AlertBox type="success" feature="cart" />}
       {showWishlistAlertBox && <AlertBox type="success" feature="wishlist" />}
       <div className="grid grid-cols-2 bg-white p-8">
-        <Link
-          href={`product/${product._id}`}
-          onClick={() => dispatch(setOverlay(false))}
-        >
+        <Link href={`product/${product._id}`} onClick={() => closeQuickview()}>
           <Image
             src={product.featured_image}
             width={450}

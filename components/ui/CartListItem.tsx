@@ -51,7 +51,7 @@ const CartListItem = ({ fetchedUser }: CartListItemProps) => {
       // Pass the updated user object and the product's path as arguments
       await updateUser({
         updatedUser: fetchedUser,
-        path: pathname,
+        path: "/cart",
       });
       // Remove loader
       setShowLoader(false);
@@ -101,7 +101,7 @@ const CartListItem = ({ fetchedUser }: CartListItemProps) => {
               Your cart is empty
             </p>
             <Link
-              href={"/cases"}
+              href={"/shop"}
               className="w-fit bg-[#272829] text-white p-4 hover:bg-black hover:transition"
             >
               Return to shop
