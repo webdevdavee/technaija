@@ -56,7 +56,7 @@ type FooterMenu5 = {
 type UserCart = {
   _id: string;
   name: string;
-  price: string;
+  price: number;
   quantity: number;
   photo: string;
   model: string;
@@ -66,15 +66,15 @@ type UserWishlist = {
   _id?: string;
   name: string;
   image: string;
-  price: string;
+  price: number;
 };
 
 type UpdateProductParams = {
   updatedProduct: {
     _id: string;
     name: string;
-    price: string;
-    sales_price?: string;
+    price: number;
+    sales_price?: number;
     short_description?: string;
     description: string;
     reviews?: {
@@ -116,7 +116,7 @@ type UpdateUserParams = {
     cart: {
       _id?: string;
       name: string;
-      price: string;
+      price: number;
       quantity: number;
       photo: string;
       model: string;
@@ -125,18 +125,26 @@ type UpdateUserParams = {
       _id?: string;
       name: string;
       image: string;
-      price: string;
+      price: number;
     }[];
   };
   path: string;
 };
 
-type GetProductsCategoryParams = {
-  categoryArray: string[];
+type GetProductsFilterParams = {
+  categoryFilterArray?: string[];
+  modelFilterArray?: string[];
+  priceFilterOne?: string;
+  priceFilterTwo?: string;
   limit: number;
   page: number;
 };
 
 type SearchParamProps = {
   searchParams: { [key: string]: string | string[] };
+};
+
+type ProductSortList = {
+  id: number;
+  text: string;
 };

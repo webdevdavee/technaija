@@ -6,7 +6,7 @@ const Shop = async ({ searchParams }: SearchParamProps) => {
   page = !page || page < 1 ? 1 : page;
 
   return (
-    <section className="px-20 py-8 overflow-hidden relative mt-16">
+    <section className="px-20 py-8 overflow-hidden relative mt-24">
       <QuickView />
       <ShopContainer page={page} />
     </section>

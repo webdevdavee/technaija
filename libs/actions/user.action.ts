@@ -2,14 +2,14 @@
 
 import { connectToDatabase } from "../database";
 import { handleError } from "../utils";
-import users from "../database/models/user.model";
+import Users from "../database/models/user.model";
 import { revalidatePath } from "next/cache";
 
 export const getAllUsers = async () => {
   try {
     await connectToDatabase();
 
-    const usersQuery = users.find({});
+    const usersQuery = Users.find({});
     const usersData = await usersQuery;
 
     return {
@@ -23,11 +23,11 @@ export const getAllUsers = async () => {
 export const updateUser = async ({ updatedUser, path }: UpdateUserParams) => {
   try {
     await connectToDatabase();
-    const userToUpdate = await users.findById(updatedUser._id);
+    const userToUpdate = await Users.findById(updatedUser._id);
     if (!userToUpdate) {
       throw new Error("Unauthorized or user not found");
     }
-    const user = await users.findByIdAndUpdate(
+    const user = await Users.findByIdAndUpdate(
       updatedUser._id,
       { ...updatedUser },
       { new: true }
@@ -44,7 +44,7 @@ export const getUserById = async (userId: string) => {
   try {
     await connectToDatabase();
 
-    const user = await users.findById(userId);
+    const user = await Users.findById(userId);
 
     if (!user) throw new Error("User not found");
     return JSON.parse(JSON.stringify(user));

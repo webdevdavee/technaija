@@ -7,6 +7,7 @@ import { IUser } from "@/libs/database/models/user.model";
 import { useState } from "react";
 import { updateUser } from "@/libs/actions/user.action";
 import { usePathname } from "next/navigation";
+import { formatNumber } from "@/libs/utils";
 
 type CartListItemProps = {
   fetchedUser: IUser;
@@ -19,7 +20,7 @@ const CartListItem = ({ fetchedUser }: CartListItemProps) => {
   const totals =
     fetchedUser &&
     fetchedUser.cart.map((item) => {
-      const total = parseInt(item.price) * item.quantity;
+      const total = item.price * item.quantity;
       return total;
     });
 
@@ -74,7 +75,7 @@ const CartListItem = ({ fetchedUser }: CartListItemProps) => {
                     {item.name} - {item.model}
                   </p>
                   <p className="capitalize text-base font-medium">
-                    ₦{item.price}
+                    {formatNumber(item.price, "₦")}
                   </p>
                 </span>
                 <QuantityCounter
@@ -113,7 +114,7 @@ const CartListItem = ({ fetchedUser }: CartListItemProps) => {
         <div className="w-full p-4 bg-[#F5F5F5]">
           <span className="flex justify-between items-center gap-12 border-b-[1px] border-gray-300 p-4">
             <p>Total</p>
-            <p>₦{grandTotal}</p>
+            <p>{formatNumber(grandTotal!, "₦")}</p>
           </span>
           <span className="flex justify-between items-center">
             <p></p>

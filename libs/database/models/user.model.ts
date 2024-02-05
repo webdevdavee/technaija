@@ -11,7 +11,7 @@ export interface IUser extends Document {
   cart: {
     _id: string;
     name: string;
-    price: string;
+    price: number;
     quantity: number;
     photo: string;
     model: string;
@@ -20,7 +20,7 @@ export interface IUser extends Document {
     _id?: string;
     name: string;
     image: string;
-    price: string;
+    price: number;
   }[];
 }
 
@@ -34,7 +34,7 @@ const UserSchema = new Schema({
   cart: [
     {
       name: { type: String, required: true },
-      price: { type: String, required: true },
+      price: { type: Number, required: true },
       quantity: { type: Number, required: true },
       photo: { type: String, required: true },
       model: { type: String, required: true },
@@ -44,11 +44,11 @@ const UserSchema = new Schema({
     {
       name: { type: String, required: true },
       image: { type: String, required: true },
-      price: { type: String, required: true },
+      price: { type: Number, required: true },
     },
   ],
 });
 
-const users = models.users || model("users", UserSchema);
+const Users = models.Users || model("Users", UserSchema);
 
-export default users;
+export default Users;

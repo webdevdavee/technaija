@@ -111,3 +111,10 @@ export const footerMenu5: FooterMenu5[] = [
   { id: 1, text: "Terms of service" },
   { id: 2, text: "Privacy policy" },
 ];
+
+export const productSortList: ProductSortList[] = [
+  { id: 1, text: "Sort by latest" },
+  { id: 2, text: "Sort by rating" },
+  { id: 3, text: "Sort by price: low to high" },
+  { id: 4, text: "Sort by price: high to low" },
+];

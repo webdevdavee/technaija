@@ -9,14 +9,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <Navbar />
-        <Overlay />
-        <SlideInCart />
-        {children}
-        <Footer />
-      </body>
-    </html>
+    <>
+      <Navbar />
+      <Overlay />
+      <SlideInCart />
+      {children}
+      <Footer />
+    </>
   );
 }

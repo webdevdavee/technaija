@@ -2,19 +2,24 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
 const initialState = {
-  categoryArray: [],
+  categoryFilterArray: [],
+  modelFilterArray: [],
 };
 
 export const shopFilter = createSlice({
   name: "shop-filter",
   initialState,
   reducers: {
-    setCategoryArray: (state, action) => {
-      state.categoryArray = action.payload;
+    setCategoryFilterArray: (state, action) => {
+      state.categoryFilterArray = action.payload;
+    },
+    setModelFilterArray: (state, action) => {
+      state.modelFilterArray = action.payload;
     },
   },
 });
 
 export const shopFilterState = (state: RootState) => state.shopFilter;
-export const { setCategoryArray } = shopFilter.actions;
+export const { setCategoryFilterArray, setModelFilterArray } =
+  shopFilter.actions;
 export default shopFilter.reducer;

@@ -1,21 +1,26 @@
 import { IProduct } from "@/libs/database/models/product.model";
 import CategoryFilter from "./CategoryFilter";
 import ModelFilter from "./ModelFilter";
-import PriceFilter from "./PriceFilter";
 import { Dispatch, SetStateAction } from "react";
 
 type ProductFilterBarProp = {
   productsWithNoLimit: IProduct[];
+  newProductsWithNoLimit: IProduct[];
   fetchedProducts: IProduct[];
   setProducts: Dispatch<SetStateAction<IProduct[]>>;
+  setNewProductsWithNoLimit: Dispatch<SetStateAction<IProduct[]>>;
   page: number;
+  categorySearchParams: URLSearchParams;
 };
 
 const ProductFilterBar = async ({
   productsWithNoLimit,
+  newProductsWithNoLimit,
+  setNewProductsWithNoLimit,
   fetchedProducts,
   setProducts,
   page,
+  categorySearchParams,
 }: ProductFilterBarProp) => {
   // Get categories
   const categories = productsWithNoLimit.map((item) => {
@@ -26,25 +31,24 @@ const ProductFilterBar = async ({
   const uniqueCategories = Array.from(new Set(categories));
 
   // Get numer of times each category appeared in the original array
-  const categoryCounts = productsWithNoLimit.reduce<{ [key: string]: number }>(
-    (acc, item) => {
-      const category = item.original_category;
-      if (acc[category]) {
-        acc[category]++;
-      } else {
-        acc[category] = 1;
-      }
-      return acc;
-    },
-    {}
-  );
+  const categoryCounts = productsWithNoLimit.reduce<{
+    [key: string]: number;
+  }>((acc, item) => {
+    const category = item.original_category;
+    if (acc[category]) {
+      acc[category]++;
+    } else {
+      acc[category] = 1;
+    }
+    return acc;
+  }, {});
 
   // Create an empty set to store the unique model texts
   let uniqueModels: Set<string> = new Set();
 
   // Loop through the products array and the model array of each element
-  for (let i = 0; i < productsWithNoLimit.length; i++) {
-    const models = productsWithNoLimit[i].additional_information?.model;
+  for (let i = 0; i < newProductsWithNoLimit.length; i++) {
+    const models = newProductsWithNoLimit[i].additional_information?.model;
     if (models) {
       for (let j = 0; j < models.length; j++) {
         // Add the model text to the set, which will automatically remove duplicates
@@ -65,9 +69,16 @@ const ProductFilterBar = async ({
           setProducts={setProducts}
           page={page}
           fetchedProducts={fetchedProducts}
+          productsWithNoLimit={productsWithNoLimit}
+          setNewProductsWithNoLimit={setNewProductsWithNoLimit}
+          categorySearchParams={categorySearchParams}
         />
-        <ModelFilter models={models} />
-        <PriceFilter />
+        <ModelFilter
+          models={models}
+          setProducts={setProducts}
+          page={page}
+          fetchedProducts={fetchedProducts}
+        />
       </section>
     </aside>
   );

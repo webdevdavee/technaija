@@ -13,6 +13,7 @@ import { updateUser, getUserById } from "@/libs/actions/user.action";
 import { slideInCartState } from "@/libs/redux-state/features/slide-in-cart/slideInCart";
 import { usePathname } from "next/navigation";
 import { currentUserID } from "@/userID";
+import { formatNumber } from "@/libs/utils";
 
 type SlideInCartProp = {
   fetchedUser?: IUser;
@@ -47,7 +48,7 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
   const totals =
     user &&
     user.cart.map((item) => {
-      const total = parseInt(item.price) * item.quantity;
+      const total = item.price * item.quantity;
       return total;
     });
 
@@ -129,7 +130,7 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
                       {item.name} - {item.model}
                     </p>
                     <p className="capitalize text-sm font-normal">
-                      ₦{item.price}
+                      {formatNumber(item.price, "₦")}
                     </p>
                   </span>
                   <QuantityCounter
@@ -156,6 +157,7 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
               <Link
                 href={"/shop"}
                 className="bg-[#272829] text-white p-4 w-fit hover:bg-black hover:transition"
+                onClick={handleCloseCart}
               >
                 Go shopping
               </Link>
@@ -165,7 +167,9 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
         <div className="flex flex-col gap-12 mt-6">
           <span className="flex items-center justify-between">
             <p className="text-base capitalize text-black">Subtotal:</p>
-            <p className="text-base capitalize text-black">₦{grandTotal}</p>
+            <p className="text-base capitalize text-black">
+              {formatNumber(grandTotal, "₦")}
+            </p>
           </span>
           <span className="w-full flex flex-col gap-2">
             <Link

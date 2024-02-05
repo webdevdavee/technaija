@@ -10,7 +10,7 @@ import { setQuickview } from "@/libs/redux-state/features/quickview/quickviewSli
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
 import { updateUser } from "@/libs/actions/user.action";
 import { IUser } from "@/libs/database/models/user.model";
-import { usePathname } from "next/navigation";
+import { formatNumber } from "@/libs/utils";
 
 type CardProp = {
   type: string;
@@ -18,14 +18,13 @@ type CardProp = {
   user: IUser;
 };
 
-type WishlistItem = { name: string; image: string; price: string };
+type WishlistItem = { name: string; image: string; price: number };
 
 const ProductCard = ({ type, product, user }: CardProp) => {
   const dispatch = useDispatch();
 
   const { _id, name, price, sales_price, featured_image } = product;
 
-  const pathname = usePathname();
   const [itemExists, setItemExists] = useState(false);
   const [showIconLoader, setShowIconLoader] = useState(false);
 
@@ -35,7 +34,7 @@ const ProductCard = ({ type, product, user }: CardProp) => {
     dispatch(setOverlay(true));
   };
 
-  // Check if the index of the product or item if it exists in user's wishlist
+  // Check if the index of the product or item exists in user's wishlist
   const existingItem = user.wishlist.findIndex((item) => {
     return item.name === product.name;
   });
@@ -84,6 +83,7 @@ const ProductCard = ({ type, product, user }: CardProp) => {
             quality={100}
             src={featured_image}
             alt="product"
+            style={{ objectFit: "cover" }}
           />
         </Link>
         <div
@@ -129,12 +129,12 @@ const ProductCard = ({ type, product, user }: CardProp) => {
           {sales_price ? (
             <div>
               <span className="line-through font-medium text-red-500">
-                ₦{price}
+                {formatNumber(price, "₦")}
               </span>{" "}
-              <span className="ml-3">₦{sales_price}</span>
+              <span className="ml-3">{formatNumber(sales_price, "₦")}</span>
             </div>
           ) : (
-            <p>₦{price}</p>
+            <p>{formatNumber(price, "₦")}</p>
           )}
         </div>
       </div>

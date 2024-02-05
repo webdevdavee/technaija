@@ -3,8 +3,8 @@ import { Document, Schema, model, models } from "mongoose";
 export interface IProduct extends Document {
   _id: string;
   name: string;
-  price: string;
-  sales_price?: string;
+  price: number;
+  sales_price?: number;
   short_description?: string;
   description: string;
   reviews?: {
@@ -34,8 +34,8 @@ export interface IProduct extends Document {
 
 const ProductSchema = new Schema({
   name: { type: String, required: true },
-  price: { type: String, required: true },
-  sales_price: { type: String },
+  price: { type: Number, required: true },
+  sales_price: { type: Number },
   short_description: { type: String },
   description: { type: String, required: true },
   reviews: [
@@ -63,6 +63,6 @@ const ProductSchema = new Schema({
   featured_image: { type: String, required: true },
 });
 
-const Product = models.Product || model("Product", ProductSchema);
+const Products = models.Products || model("Products", ProductSchema);
 
-export default Product;
+export default Products;

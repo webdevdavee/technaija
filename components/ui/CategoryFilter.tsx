@@ -1,11 +1,16 @@
 import Image from "next/image";
-import { getProductsByCategory } from "@/libs/actions/product.action";
+import { getProductsByFilter } from "@/libs/actions/product.action";
 import { Dispatch, SetStateAction } from "react";
 import { IProduct } from "@/libs/database/models/product.model";
 import { ChangeEvent } from "react";
-import { useRef, useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setCategoryArray } from "@/libs/redux-state/features/shop-filter/shopFilter";
+import {
+  setCategoryFilterArray,
+  setModelFilterArray,
+} from "@/libs/redux-state/features/shop-filter/shopFilter";
+import { usePathname, useRouter } from "next/navigation";
+import { createURL } from "@/libs/utils";
 
 type CategoryFilterProp = {
   uniqueCategories: string[];
@@ -15,51 +20,78 @@ type CategoryFilterProp = {
   setProducts: Dispatch<SetStateAction<IProduct[]>>;
   page: number;
   fetchedProducts: IProduct[];
+  productsWithNoLimit: IProduct[];
+  setNewProductsWithNoLimit: Dispatch<SetStateAction<IProduct[]>>;
+  categorySearchParams: URLSearchParams;
 };
-
 const CategoryFilter = ({
   uniqueCategories,
   categoryCounts,
   setProducts,
   page,
   fetchedProducts,
+  productsWithNoLimit,
+  setNewProductsWithNoLimit,
+  categorySearchParams,
 }: CategoryFilterProp) => {
   const [showFilter, setShowFilter] = useState(true);
+
   const dispatch = useDispatch();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const handleShowFilter = () => {
     setShowFilter((prev) => !prev);
   };
 
-  const categoryArray = useRef<string[]>([]);
+  // A clean-up function to set the categoryFilterArray and modelFilterArray to an empty array so the data doesn't leak up to the next page
+  useEffect(() => {
+    return () => {
+      dispatch(setCategoryFilterArray([]));
+      dispatch(setModelFilterArray([]));
+    };
+  }, []);
 
   const handleCategoryFilter = async (
     e: ChangeEvent<HTMLInputElement>,
     category: string
   ) => {
     if (e.currentTarget.checked === true) {
-      // Make a copy of the initial category array
-      categoryArray.current = [...categoryArray.current];
-      // Push the category to the current array
-      categoryArray.current.push(category);
-      dispatch(setCategoryArray(categoryArray.current));
-      // Use the callback function to get the new state value
-      const modifiedProducts = await getProductsByCategory({
-        categoryArray: categoryArray.current,
+      // Get the name and checked values or state from the event
+      const name = e.target.name;
+      const checked = e.target.checked;
+      // Set the category data in the array created from the ".append" method, in the URL
+      categorySearchParams.append("category", category);
+      // Set the checked state or value of the category input in the URL
+      categorySearchParams.set(name, checked.toString());
+      // Call a function that creates a URL string with the data from categorySearchParams
+      const categoryURL = createURL(pathname, categorySearchParams);
+      // Push the created URL string to the URL
+      router.push(`${categoryURL}`);
+      // Fetch data from data
+      const modifiedProducts = await getProductsByFilter({
+        categoryFilterArray: categorySearchParams.getAll("category"),
         limit: 8,
         page,
       });
+      // Set the main products data to the retrieved data from the database
       setProducts(modifiedProducts && modifiedProducts.data);
+      // Set the ProductsWithNoLimit array to get it's new data from the retrieved data from the database
+      setNewProductsWithNoLimit(modifiedProducts && modifiedProducts.data);
     } else if (e.currentTarget.checked === false) {
-      // Filter out the category from the current array
-      const categoryToRemove = categoryArray.current.filter(
-        (thecategory) => thecategory !== category
-      );
-      // Assign the filtered array to the current array
-      categoryArray.current = categoryToRemove;
-      dispatch(setCategoryArray(categoryArray.current));
-      const modifiedProducts = await getProductsByCategory({
-        categoryArray: categoryArray.current,
+      // Get the name value or state from the event
+      const name = e.target.name;
+      // Delete the category from URL "category" array
+      categorySearchParams.delete("category", category);
+      // Delete the category checked state from URL
+      categorySearchParams.delete(name);
+      // Call a function that creates a URL string with the data from categorySearchParams
+      const categoryURL = createURL(pathname, categorySearchParams);
+      // Push the created URL string to the URL
+      router.push(`${categoryURL}`);
+      // Fetch data from data
+      const modifiedProducts = await getProductsByFilter({
+        categoryFilterArray: categorySearchParams.getAll("category"),
         limit: 8,
         page,
       });
@@ -68,9 +100,21 @@ const CategoryFilter = ({
           ? modifiedProducts.data
           : fetchedProducts
       );
+      setNewProductsWithNoLimit(
+        modifiedProducts && modifiedProducts.data.length >= 1
+          ? modifiedProducts.data
+          : productsWithNoLimit
+      );
     } else {
       setProducts(fetchedProducts);
     }
+  };
+
+  const handleCheckboxClick = (
+    e: ChangeEvent<HTMLInputElement>,
+    category: string
+  ) => {
+    handleCategoryFilter(e, category);
   };
 
   return (
@@ -96,17 +140,24 @@ const CategoryFilter = ({
         </button>
         {showFilter && (
           <span className="flex flex-col gap-4">
-            {uniqueCategories.map((category, index) => (
-              <div key={index} className="flex items-center gap-3">
-                <input
-                  type="checkbox"
-                  onChange={(e) => handleCategoryFilter(e, category)}
-                />
-                <p className="text-sm text-gray-500">
-                  {category} ({categoryCounts[category]})
-                </p>
-              </div>
-            ))}
+            {uniqueCategories.map((category, index) => {
+              return (
+                <div key={index} className="flex items-center gap-3">
+                  <input
+                    name={category}
+                    className="cursor-pointer"
+                    type="checkbox"
+                    checked={
+                      categorySearchParams.get(category) === "true" || false
+                    }
+                    onChange={(e) => handleCheckboxClick(e, category)}
+                  />
+                  <p className="text-sm text-gray-500">
+                    {category} ({categoryCounts[category]})
+                  </p>
+                </div>
+              );
+            })}
           </span>
         )}
       </div>

@@ -7,7 +7,7 @@ import { Dispatch, SetStateAction } from "react";
 type Item = {
   _id: string;
   name: string;
-  price: string;
+  price: number;
   quantity: number;
   photo: string;
   model: string;
