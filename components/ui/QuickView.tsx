@@ -19,13 +19,13 @@ import { setCartCount } from "@/libs/redux-state/features/cart-count/cartCountSl
 
 type CartItem = {
   name: string;
-  price: string;
+  price: number;
   quantity: number;
   photo: string;
   model: string;
 };
 
-type WishlistItem = { name: string; image: string; price: string };
+type WishlistItem = { name: string; image: string; price: number };
 
 const QuickView = () => {
   const [quantity, setQuantity] = useState(1);
