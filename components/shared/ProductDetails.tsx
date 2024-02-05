@@ -19,13 +19,13 @@ type Prop = {
 
 type CartItem = {
   name: string;
-  price: string;
+  price: number;
   quantity: number;
   photo: string;
   model: string;
 };
 
-type WishlistItem = { name: string; image: string; price: string };
+type WishlistItem = { name: string; image: string; price: number };
 
 const ProductDetails = ({ product }: Prop) => {
   const dispatch = useDispatch();
