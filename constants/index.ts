@@ -2,7 +2,7 @@ export const mainNavigation: MainNavigation[] = [
   { id: 1, text: "Home", link: "/" },
   { id: 2, text: "Shop", link: "/shop" },
   { id: 4, text: "Contact us", link: "/contact-us" },
-  { id: 5, text: "About us", link: "/about-us" },
+  { id: 5, text: "About us", link: "/about-technaija" },
 ];
 
 export const heroImages: HeroImages[] = [
