@@ -23,8 +23,8 @@ const page = () => {
             Technaija brand. Every phone case is meticulously crafted using the
             finest materials and undergoes rigorous quality control processes to
             ensure superior performance and longevity. We understand that your
-            phone is more than just a device – it's an extension of your
-            identity – and we strive to provide cases that not only protect but
+            phone is more than just a device, it's an extension of your
+            identity, and we strive to provide cases that not only protect but
             also enhance your mobile experience.
           </p>
           <p>
@@ -37,7 +37,7 @@ const page = () => {
             inspiration from the rich tapestry of culture, tradition, and
             innovation that defines our homeland. Join us on our journey to
             redefine the boundaries of phone protection and style. Embrace the
-            future with Technaija –{" "}
+            future with Technaija,
             <em>
               where innovation, sustainability, and community converge to create
               a brighter tomorrow for all.
