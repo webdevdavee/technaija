@@ -1,15 +1,21 @@
-import React from "react";
+"use client";
 
 type EventButtonProp = {
   text: string;
-  onclick: () => any;
+  onclick?: () => any;
   classname: string;
+  isSubmitting?: boolean;
 };
 
-const EventButton = ({ text, onclick, classname }: EventButtonProp) => {
+const EventButton = ({
+  text,
+  onclick,
+  classname,
+  isSubmitting,
+}: EventButtonProp) => {
   return (
-    <button className={classname} type="button" onClick={onclick}>
-      {text}
+    <button disabled={isSubmitting} className={classname} onClick={onclick}>
+      {isSubmitting ? "...submitting" : text}
     </button>
   );
 };

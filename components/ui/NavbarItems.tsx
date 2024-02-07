@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { getUserById } from "@/libs/actions/user.action";
 import { currentUserID } from "@/userID";
 import { setCartCount } from "@/libs/redux-state/features/cart-count/cartCountSlice";
+import { setSlideInSearch } from "@/libs/redux-state/features/slide-in-search/slideInSearch";
 
 type NavbarItemsProp = {
   fetchedUser: IUser;
@@ -49,6 +50,12 @@ const NavbarItems = ({ fetchedUser }: NavbarItemsProp) => {
     document.body.classList.add("no_scroll");
   };
 
+  const handleOpenSearch = () => {
+    dispatch(setSlideInSearch(true));
+    dispatch(setOverlay(true));
+    document.body.classList.add("no_scroll");
+  };
+
   return (
     <header
       className={`w-full px-20 py-4 flex items-center justify-between g-4 z-50 transition-[0.3s] fixed top-0 drop-shadow-sm ${
@@ -77,7 +84,7 @@ const NavbarItems = ({ fetchedUser }: NavbarItemsProp) => {
         ))}
       </ul>
       <ul className="flex gap-4 items-center justify-center">
-        <button type="button">
+        <button type="button" onClick={handleOpenSearch}>
           <Image
             className="text-lg"
             width={20}

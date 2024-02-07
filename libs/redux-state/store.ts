@@ -5,6 +5,7 @@ import ProductReducer from "./features/product/productSlice";
 import QuickviewReducer from "./features/quickview/quickviewSlice";
 import CartCountReducer from "./features/cart-count/cartCountSlice";
 import ShopFilterReducer from "./features/shop-filter/shopFilter";
+import SlideInSearchReducer from "./features/slide-in-search/slideInSearch";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     quickview: QuickviewReducer,
     cartCount: CartCountReducer,
     shopFilter: ShopFilterReducer,
+    theSlideInSearch: SlideInSearchReducer,
   },
 });
 

@@ -5,7 +5,6 @@ import ProductFilterBar from "../ui/ProductFilterBar";
 import Collection from "./Collection";
 import { IProduct } from "@/libs/database/models/product.model";
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { useSelector } from "react-redux";
 import { shopFilterState } from "@/libs/redux-state/features/shop-filter/shopFilter";
 import { getProductsByFilter } from "@/libs/actions/product.action";
@@ -45,16 +44,47 @@ const ShopContent = ({
   const categorySearchParams = new URLSearchParams(searchParams.toString());
 
   // When the page, fetchedProducts, modelFilterArray changes, update the products data (without the useEffect, the products data will effect the change on the next render)
+  // useEffect(() => {
+  //   // Check if you are filtering through the original products data, if so, then load more products from that filtered data.
+  //   if (
+  //     categorySearchParams.getAll("category").length >= 1 ||
+  //     modelFilterArray.length >= 1
+  //   ) {
+  //     const setLoadMoreFilteredProduct = async () => {
+  //       const modifiedProducts = await getProductsByFilter({
+  //         categoryFilterArray: categorySearchParams.getAll("category"),
+  //         modelFilterArray: modelFilterArray,
+  //         limit: 8,
+  //         page,
+  //       });
+  //       setProducts(modifiedProducts && modifiedProducts.data);
+  //       setAllProductsFetched(
+  //         modifiedProducts &&
+  //           modifiedProducts.newLimit > modifiedProducts.data.length
+  //       );
+  //     };
+  //     setLoadMoreFilteredProduct();
+  //   } else {
+  //     // If not, load more data from the original data.
+  //     setProducts(fetchedProducts);
+  //     if (newLimit) {
+  //       // Check if all products have been fetched from the database after pagination. If true, setAllProductsFetched to true (This will hide the load more button).
+  //       setAllProductsFetched(newLimit >= productsWithNoLimit.length);
+  //     }
+  //   }
+  // }, [page, fetchedProducts, modelFilterArray]);
+
+  // When the page, fetchedProducts, modelFilterArray changes, update the products data (without the useEffect, the products data will effect the change on the next render)
   useEffect(() => {
     // Check if you are filtering through the original products data, if so, then load more products from that filtered data.
     if (
       categorySearchParams.getAll("category").length >= 1 ||
-      modelFilterArray.length >= 1
+      categorySearchParams.getAll("model").length >= 1
     ) {
       const setLoadMoreFilteredProduct = async () => {
         const modifiedProducts = await getProductsByFilter({
           categoryFilterArray: categorySearchParams.getAll("category"),
-          modelFilterArray: modelFilterArray,
+          modelFilterArray: categorySearchParams.getAll("model"),
           limit: 8,
           page,
         });
@@ -73,7 +103,7 @@ const ShopContent = ({
         setAllProductsFetched(newLimit >= productsWithNoLimit.length);
       }
     }
-  }, [page, fetchedProducts, modelFilterArray]);
+  }, [page, fetchedProducts]);
 
   // Increment the page number and save the new page number in this nextPage variable.
   const nextPage = page + 1;

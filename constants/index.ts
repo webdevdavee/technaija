@@ -1,9 +1,8 @@
 export const mainNavigation: MainNavigation[] = [
   { id: 1, text: "Home", link: "/" },
   { id: 2, text: "Shop", link: "/shop" },
-  { id: 3, text: "Accessories", link: "/accessories" },
   { id: 4, text: "Contact us", link: "/contact-us" },
-  { id: 5, text: "About us", link: "about-us" },
+  { id: 5, text: "About us", link: "/about-us" },
 ];
 
 export const heroImages: HeroImages[] = [
@@ -39,21 +38,21 @@ export const featuredCategories: FeaturedCategories[] = [
     text: "Accessories",
     subtext: "shop now",
     image: "/featured-category (1).webp",
-    link: "/accessories",
+    link: "/shop?category=Accessories&Accessories=true",
   },
   {
     id: 2,
     text: "Android Cases",
     subtext: "shop now",
     image: "/featured-category (2).webp",
-    link: "/android-cases",
+    link: "/shop?category=Android+Cases&Android+Cases=true",
   },
   {
     id: 3,
     text: "iPhone Cases",
     subtext: "shop now",
     image: "/featured-category (3).webp",
-    link: "/iphone-cases",
+    link: "/shop?category=iPhone+Cases&iPhone+Cases=true",
   },
 ];
 

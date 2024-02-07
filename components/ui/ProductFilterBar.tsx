@@ -78,6 +78,7 @@ const ProductFilterBar = async ({
           setProducts={setProducts}
           page={page}
           fetchedProducts={fetchedProducts}
+          categorySearchParams={categorySearchParams}
         />
       </section>
     </aside>

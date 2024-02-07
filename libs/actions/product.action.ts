@@ -4,6 +4,7 @@ import { connectToDatabase } from "../database";
 import { handleError } from "../utils";
 import Products from "../database/models/product.model";
 import { revalidatePath } from "next/cache";
+import { IProduct } from "../database/models/product.model";
 
 export const getAllProducts = async (limit: number, page?: number) => {
   try {
@@ -21,8 +22,8 @@ export const getAllProducts = async (limit: number, page?: number) => {
 
     productsQueryNoLimit = Products.find({});
 
-    const productsData = await productsQuery;
-    const productsNoLimit = await productsQueryNoLimit;
+    const productsData: IProduct[] = await productsQuery;
+    const productsNoLimit: IProduct[] = await productsQueryNoLimit;
     const productsCount = await Products.countDocuments({});
 
     const newLimit = page && page * limit;
@@ -41,7 +42,7 @@ export const getAllProducts = async (limit: number, page?: number) => {
 export const getProductById = async (productId: string) => {
   try {
     await connectToDatabase();
-    const product = await Products.findById(productId);
+    const product: IProduct[] | null = await Products.findById(productId);
     if (!product) {
       throw new Error("Product not found");
     }
@@ -61,7 +62,7 @@ export const updateProduct = async ({
     if (!productToUpdate) {
       throw new Error("Unauthorized or product not found");
     }
-    const product = await Products.findByIdAndUpdate(
+    const product: IProduct | null = await Products.findByIdAndUpdate(
       updatedProduct._id,
       { ...updatedProduct },
       { new: true }
@@ -131,7 +132,7 @@ export async function getProductsByFilter({
       productsQuery = Products.find(conditions).limit(limit);
     }
 
-    const productsData = await productsQuery;
+    const productsData: IProduct[] = await productsQuery;
     const productsCount = await Products.countDocuments(conditions);
 
     return {
@@ -144,74 +145,36 @@ export async function getProductsByFilter({
   }
 }
 
-// export async function getProductsByFilter({
-//   categoryFilterArray,
-//   modelFilterArray,
-//   priceFilterOne,
-//   priceFilterTwo,
-//   limit,
-//   page,
-// }: GetProductsFilterParams) {
-//   try {
-//     await connectToDatabase();
+export async function getProductsBySearchInput(query: string) {
+  try {
+    await connectToDatabase();
 
-//     let productsQuery;
-//     let conditions;
+    // find the products that match the query using a regular expression
+    let conditions;
+    let productsQuery;
 
-//     if (categoryFilterArray && categoryFilterArray.length === 0) {
-//       conditions = {
-//         "additional_information.model": {
-//           $elemMatch: { text: { $in: modelFilterArray } },
-//         },
-//       };
-//     } else if (categoryFilterArray === undefined) {
-//       conditions = {
-//         "additional_information.model": {
-//           $elemMatch: { text: { $in: modelFilterArray } },
-//         },
-//       };
-//     } else if (modelFilterArray && modelFilterArray.length === 0) {
-//       conditions = {
-//         original_category: { $in: categoryFilterArray },
-//       };
-//     } else if (modelFilterArray === undefined) {
-//       conditions = {
-//         original_category: { $in: categoryFilterArray },
-//       };
-//     } else if (
-//       modelFilterArray &&
-//       categoryFilterArray &&
-//       modelFilterArray.length >= 1 &&
-//       categoryFilterArray.length >= 1
-//     ) {
-//       conditions = {
-//         original_category: { $in: categoryFilterArray },
-//         "additional_information.model": {
-//           $elemMatch: { text: { $in: modelFilterArray } },
-//         },
-//       };
-//     } else {
-//       conditions = {};
-//     }
-
-//     const newLimit = page * limit;
-
-//     if (page !== undefined) {
-//       const modifiedLimit = page * limit;
-//       productsQuery = Product.find(conditions).limit(modifiedLimit);
-//     } else {
-//       productsQuery = Product.find(conditions).limit(limit);
-//     }
-
-//     const productsData = await productsQuery;
-//     const productsCount = await Product.countDocuments(conditions);
-
-//     return {
-//       data: JSON.parse(JSON.stringify(productsData)),
-//       totalPages: Math.ceil(productsCount / limit),
-//       newLimit,
-//     };
-//   } catch (error) {
-//     handleError(error);
-//   }
-// }
+    if (query) {
+      conditions = {
+        $or: [
+          { name: { $regex: query, $options: "i" } },
+          {
+            original_category: { $regex: query, $options: "i" },
+          },
+        ],
+      };
+      productsQuery = Products.find(conditions);
+      const productsData = await productsQuery;
+      return {
+        products: JSON.parse(JSON.stringify(productsData)),
+      };
+    } else {
+      conditions = {};
+      const productsData: IProduct[] = [];
+      return {
+        products: JSON.parse(JSON.stringify(productsData)),
+      };
+    }
+  } catch (error) {
+    handleError(error);
+  }
+}

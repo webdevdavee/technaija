@@ -63,7 +63,7 @@ const ReviewForm = ({ product }: ReviewFormProp) => {
           <TextArea
             inputRegister={register("comment")}
             label="Your review"
-            htmlFor="description"
+            htmlFor="Your review"
             error={
               errors.comment && (
                 <p className="text-red-500">{`${errors.comment.message}`}</p>
@@ -74,7 +74,7 @@ const ReviewForm = ({ product }: ReviewFormProp) => {
             <InputBox
               inputRegister={register("user")}
               label="Name"
-              htmlFor="name"
+              htmlFor="Name"
               inputType={"text"}
               error={
                 errors.user && (
@@ -85,7 +85,7 @@ const ReviewForm = ({ product }: ReviewFormProp) => {
             <InputBox
               inputRegister={register("email")}
               label="Email"
-              htmlFor="email"
+              htmlFor="Email"
               inputType={"text"}
               error={
                 errors.email && (
