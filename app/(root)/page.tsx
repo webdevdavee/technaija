@@ -4,8 +4,9 @@ import FeaturedProduct from "@/components/shared/FeaturedProduct";
 import CollectionBanner from "@/components/ui/CollectionBanner";
 import Newsletter from "@/components/ui/Newsletter";
 import QuickView from "@/components/ui/QuickView";
+import { getAllUsers, getUserById } from "@/libs/actions/user.action";
 
-export default function Home() {
+export default async function Home() {
   return (
     <main>
       <QuickView />

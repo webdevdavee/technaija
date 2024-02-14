@@ -45,91 +45,91 @@ const ProductDetails = ({ product }: Prop) => {
   const [showLoader, setShowLoader] = useState(false);
 
   // Define an async function that takes a product of type IProduct as a parameter
-  const addToCart = async (product: IProduct) => {
-    // Await the response from the getUserById function and store it in a variable
-    // The function takes a user id as an argument and returns a user object of type IUser
-    const fetchedUser: IUser = await getUserById(currentUserID);
+  // const addToCart = async (product: IProduct) => {
+  //   // Await the response from the getUserById function and store it in a variable
+  //   // The function takes a user id as an argument and returns a user object of type IUser
+  //   const fetchedUser: IUser = await getUserById(currentUserID);
 
-    // Create an object of type CartItem with the product's details
-    const cartedProduct: CartItem = {
-      name: product.name,
-      model: selectedModel!, // Use the non-null assertion operator to indicate that selectedModel is not null or undefined
-      quantity: quantity,
-      photo: currentImage,
-      price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
-    };
+  //   // Create an object of type CartItem with the product's details
+  //   const cartedProduct: CartItem = {
+  //     name: product.name,
+  //     model: selectedModel!, // Use the non-null assertion operator to indicate that selectedModel is not null or undefined
+  //     quantity: quantity,
+  //     photo: currentImage,
+  //     price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
+  //   };
 
-    // Use the spread operator to copy the properties of the fetched user
-    const updatedUser = {
-      ...fetchedUser,
-      // Use the spread operator to add the cartedProduct to the beginning of the user's cart array
-      cart: [cartedProduct, ...fetchedUser.cart],
-    };
+  //   // Use the spread operator to copy the properties of the fetched user
+  //   const updatedUser = {
+  //     ...fetchedUser,
+  //     // Use the spread operator to add the cartedProduct to the beginning of the user's cart array
+  //     cart: [cartedProduct, ...fetchedUser.cart],
+  //   };
 
-    // Show loader on the add to cart button
-    setShowLoader(true);
+  //   // Show loader on the add to cart button
+  //   setShowLoader(true);
 
-    // Update the user's data on the server using the updateUser function
-    // Pass an object with the updatedUser and the product's path as properties
-    await updateUser({
-      updatedUser,
-      path: "/cart",
-    });
+  //   // Update the user's data on the server using the updateUser function
+  //   // Pass an object with the updatedUser and the product's path as properties
+  //   await updateUser({
+  //     updatedUser,
+  //     path: "/cart",
+  //   });
 
-    dispatch(setCartCount(updatedUser.cart.length));
+  //   dispatch(setCartCount(updatedUser.cart.length));
 
-    // Show a success status message or alert box when a product is added to cart
-    setShowCartAlertBox(true);
+  //   // Show a success status message or alert box when a product is added to cart
+  //   setShowCartAlertBox(true);
 
-    // Remove loader from the add to cart button
-    setShowLoader(false);
+  //   // Remove loader from the add to cart button
+  //   setShowLoader(false);
 
-    // After 3 seconds remove the alert message or alert box
-    setTimeout(() => {
-      setShowCartAlertBox(false);
-    }, 4000);
-  };
+  //   // After 3 seconds remove the alert message or alert box
+  //   setTimeout(() => {
+  //     setShowCartAlertBox(false);
+  //   }, 4000);
+  // };
 
-  const addToWishlist = async (product: IProduct) => {
-    // Await the response from the getUserById function and store it in a variable
-    // The function takes a user id as an argument and returns a user object of type IUser
-    const fetchedUser: IUser = await getUserById(currentUserID);
+  // const addToWishlist = async (product: IProduct) => {
+  //   // Await the response from the getUserById function and store it in a variable
+  //   // The function takes a user id as an argument and returns a user object of type IUser
+  //   const fetchedUser: IUser = await getUserById(currentUserID);
 
-    // Create an object of type WishlistItem with the product's details
-    const wishlistProduct: WishlistItem = {
-      name: product.name,
-      price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
-      image: currentImage,
-    };
+  //   // Create an object of type WishlistItem with the product's details
+  //   const wishlistProduct: WishlistItem = {
+  //     name: product.name,
+  //     price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
+  //     image: currentImage,
+  //   };
 
-    // Use the spread operator to copy the properties of the fetched user
-    const updatedUser = {
-      ...fetchedUser,
-      // Use the spread operator to add the cartedProduct to the beginning of the user's cart array
-      wishlist: [wishlistProduct, ...fetchedUser.wishlist],
-    };
+  //   // Use the spread operator to copy the properties of the fetched user
+  //   const updatedUser = {
+  //     ...fetchedUser,
+  //     // Use the spread operator to add the cartedProduct to the beginning of the user's cart array
+  //     wishlist: [wishlistProduct, ...fetchedUser.wishlist],
+  //   };
 
-    // Show loader on the add to cart button
-    setShowLoader(true);
+  //   // Show loader on the add to cart button
+  //   setShowLoader(true);
 
-    // Update the user's data on the server using the updateUser function
-    // Pass an object with the updatedUser and the product's path as properties
-    await updateUser({
-      updatedUser,
-      path: "/wishlist",
-    });
+  //   // Update the user's data on the server using the updateUser function
+  //   // Pass an object with the updatedUser and the product's path as properties
+  //   await updateUser({
+  //     updatedUser,
+  //     path: "/wishlist",
+  //   });
 
-    // Show a success status message or alert box when a product is added to cart
-    setShowWishlistAlertBox(true);
+  //   // Show a success status message or alert box when a product is added to cart
+  //   setShowWishlistAlertBox(true);
 
-    // Remove loader from the add to cart button
-    setShowLoader(false);
+  //   // Remove loader from the add to cart button
+  //   setShowLoader(false);
 
-    // After 3 seconds remove the alert message or alert box
-    setTimeout(() => {
-      setShowWishlistAlertBox(false);
-    }, 4000);
-  };
+  //   // After 3 seconds remove the alert message or alert box
+  //   setTimeout(() => {
+  //     setShowWishlistAlertBox(false);
+  //   }, 4000);
+  // };
 
   return (
     <>
@@ -149,8 +149,8 @@ const ProductDetails = ({ product }: Prop) => {
             setSelectedModel={setSelectedModel}
             quantity={quantity}
             setQuantity={setQuantity}
-            addToCart={addToCart}
-            addToWishlist={addToWishlist}
+            // addToCart={addToCart}
+            // addToWishlist={addToWishlist}
             showLoader={showLoader}
           />
         </div>

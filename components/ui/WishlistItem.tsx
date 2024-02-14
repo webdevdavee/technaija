@@ -8,40 +8,36 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Loader from "./Loader";
 
-type WishListProps = {
-  fetchedUser: IUser;
-};
-
-const WishlistItem = ({ fetchedUser }: WishListProps) => {
+const WishlistItem = () => {
   const pathname = usePathname();
 
   const [showLoader, setShowLoader] = useState(false);
 
-  const removeFromWishlist = async (item: UserWishlist) => {
-    // Check if there is a current user logged in
-    if (fetchedUser) {
-      // Find the index of the item in the user's wishlist by matching the item's _id property
-      const itemIndex = fetchedUser.wishlist.findIndex(
-        (wishlistItem) => wishlistItem._id === item._id
-      );
+  // const removeFromWishlist = async (item: UserWishlist) => {
+  //   // Check if there is a current user logged in
+  //   if (fetchedUser) {
+  //     // Find the index of the item in the user's wishlist by matching the item's _id property
+  //     const itemIndex = fetchedUser.wishlist.findIndex(
+  //       (wishlistItem) => wishlistItem._id === item._id
+  //     );
 
-      // If the item is found in the wishlist, remove it using the splice method
-      if (itemIndex !== -1) {
-        fetchedUser.wishlist.splice(itemIndex, 1);
-        // Show loader
-        setShowLoader(true);
-      }
+  //     // If the item is found in the wishlist, remove it using the splice method
+  //     if (itemIndex !== -1) {
+  //       fetchedUser.wishlist.splice(itemIndex, 1);
+  //       // Show loader
+  //       setShowLoader(true);
+  //     }
 
-      // Update the user's data on the server using the updateUser function
-      // Pass the updated user object and the product's path as arguments
-      await updateUser({
-        updatedUser: fetchedUser,
-        path: "/wishlist",
-      });
-      // Remove loader
-      setShowLoader(false);
-    }
-  };
+  //     // Update the user's data on the server using the updateUser function
+  //     // Pass the updated user object and the product's path as arguments
+  //     await updateUser({
+  //       updatedUser: fetchedUser,
+  //       path: "/wishlist",
+  //     });
+  //     // Remove loader
+  //     setShowLoader(false);
+  //   }
+  // };
 
   return (
     <section className="mt-6">
@@ -50,7 +46,7 @@ const WishlistItem = ({ fetchedUser }: WishListProps) => {
           <Loader className="loader" />
         </section>
       )}
-      {fetchedUser && fetchedUser.wishlist.length >= 1 ? (
+      {/* {fetchedUser && fetchedUser.wishlist.length >= 1 ? (
         <table>
           <thead className="bg-slate-100">
             <tr>
@@ -103,7 +99,7 @@ const WishlistItem = ({ fetchedUser }: WishListProps) => {
             Return to shop
           </Link>
         </div>
-      )}
+      )} */}
     </section>
   );
 };

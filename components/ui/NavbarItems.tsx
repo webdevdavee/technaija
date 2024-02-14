@@ -18,11 +18,11 @@ import { setSlideInSearch } from "@/libs/redux-state/features/slide-in-search/sl
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { UserButton } from "@clerk/nextjs";
 
-type NavbarItemsProp = {
-  fetchedUser: IUser;
-};
+// type NavbarItemsProp = {
+//   fetchedUser: IUser;
+// };
 
-const NavbarItems = ({ fetchedUser }: NavbarItemsProp) => {
+const NavbarItems = () => {
   const pathname = usePathname();
   const dispatch = useDispatch();
 
@@ -31,18 +31,18 @@ const NavbarItems = ({ fetchedUser }: NavbarItemsProp) => {
 
   const { isScrolled } = useScrollHeader();
 
-  useEffect(() => {
-    // Define an async function to get the user data
-    const getUser = async () => {
-      // Await the response from the getUserById function
-      // The getUserById function takes the current user ID as an argument and returns an IUser object
-      const currentUser: IUser = await getUserById(currentUserID);
-      // Dispatch an action to update the cart count in the global state
-      // The setCartCount action takes the length of the user's cart array as an argument
-      dispatch(setCartCount(currentUser.cart.length));
-    };
-    getUser();
-  }, [pathname, fetchedUser]);
+  // useEffect(() => {
+  //   // Define an async function to get the user data
+  //   const getUser = async () => {
+  //     // Await the response from the getUserById function
+  //     // The getUserById function takes the current user ID as an argument and returns an IUser object
+  //     const currentUser: IUser = await getUserById(currentUserID);
+  //     // Dispatch an action to update the cart count in the global state
+  //     // The setCartCount action takes the length of the user's cart array as an argument
+  //     dispatch(setCartCount(currentUser.cart.length));
+  //   };
+  //   getUser();
+  // }, [pathname, fetchedUser]);
   // The pathname is the current URL of the browser
   // The fetchedUser is the user object returned by the getUserById function
 

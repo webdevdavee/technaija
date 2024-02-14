@@ -149,6 +149,16 @@ type ProductSortList = {
   text: string;
 };
 
+type Users = {
+  _id: string;
+  clerkId?: string;
+  email: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  photo: string;
+};
+
 type CreateUserParam = {
   clerkId: string;
   email: string;

@@ -15,12 +15,12 @@ import { formatNumber } from "@/libs/utils";
 type CardProp = {
   type: string;
   product: IProduct;
-  user: IUser;
+  // user: IUser;
 };
 
 type WishlistItem = { name: string; image: string; price: number };
 
-const ProductCard = ({ type, product, user }: CardProp) => {
+const ProductCard = ({ type, product }: CardProp) => {
   const dispatch = useDispatch();
 
   const { _id, name, price, sales_price, featured_image } = product;
@@ -35,43 +35,43 @@ const ProductCard = ({ type, product, user }: CardProp) => {
   };
 
   // Check if the index of the product or item exists in user's wishlist
-  const existingItem = user.wishlist.findIndex((item) => {
-    return item.name === product.name;
-  });
+  // const existingItem = user.wishlist.findIndex((item) => {
+  //   return item.name === product.name;
+  // });
 
-  useEffect(() => {
-    if (existingItem !== -1) {
-      setItemExists(true);
-    } else {
-      setItemExists(false);
-    }
-  }, [existingItem]);
+  // useEffect(() => {
+  //   if (existingItem !== -1) {
+  //     setItemExists(true);
+  //   } else {
+  //     setItemExists(false);
+  //   }
+  // }, [existingItem]);
 
-  const addToWishlist = async (product: IProduct) => {
-    if (existingItem !== -1) {
-      // Call splice to remove element from array
-      user.wishlist.splice(existingItem, 1)[0];
-      setShowIconLoader(true);
-    } else {
-      // Create an object of type WishlistItem with the product's details
-      const wishlistProduct: WishlistItem = {
-        name: product.name,
-        price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
-        image: product.featured_image,
-      };
+  // const addToWishlist = async (product: IProduct) => {
+  //   if (existingItem !== -1) {
+  //     // Call splice to remove element from array
+  //     user.wishlist.splice(existingItem, 1)[0];
+  //     setShowIconLoader(true);
+  //   } else {
+  //     // Create an object of type WishlistItem with the product's details
+  //     const wishlistProduct: WishlistItem = {
+  //       name: product.name,
+  //       price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
+  //       image: product.featured_image,
+  //     };
 
-      // Use the unshift method to add the wishlistProduct to the beginning of the user's cart array
-      user.wishlist.unshift(wishlistProduct);
-      setShowIconLoader(true);
-    }
-    // Update the user's data on the server using the updateUser function
-    // Pass an object with the updatedUser and the product's path as properties
-    await updateUser({
-      updatedUser: user,
-      path: "/wishlist",
-    });
-    setShowIconLoader(false);
-  };
+  //     // Use the unshift method to add the wishlistProduct to the beginning of the user's cart array
+  //     user.wishlist.unshift(wishlistProduct);
+  //     setShowIconLoader(true);
+  //   }
+  //   // Update the user's data on the server using the updateUser function
+  //   // Pass an object with the updatedUser and the product's path as properties
+  //   await updateUser({
+  //     updatedUser: user,
+  //     path: "/wishlist",
+  //   });
+  //   setShowIconLoader(false);
+  // };
 
   return (
     <section className="w-fit group">
@@ -88,7 +88,7 @@ const ProductCard = ({ type, product, user }: CardProp) => {
         </Link>
         <div
           className="absolute bg-white drop-shadow-md p-2 transition duration-300 cursor-pointer top-[5%] right-[10%] rounded-full hover:bg-gray-100 translate-x-[1000%] group-hover:-translate-x-0 group-hover:transition group-hover:duration-300"
-          onClick={() => addToWishlist(product)}
+          // onClick={() => addToWishlist(product)}
         >
           {showIconLoader ? (
             <Image

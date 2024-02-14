@@ -10,9 +10,9 @@ type ShopContainerProp = {
 };
 
 const ShopContainer = async ({ page }: ShopContainerProp) => {
-  // Await the response from the getUserById function and store it in a variable
-  // The function takes a user id as an argument and returns a user object of type IUser
-  const user: IUser = await getUserById(currentUserID);
+  // // Await the response from the getUserById function and store it in a variable
+  // // The function takes a user id as an argument and returns a user object of type IUser
+  // const user: IUser = await getUserById(currentUserID);
 
   // Await the response from the getAllProducts function and store it in a variable
   // The function takes a limit(number) as an argument
@@ -34,7 +34,7 @@ const ShopContainer = async ({ page }: ShopContainerProp) => {
   return (
     <section>
       <ShopContent
-        user={user}
+        // user={user}
         fetchedProducts={products}
         productsWithNoLimit={productsWithNoLimit}
         page={page}

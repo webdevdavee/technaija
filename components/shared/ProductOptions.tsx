@@ -11,8 +11,8 @@ type ProductOptionProp = {
   setSelectedModel: Dispatch<SetStateAction<string | undefined>>;
   quantity: number;
   setQuantity: Dispatch<SetStateAction<number>>;
-  addToCart: (product: IProduct) => Promise<void>;
-  addToWishlist: (product: IProduct) => Promise<void>;
+  // addToCart: (product: IProduct) => Promise<void>;
+  // addToWishlist: (product: IProduct) => Promise<void>;
   showLoader: boolean;
   modelError?: boolean;
   setModelError?: Dispatch<SetStateAction<boolean>>;
@@ -24,8 +24,8 @@ const ProductOptions = ({
   setSelectedModel,
   quantity,
   setQuantity,
-  addToCart,
-  addToWishlist,
+  // addToCart,
+  // addToWishlist,
   showLoader,
   modelError,
   setModelError,
@@ -112,7 +112,7 @@ const ProductOptions = ({
               : ""
           }`}
           disabled={selectedModel === "" || showLoader ? true : false}
-          onClick={() => addToCart(product)}
+          // onClick={() => addToCart(product)}
         >
           {showLoader ? <Loader className={"loader2"} /> : "add to cart"}
         </button>
@@ -125,7 +125,7 @@ const ProductOptions = ({
             : ""
         }`}
         disabled={selectedModel === "" || showLoader ? true : false}
-        onClick={() => addToWishlist(product)}
+        // onClick={() => addToWishlist(product)}
       >
         {showLoader ? <Loader className={"loader2"} /> : "wishlist"}
         <Image src="/heart.svg" width={20} height={20} alt="wishlist" />

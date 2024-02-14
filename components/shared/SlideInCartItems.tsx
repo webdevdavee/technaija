@@ -25,17 +25,17 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
 
   const [user, setUser] = useState<IUser>();
 
-  useEffect(() => {
-    // Define an async function to get the user data
-    const getUser = async () => {
-      // Await the response from the getUserById function
-      // The getUserById function takes the current user ID as an argument and returns an IUser object
-      const currentUser: IUser = await getUserById(currentUserID);
-      // Update the user state with the fetched user object
-      setUser(currentUser);
-    };
-    getUser();
-  }, [pathname, fetchedUser]);
+  // useEffect(() => {
+  //   // Define an async function to get the user data
+  //   const getUser = async () => {
+  //     // Await the response from the getUserById function
+  //     // The getUserById function takes the current user ID as an argument and returns an IUser object
+  //     const currentUser: IUser = await getUserById(currentUserID);
+  //     // Update the user state with the fetched user object
+  //     setUser(currentUser);
+  //   };
+  //   getUser();
+  // }, [pathname, fetchedUser]);
   // The pathname is the current URL of the browser
   // The fetchedUser is the user object returned by the getUserById function
 
@@ -45,19 +45,19 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
   const [showLoader, setShowLoader] = useState(false);
 
   // Array to hold total amounts for each cart item
-  const totals =
-    user &&
-    user.cart.map((item) => {
-      const total = item.price * item.quantity;
-      return total;
-    });
+  // const totals =
+  //   user &&
+  //   user.cart.map((item) => {
+  //     const total = item.price * item.quantity;
+  //     return total;
+  //   });
 
-  // Use reduce to sum up the numbers
-  const grandTotal =
-    totals &&
-    totals.reduce((a, b) => {
-      return a + b;
-    }, 0);
+  // // Use reduce to sum up the numbers
+  // const grandTotal =
+  //   totals &&
+  //   totals.reduce((a, b) => {
+  //     return a + b;
+  //   }, 0);
 
   // Close cart
   const handleCloseCart = () => {
@@ -66,31 +66,31 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
     document.body.classList.remove("no_scroll");
   };
 
-  const removeFromCart = async (item: UserCart) => {
-    // Check if there is a current user logged in
-    if (user) {
-      // Find the index of the item in the user's cart by matching the item's _id property
-      const itemIndex = user.cart.findIndex(
-        (cartItem) => cartItem._id === item._id
-      );
+  // const removeFromCart = async (item: UserCart) => {
+  //   // Check if there is a current user logged in
+  //   if (user) {
+  //     // Find the index of the item in the user's cart by matching the item's _id property
+  //     const itemIndex = user.cart.findIndex(
+  //       (cartItem) => cartItem._id === item._id
+  //     );
 
-      // If the item is found in the cart, remove it using the splice method
-      if (itemIndex !== -1) {
-        user.cart.splice(itemIndex, 1);
-        // Show loader
-        setShowLoader(true);
-      }
+  //     // If the item is found in the cart, remove it using the splice method
+  //     if (itemIndex !== -1) {
+  //       user.cart.splice(itemIndex, 1);
+  //       // Show loader
+  //       setShowLoader(true);
+  //     }
 
-      // Update the user's data on the server using the updateUser function
-      // Pass the updated user object and the product's path as arguments
-      await updateUser({
-        updatedUser: user,
-        path: "/cart",
-      });
-      // Remove loader
-      setShowLoader(false);
-    }
-  };
+  //     // Update the user's data on the server using the updateUser function
+  //     // Pass the updated user object and the product's path as arguments
+  //     await updateUser({
+  //       updatedUser: user,
+  //       path: "/cart",
+  //     });
+  //     // Remove loader
+  //     setShowLoader(false);
+  //   }
+  // };
 
   return (
     <section
@@ -117,7 +117,7 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
               <Loader className="loader" />
             </section>
           )}
-          {user && user.cart.length >= 1 ? (
+          {/* {user && user.cart.length >= 1 ? (
             user.cart.map((item) => (
               <div
                 key={item._id}
@@ -162,13 +162,13 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
                 Go shopping
               </Link>
             </div>
-          )}
+          )} */}
         </div>
         <div className="flex flex-col gap-12 mt-6">
           <span className="flex items-center justify-between">
             <p className="text-base capitalize text-black">Subtotal:</p>
             <p className="text-base capitalize text-black">
-              {formatNumber(grandTotal, "₦")}
+              {/* {formatNumber(grandTotal, "₦")} */}
             </p>
           </span>
           <span className="w-full flex flex-col gap-2">

@@ -13,7 +13,7 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { createURL } from "@/libs/utils";
 
 type ShopContent = {
-  user: IUser;
+  // user: IUser;
   fetchedProducts: IProduct[];
   productsWithNoLimit: IProduct[];
   page: number;
@@ -21,7 +21,7 @@ type ShopContent = {
 };
 
 const ShopContent = ({
-  user,
+  // user,
   fetchedProducts,
   productsWithNoLimit,
   page,
@@ -131,7 +131,7 @@ const ShopContent = ({
           setProducts={setProducts}
           fetchedProducts={fetchedProducts}
         />
-        <Collection user={user} products={products} type="shop" title="Shop" />
+        <Collection products={products} type="shop" title="Shop" />
         {!allProductsFetched && (
           <div className="mt-12 flex items-center justify-center">
             <p

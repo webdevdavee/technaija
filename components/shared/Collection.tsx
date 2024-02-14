@@ -3,7 +3,7 @@ import { IProduct } from "@/libs/database/models/product.model";
 import { IUser } from "@/libs/database/models/user.model";
 
 type CollectionProps = {
-  user: IUser;
+  // user: IUser;
   products: IProduct[];
   type: string;
   title: string;
@@ -11,7 +11,7 @@ type CollectionProps = {
 };
 
 const Collection = async ({
-  user,
+  // user,
   products,
   type,
   title,
@@ -39,7 +39,7 @@ const Collection = async ({
             key={product._id}
             type={type}
             product={product}
-            user={user}
+            // user={user}
           />
         ))}
       </div>
