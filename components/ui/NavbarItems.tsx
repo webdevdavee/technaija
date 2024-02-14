@@ -7,7 +7,6 @@ import { useScrollHeader } from "@/hooks/useScrollHeader";
 import { useSelector, useDispatch } from "react-redux";
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
 import { setSlideInCart } from "@/libs/redux-state/features/slide-in-cart/slideInCart";
-import { IUser } from "@/libs/database/models/user.model";
 import { usePathname } from "next/navigation";
 import { cartCountState } from "@/libs/redux-state/features/cart-count/cartCountSlice";
 import { useEffect } from "react";
@@ -101,13 +100,13 @@ const NavbarItems = () => {
           />
         </button>
         <SignedOut>
-          <Link href="/sign-in">
+          <Link href="/sign-up">
             <Image
               className="text-lg"
               width={20}
               height={20}
               src="/user.svg"
-              alt="search"
+              alt="user"
             />
           </Link>
         </SignedOut>
@@ -118,7 +117,7 @@ const NavbarItems = () => {
               width={20}
               height={20}
               src="/user.svg"
-              alt="search"
+              alt="user"
             />
           </Link>
           <UserButton afterSignOutUrl="/" />

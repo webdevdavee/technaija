@@ -167,3 +167,13 @@ type CreateUserParam = {
   lastName: string;
   photo: string;
 };
+
+type IUser = {
+  _id: string;
+  clerkId?: string;
+  email: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  photo: string;
+};
