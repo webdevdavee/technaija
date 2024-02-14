@@ -11,7 +11,6 @@ import { getProductsByFilter } from "@/libs/actions/product.action";
 import ProductSort from "./ProductSort";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { createURL } from "@/libs/utils";
-import { auth } from "@clerk/nextjs";
 
 type ShopContent = {
   user: IUser;
@@ -28,9 +27,6 @@ const ShopContent = ({
   page,
   newLimit,
 }: ShopContent) => {
-  const { sessionClaims } = auth();
-  const userId = sessionClaims?.userId as string;
-
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -135,13 +131,7 @@ const ShopContent = ({
           setProducts={setProducts}
           fetchedProducts={fetchedProducts}
         />
-        <Collection
-          userId={userId}
-          user={user}
-          products={products}
-          type="shop"
-          title="Shop"
-        />
+        <Collection user={user} products={products} type="shop" title="Shop" />
         {!allProductsFetched && (
           <div className="mt-12 flex items-center justify-center">
             <p

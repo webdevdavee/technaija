@@ -4,7 +4,6 @@ import { IUser } from "@/libs/database/models/user.model";
 
 type CollectionProps = {
   user: IUser;
-  userId: string;
   products: IProduct[];
   type: string;
   title: string;
@@ -13,7 +12,6 @@ type CollectionProps = {
 
 const Collection = async ({
   user,
-  userId,
   products,
   type,
   title,
@@ -38,7 +36,6 @@ const Collection = async ({
       <div className="grid grid-cols-4 gap-4 gap-y-12 mt-6">
         {products.map((product) => (
           <ProductCard
-            userId={userId}
             key={product._id}
             type={type}
             product={product}

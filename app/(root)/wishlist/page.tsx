@@ -1,18 +1,16 @@
 import WishlistItem from "@/components/ui/WishlistItem";
 import { getUserById } from "@/libs/actions/user.action";
 import { IUser } from "@/libs/database/models/user.model";
-import { auth } from "@clerk/nextjs";
+import { currentUserID } from "@/userID";
 
 const WishlistPage = async () => {
-  const { sessionClaims } = auth();
-  const userId = sessionClaims?.userId as string;
-
   // The function takes a user id as an argument and returns a user object of type IUser
-  const user: IUser = await getUserById(userId);
+  const fetchedUser: IUser = await getUserById(currentUserID);
+
   return (
     <section className="relative mt-16 px-20 py-12">
       <h1 className="text-center text-3xl font-medium py-6">Wishlist</h1>
-      <WishlistItem userId={userId} fetchedUser={user} />
+      <WishlistItem fetchedUser={fetchedUser} />
     </section>
   );
 };

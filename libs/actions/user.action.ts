@@ -16,22 +16,57 @@ export const createUser = async (user: CreateUserParam) => {
   }
 };
 
-export const updateUser = async (clerkId: string, user: UpdateUserParams) => {
+export const getAllUsers = async () => {
   try {
     await connectToDatabase();
 
-    const updatedUser = await Users.findOneAndUpdate({ clerkId }, user, {
-      new: true,
-    });
+    const usersQuery = Users.find({});
+    const usersData = await usersQuery;
 
-    if (!updatedUser) throw new Error("User update failed");
-    // revalidatePath(path);
-    // revalidatePath("/");
-    return JSON.parse(JSON.stringify(updatedUser));
+    return {
+      users: JSON.parse(JSON.stringify(usersData)),
+    };
   } catch (error) {
     handleError(error);
   }
 };
+
+export const updateUser = async ({ updatedUser, path }: UpdateUserParams) => {
+  try {
+    await connectToDatabase();
+    const userToUpdate = await Users.findById(updatedUser._id);
+    if (!userToUpdate) {
+      throw new Error("Unauthorized or user not found");
+    }
+    const user = await Users.findByIdAndUpdate(
+      updatedUser._id,
+      { ...updatedUser },
+      { new: true }
+    );
+    revalidatePath(path);
+    revalidatePath("/");
+    return JSON.parse(JSON.stringify(user));
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+// export const updateUser = async (clerkId: string, user: UpdateUserParams) => {
+//   try {
+//     await connectToDatabase();
+
+//     const updatedUser = await Users.findOneAndUpdate({ clerkId }, user, {
+//       new: true,
+//     });
+
+//     if (!updatedUser) throw new Error("User update failed");
+//     // revalidatePath(path);
+//     // revalidatePath("/");
+//     return JSON.parse(JSON.stringify(updatedUser));
+//   } catch (error) {
+//     handleError(error);
+//   }
+// };
 
 export const getUserById = async (userId: string) => {
   try {

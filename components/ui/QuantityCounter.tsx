@@ -3,7 +3,6 @@ import { IUser } from "@/libs/database/models/user.model";
 import Image from "next/image";
 import { updateUser } from "@/libs/actions/user.action";
 import { Dispatch, SetStateAction } from "react";
-import { auth } from "@clerk/nextjs";
 
 type Item = {
   _id: string;
@@ -35,9 +34,6 @@ const QuantityCounter = ({
   decrementQuantity,
   setShowLoader,
 }: QuantityCounterProps) => {
-  const { sessionClaims } = auth();
-  const userId = sessionClaims?.userId as string;
-
   const incrementCartProductQuantity = async () => {
     // Check if user and item are defined
     if (user && item) {
@@ -55,7 +51,10 @@ const QuantityCounter = ({
         user.cart.push(item);
       }
       // Update the user in the database using the updateUser function
-      await updateUser(userId, user);
+      await updateUser({
+        updatedUser: user,
+        path: `/product/${product && product._id}`,
+      });
       setShowLoader && setShowLoader(false);
     }
   };
@@ -78,7 +77,10 @@ const QuantityCounter = ({
         user.cart.push(item);
       }
       // Update the user in the database using the updateUser function
-      await updateUser(userId, user);
+      await updateUser({
+        updatedUser: user,
+        path: `/product/${product && product._id}`,
+      });
       setShowLoader && setShowLoader(false);
     }
   };

@@ -12,14 +12,14 @@ import Loader from "../ui/Loader";
 import { updateUser, getUserById } from "@/libs/actions/user.action";
 import { slideInCartState } from "@/libs/redux-state/features/slide-in-cart/slideInCart";
 import { usePathname } from "next/navigation";
+import { currentUserID } from "@/userID";
 import { formatNumber } from "@/libs/utils";
 
 type SlideInCartProp = {
-  userId: string;
   fetchedUser?: IUser;
 };
 
-const SlideInCart = ({ userId, fetchedUser }: SlideInCartProp) => {
+const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
   const dispatch = useDispatch();
   const pathname = usePathname();
 
@@ -30,7 +30,7 @@ const SlideInCart = ({ userId, fetchedUser }: SlideInCartProp) => {
     const getUser = async () => {
       // Await the response from the getUserById function
       // The getUserById function takes the current user ID as an argument and returns an IUser object
-      const currentUser: IUser = await getUserById(userId);
+      const currentUser: IUser = await getUserById(currentUserID);
       // Update the user state with the fetched user object
       setUser(currentUser);
     };
@@ -83,7 +83,10 @@ const SlideInCart = ({ userId, fetchedUser }: SlideInCartProp) => {
 
       // Update the user's data on the server using the updateUser function
       // Pass the updated user object and the product's path as arguments
-      await updateUser(userId, user);
+      await updateUser({
+        updatedUser: user,
+        path: "/cart",
+      });
       // Remove loader
       setShowLoader(false);
     }

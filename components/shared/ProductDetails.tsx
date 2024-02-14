@@ -9,9 +9,9 @@ import ProductGallery from "./ProductGallery";
 import ProductOptions from "./ProductOptions";
 import ProductInfo from "./ProductInfo";
 import AlertBox from "../ui/AlertBox";
+import { currentUserID } from "@/userID";
 import { setCartCount } from "@/libs/redux-state/features/cart-count/cartCountSlice";
 import { useDispatch } from "react-redux";
-import { auth } from "@clerk/nextjs";
 
 type Prop = {
   product: IProduct;
@@ -28,9 +28,6 @@ type CartItem = {
 type WishlistItem = { name: string; image: string; price: number };
 
 const ProductDetails = ({ product }: Prop) => {
-  const { sessionClaims } = auth();
-  const userId = sessionClaims?.userId as string;
-
   const dispatch = useDispatch();
 
   const [selectedModel, setSelectedModel] = useState(
@@ -51,7 +48,7 @@ const ProductDetails = ({ product }: Prop) => {
   const addToCart = async (product: IProduct) => {
     // Await the response from the getUserById function and store it in a variable
     // The function takes a user id as an argument and returns a user object of type IUser
-    const user: IUser = await getUserById(userId);
+    const fetchedUser: IUser = await getUserById(currentUserID);
 
     // Create an object of type CartItem with the product's details
     const cartedProduct: CartItem = {
@@ -64,9 +61,9 @@ const ProductDetails = ({ product }: Prop) => {
 
     // Use the spread operator to copy the properties of the fetched user
     const updatedUser = {
-      ...user,
+      ...fetchedUser,
       // Use the spread operator to add the cartedProduct to the beginning of the user's cart array
-      cart: [cartedProduct, ...user.cart],
+      cart: [cartedProduct, ...fetchedUser.cart],
     };
 
     // Show loader on the add to cart button
@@ -74,7 +71,10 @@ const ProductDetails = ({ product }: Prop) => {
 
     // Update the user's data on the server using the updateUser function
     // Pass an object with the updatedUser and the product's path as properties
-    await updateUser(userId, updatedUser);
+    await updateUser({
+      updatedUser,
+      path: "/cart",
+    });
 
     dispatch(setCartCount(updatedUser.cart.length));
 
@@ -93,7 +93,7 @@ const ProductDetails = ({ product }: Prop) => {
   const addToWishlist = async (product: IProduct) => {
     // Await the response from the getUserById function and store it in a variable
     // The function takes a user id as an argument and returns a user object of type IUser
-    const user: IUser = await getUserById(userId);
+    const fetchedUser: IUser = await getUserById(currentUserID);
 
     // Create an object of type WishlistItem with the product's details
     const wishlistProduct: WishlistItem = {
@@ -104,9 +104,9 @@ const ProductDetails = ({ product }: Prop) => {
 
     // Use the spread operator to copy the properties of the fetched user
     const updatedUser = {
-      ...user,
+      ...fetchedUser,
       // Use the spread operator to add the cartedProduct to the beginning of the user's cart array
-      wishlist: [wishlistProduct, ...user.wishlist],
+      wishlist: [wishlistProduct, ...fetchedUser.wishlist],
     };
 
     // Show loader on the add to cart button
@@ -114,7 +114,10 @@ const ProductDetails = ({ product }: Prop) => {
 
     // Update the user's data on the server using the updateUser function
     // Pass an object with the updatedUser and the product's path as properties
-    await updateUser(userId, updatedUser);
+    await updateUser({
+      updatedUser,
+      path: "/wishlist",
+    });
 
     // Show a success status message or alert box when a product is added to cart
     setShowWishlistAlertBox(true);

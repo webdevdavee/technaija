@@ -105,25 +105,30 @@ type UpdateProductParams = {
 };
 
 type UpdateUserParams = {
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  photo: string;
-  cart?: {
-    _id?: string;
-    name: string;
-    price: number;
-    quantity: number;
+  updatedUser: {
+    _id: string;
+    clerkId?: string;
+    email: string;
+    username: string;
+    firstName: string;
+    lastName: string;
     photo: string;
-    model: string;
-  }[];
-  wishlist?: {
-    _id?: string;
-    name: string;
-    image: string;
-    price: number;
-  }[];
+    cart: {
+      _id?: string;
+      name: string;
+      price: number;
+      quantity: number;
+      photo: string;
+      model: string;
+    }[];
+    wishlist: {
+      _id?: string;
+      name: string;
+      image: string;
+      price: number;
+    }[];
+  };
+  path: string;
 };
 
 type GetProductsFilterParams = {

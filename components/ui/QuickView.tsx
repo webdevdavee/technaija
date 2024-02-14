@@ -14,8 +14,8 @@ import AlertBox from "./AlertBox";
 import Link from "next/link";
 import ProductInfo from "../shared/ProductInfo";
 import ProductOptions from "../shared/ProductOptions";
+import { currentUserID } from "@/userID";
 import { setCartCount } from "@/libs/redux-state/features/cart-count/cartCountSlice";
-import { auth } from "@clerk/nextjs";
 
 type CartItem = {
   name: string;
@@ -28,9 +28,6 @@ type CartItem = {
 type WishlistItem = { name: string; image: string; price: number };
 
 const QuickView = () => {
-  const { sessionClaims } = auth();
-  const userId = sessionClaims?.userId as string;
-
   const [quantity, setQuantity] = useState(1);
 
   const dispatch = useDispatch();
@@ -59,7 +56,7 @@ const QuickView = () => {
   const addToCart = async (product: IProduct) => {
     // Await the response from the getUserById function and store it in a variable
     // The function takes a user id as an argument and returns a user object of type IUser
-    const fetchedUser: IUser = await getUserById(userId);
+    const fetchedUser: IUser = await getUserById(currentUserID);
 
     // Create an object of type CartItem with the product's details
     const cartedProduct: CartItem = {
@@ -84,7 +81,10 @@ const QuickView = () => {
 
       // Update the user's data on the server using the updateUser function
       // Pass an object with the updatedUser and the product's path as properties
-      await updateUser(userId, updatedUser);
+      await updateUser({
+        updatedUser,
+        path: "/cart",
+      });
 
       dispatch(setCartCount(updatedUser.cart.length));
 
@@ -106,7 +106,7 @@ const QuickView = () => {
   const addToWishlist = async (product: IProduct) => {
     // Await the response from the getUserById function and store it in a variable
     // The function takes a user id as an argument and returns a user object of type IUser
-    const fetchedUser: IUser = await getUserById(userId);
+    const fetchedUser: IUser = await getUserById(currentUserID);
 
     // Create an object of type WishlistItem with the product's details
     const wishlistProduct: WishlistItem = {
@@ -127,7 +127,10 @@ const QuickView = () => {
 
     // Update the user's data on the server using the updateUser function
     // Pass an object with the updatedUser and the product's path as properties
-    await updateUser(userId, updatedUser);
+    await updateUser({
+      updatedUser,
+      path: "/wishlist",
+    });
 
     // Show a success status message or alert box when a product is added to cart
     setShowWishlistAlertBox(true);

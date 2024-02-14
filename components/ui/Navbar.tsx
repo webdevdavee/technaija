@@ -1,16 +1,13 @@
 import { getUserById } from "@/libs/actions/user.action";
 import { IUser } from "@/libs/database/models/user.model";
 import NavbarItems from "./NavbarItems";
-import { auth } from "@clerk/nextjs";
+import { currentUserID } from "@/userID";
 
 const Navbar = async () => {
-  const { sessionClaims } = auth();
-  const userId = sessionClaims?.userId as string;
+  // Await the response from the getUserById function and store it in a variable
+  const fetchedUser: IUser = await getUserById(currentUserID);
 
-  // The function takes a user id as an argument and returns a user object of type IUser
-  const user: IUser = await getUserById(userId);
-
-  return <NavbarItems userId={userId} fetchedUser={user} />;
+  return <NavbarItems fetchedUser={fetchedUser} />;
 };
 
 export default Navbar;
