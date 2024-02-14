@@ -1,6 +1,5 @@
 import WishlistItem from "@/components/ui/WishlistItem";
 import { getUserById } from "@/libs/actions/user.action";
-import { IUser } from "@/libs/database/models/user.model";
 import { currentUserID } from "@/userID";
 
 const WishlistPage = async () => {
