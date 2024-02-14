@@ -7,7 +7,6 @@ import { quickviewState } from "@/libs/redux-state/features/quickview/quickviewS
 import { setQuickview } from "@/libs/redux-state/features/quickview/quickviewSlice";
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
 import { useState } from "react";
-import { IUser } from "@/libs/database/models/user.model";
 import { IProduct } from "@/libs/database/models/product.model";
 import { getUserById, updateUser } from "@/libs/actions/user.action";
 import AlertBox from "./AlertBox";

@@ -1,5 +1,4 @@
 import { getUserById } from "@/libs/actions/user.action";
-import { IUser } from "@/libs/database/models/user.model";
 import NavbarItems from "./NavbarItems";
 import { currentUserID } from "@/userID";
 

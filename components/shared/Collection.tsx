@@ -1,6 +1,5 @@
 import ProductCard from "../ui/ProductCard";
 import { IProduct } from "@/libs/database/models/product.model";
-import { IUser } from "@/libs/database/models/user.model";
 
 type CollectionProps = {
   // user: IUser;

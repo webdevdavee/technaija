@@ -9,7 +9,6 @@ import { setProduct } from "@/libs/redux-state/features/product/productSlice";
 import { setQuickview } from "@/libs/redux-state/features/quickview/quickviewSlice";
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
 import { updateUser } from "@/libs/actions/user.action";
-import { IUser } from "@/libs/database/models/user.model";
 import { formatNumber } from "@/libs/utils";
 
 type CardProp = {

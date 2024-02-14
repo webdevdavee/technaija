@@ -1,5 +1,4 @@
 import { IProduct } from "@/libs/database/models/product.model";
-import { IUser } from "@/libs/database/models/user.model";
 import Image from "next/image";
 import { updateUser } from "@/libs/actions/user.action";
 import { Dispatch, SetStateAction } from "react";

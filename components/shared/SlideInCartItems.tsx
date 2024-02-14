@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
 import { setSlideInCart } from "@/libs/redux-state/features/slide-in-cart/slideInCart";
-import { IUser } from "@/libs/database/models/user.model";
 import Loader from "../ui/Loader";
 import { updateUser, getUserById } from "@/libs/actions/user.action";
 import { slideInCartState } from "@/libs/redux-state/features/slide-in-cart/slideInCart";

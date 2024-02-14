@@ -1,6 +1,5 @@
 "use client";
 
-import { IUser } from "@/libs/database/models/user.model";
 import ProductFilterBar from "../ui/ProductFilterBar";
 import Collection from "./Collection";
 import { IProduct } from "@/libs/database/models/product.model";

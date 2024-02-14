@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import QuantityCounter from "./QuantityCounter";
-import { IUser } from "@/libs/database/models/user.model";
 import { useState } from "react";
 import { updateUser } from "@/libs/actions/user.action";
 import { usePathname } from "next/navigation";

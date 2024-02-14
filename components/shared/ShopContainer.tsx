@@ -1,7 +1,6 @@
 import ShopContent from "./ShopContent";
 import { getAllProducts } from "@/libs/actions/product.action";
 import { IProduct } from "@/libs/database/models/product.model";
-import { IUser } from "@/libs/database/models/user.model";
 import { getUserById } from "@/libs/actions/user.action";
 import { currentUserID } from "@/userID";
 

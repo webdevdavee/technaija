@@ -1,6 +1,5 @@
 "use client";
 
-import { IUser } from "@/libs/database/models/user.model";
 import Image from "next/image";
 import Link from "next/link";
 import { updateUser } from "@/libs/actions/user.action";

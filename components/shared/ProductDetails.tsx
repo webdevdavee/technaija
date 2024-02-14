@@ -4,7 +4,6 @@ import { useState } from "react";
 import { IProduct } from "@/libs/database/models/product.model";
 import ProductTabs from "./ProductTabs";
 import { updateUser, getUserById } from "@/libs/actions/user.action";
-import { IUser } from "@/libs/database/models/user.model";
 import ProductGallery from "./ProductGallery";
 import ProductOptions from "./ProductOptions";
 import ProductInfo from "./ProductInfo";

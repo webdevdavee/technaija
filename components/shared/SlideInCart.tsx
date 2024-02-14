@@ -1,4 +1,3 @@
-import { IUser } from "@/libs/database/models/user.model";
 import SlideInCartItems from "./SlideInCartItems";
 import { getUserById } from "@/libs/actions/user.action";
 import { currentUserID } from "@/userID";
