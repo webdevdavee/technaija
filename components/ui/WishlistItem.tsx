@@ -9,10 +9,11 @@ import { useState } from "react";
 import Loader from "./Loader";
 
 type WishListProps = {
+  userId: string;
   fetchedUser: IUser;
 };
 
-const WishlistItem = ({ fetchedUser }: WishListProps) => {
+const WishlistItem = ({ userId, fetchedUser }: WishListProps) => {
   const pathname = usePathname();
 
   const [showLoader, setShowLoader] = useState(false);
@@ -34,10 +35,7 @@ const WishlistItem = ({ fetchedUser }: WishListProps) => {
 
       // Update the user's data on the server using the updateUser function
       // Pass the updated user object and the product's path as arguments
-      await updateUser({
-        updatedUser: fetchedUser,
-        path: "/wishlist",
-      });
+      await updateUser(userId, fetchedUser);
       // Remove loader
       setShowLoader(false);
     }

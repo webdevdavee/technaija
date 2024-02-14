@@ -2,10 +2,10 @@ import Collection from "./Collection";
 import { getAllProducts } from "@/libs/actions/product.action";
 import { IProduct } from "@/libs/database/models/product.model";
 import { IUser } from "@/libs/database/models/user.model";
-import { getUserById } from "@/libs/actions/user.action";
-import { currentUserID } from "@/userID";
 
 type CollectionProps = {
+  user: IUser;
+  userId: string;
   type: string;
   limit: number;
   title: string;
@@ -13,15 +13,13 @@ type CollectionProps = {
 };
 
 const FeaturedProduct = async ({
+  user,
+  userId,
   type,
   limit,
   title,
   subtitle,
 }: CollectionProps) => {
-  // Await the response from the getUserById function and store it in a variable
-  // The function takes a user id as an argument and returns a user object of type IUser
-  const user: IUser = await getUserById(currentUserID);
-
   // Await the response from the getAllProducts function and store it in a variable
   // The function takes a limit(number) as an argument
   const fetchedProducts = await getAllProducts(limit);
@@ -34,6 +32,7 @@ const FeaturedProduct = async ({
   return (
     <section>
       <Collection
+        userId={userId}
         user={user}
         products={products}
         type={type}

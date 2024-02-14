@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ReduxProvider from "@/libs/redux-state/ReduxProvider";
+import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   title: "Technaija",
@@ -13,10 +14,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <ReduxProvider>{children}</ReduxProvider>
-      </body>
-    </html>
+    <ClerkProvider
+      appearance={{
+        variables: {
+          colorPrimary: "#272829",
+          fontFamily: "Poppins, sans-serif",
+        },
+      }}
+    >
+      <html lang="en">
+        <body>
+          <ReduxProvider>{children}</ReduxProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

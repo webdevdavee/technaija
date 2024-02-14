@@ -13,6 +13,7 @@ import { IUser } from "@/libs/database/models/user.model";
 import { formatNumber } from "@/libs/utils";
 
 type CardProp = {
+  userId: string;
   type: string;
   product: IProduct;
   user: IUser;
@@ -20,7 +21,7 @@ type CardProp = {
 
 type WishlistItem = { name: string; image: string; price: number };
 
-const ProductCard = ({ type, product, user }: CardProp) => {
+const ProductCard = ({ userId, type, product, user }: CardProp) => {
   const dispatch = useDispatch();
 
   const { _id, name, price, sales_price, featured_image } = product;
@@ -66,10 +67,7 @@ const ProductCard = ({ type, product, user }: CardProp) => {
     }
     // Update the user's data on the server using the updateUser function
     // Pass an object with the updatedUser and the product's path as properties
-    await updateUser({
-      updatedUser: user,
-      path: "/wishlist",
-    });
+    await updateUser(userId, user);
     setShowIconLoader(false);
   };
 

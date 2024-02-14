@@ -4,11 +4,7 @@ import Overlay from "@/components/shared/Overlay";
 import SlideInCart from "@/components/shared/SlideInCart";
 import Search from "@/components/ui/Search";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Navbar />

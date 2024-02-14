@@ -6,16 +6,14 @@ import QuantityCounter from "./QuantityCounter";
 import { IUser } from "@/libs/database/models/user.model";
 import { useState } from "react";
 import { updateUser } from "@/libs/actions/user.action";
-import { usePathname } from "next/navigation";
 import { formatNumber } from "@/libs/utils";
 
 type CartListItemProps = {
+  userId: string;
   fetchedUser: IUser;
 };
 
-const CartListItem = ({ fetchedUser }: CartListItemProps) => {
-  const pathname = usePathname();
-
+const CartListItem = ({ userId, fetchedUser }: CartListItemProps) => {
   // Array to hold total amounts for each cart item
   const totals =
     fetchedUser &&
@@ -50,10 +48,7 @@ const CartListItem = ({ fetchedUser }: CartListItemProps) => {
 
       // Update the user's data on the server using the updateUser function
       // Pass the updated user object and the product's path as arguments
-      await updateUser({
-        updatedUser: fetchedUser,
-        path: "/cart",
-      });
+      await updateUser(userId, fetchedUser);
       // Remove loader
       setShowLoader(false);
     }
