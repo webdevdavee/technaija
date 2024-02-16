@@ -1,14 +1,16 @@
 import SlideInCartItems from "./SlideInCartItems";
-import { getUserById } from "@/libs/actions/user.action";
-import { currentUserID } from "@/userID";
+import { auth } from "@clerk/nextjs";
+import { getUserCartItems } from "@/libs/actions/cart.actions";
 
 const SlideInCart = async () => {
-  // // Await the response from the getUserById function and store it in a variable
-  // const fetchedUser: IUser = await getUserById(currentUserID);
+  const { sessionClaims } = auth();
+  const userId = sessionClaims?.userId as string;
+
+  const userCart = await getUserCartItems(userId);
 
   return (
     <section>
-      <SlideInCartItems />
+      <SlideInCartItems userId={userId} userCart={userCart.reverse()} />
     </section>
   );
 };

@@ -2,41 +2,29 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { updateUser } from "@/libs/actions/user.action";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Loader from "./Loader";
+import { TWishlistItem } from "@/libs/database/models/wishlist.model";
+import { removeProductFromWishlist } from "@/libs/actions/wishlist.actions";
+import { formatNumber } from "@/libs/utils";
 
-const WishlistItem = () => {
+type Wishlist = {
+  userId: string;
+  userWishlist: TWishlistItem[];
+};
+
+const WishlistItem = ({ userId, userWishlist }: Wishlist) => {
   const pathname = usePathname();
 
   const [showLoader, setShowLoader] = useState(false);
 
-  // const removeFromWishlist = async (item: UserWishlist) => {
-  //   // Check if there is a current user logged in
-  //   if (fetchedUser) {
-  //     // Find the index of the item in the user's wishlist by matching the item's _id property
-  //     const itemIndex = fetchedUser.wishlist.findIndex(
-  //       (wishlistItem) => wishlistItem._id === item._id
-  //     );
-
-  //     // If the item is found in the wishlist, remove it using the splice method
-  //     if (itemIndex !== -1) {
-  //       fetchedUser.wishlist.splice(itemIndex, 1);
-  //       // Show loader
-  //       setShowLoader(true);
-  //     }
-
-  //     // Update the user's data on the server using the updateUser function
-  //     // Pass the updated user object and the product's path as arguments
-  //     await updateUser({
-  //       updatedUser: fetchedUser,
-  //       path: "/wishlist",
-  //     });
-  //     // Remove loader
-  //     setShowLoader(false);
-  //   }
-  // };
+  const removeFromWishlist = async (product: UserWishlist) => {
+    setShowLoader(true);
+    await removeProductFromWishlist({ product, userId, path: pathname });
+    // Remove loader
+    setShowLoader(false);
+  };
 
   return (
     <section className="mt-6">
@@ -45,7 +33,7 @@ const WishlistItem = () => {
           <Loader className="loader" />
         </section>
       )}
-      {/* {fetchedUser && fetchedUser.wishlist.length >= 1 ? (
+      {userWishlist && userWishlist.length >= 1 ? (
         <table>
           <thead className="bg-slate-100">
             <tr>
@@ -57,7 +45,7 @@ const WishlistItem = () => {
           </thead>
 
           <tbody>
-            {fetchedUser.wishlist.map((item) => (
+            {userWishlist.map((item) => (
               <tr key={item._id}>
                 <td>
                   <button
@@ -81,7 +69,7 @@ const WishlistItem = () => {
                   />
                 </td>
                 <td>{item.name}</td>
-                <td>₦{item.price}</td>
+                <td>{formatNumber(item.price, "₦")}</td>
               </tr>
             ))}
           </tbody>
@@ -98,7 +86,7 @@ const WishlistItem = () => {
             Return to shop
           </Link>
         </div>
-      )} */}
+      )}
     </section>
   );
 };

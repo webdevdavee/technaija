@@ -1,20 +1,24 @@
 import ProductCard from "../ui/ProductCard";
 import { IProduct } from "@/libs/database/models/product.model";
+import { getUserWishlistItems } from "@/libs/actions/wishlist.actions";
+import { TWishlistItem } from "@/libs/database/models/wishlist.model";
 
 type CollectionProps = {
-  // user: IUser;
   products: IProduct[];
   type: string;
   title: string;
   subtitle?: string;
+  userId: string;
+  userWishlist: TWishlistItem[];
 };
 
 const Collection = async ({
-  // user,
   products,
   type,
   title,
   subtitle,
+  userId,
+  userWishlist,
 }: CollectionProps) => {
   return (
     <section
@@ -38,7 +42,8 @@ const Collection = async ({
             key={product._id}
             type={type}
             product={product}
-            // user={user}
+            userWishlist={userWishlist}
+            userId={userId}
           />
         ))}
       </div>

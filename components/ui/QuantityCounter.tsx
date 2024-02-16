@@ -1,21 +1,11 @@
-import { IProduct } from "@/libs/database/models/product.model";
 import Image from "next/image";
-import { updateUser } from "@/libs/actions/user.action";
 import { Dispatch, SetStateAction } from "react";
-
-type Item = {
-  _id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  photo: string;
-  model: string;
-};
+import { updateCartItem } from "@/libs/actions/cart.actions";
+import { TCartItem } from "@/libs/database/models/cart.model";
+import { usePathname } from "next/navigation";
 
 type QuantityCounterProps = {
-  item?: Item;
-  // user?: IUser;
-  product?: IProduct;
+  item?: TCartItem;
   type: "cart" | "productpage";
   quantity: number;
   incrementQuantity?: () => void;
@@ -25,64 +15,39 @@ type QuantityCounterProps = {
 
 const QuantityCounter = ({
   item,
-  // user,
-  product,
   type,
   quantity,
   incrementQuantity,
   decrementQuantity,
   setShowLoader,
 }: QuantityCounterProps) => {
-  // const incrementCartProductQuantity = async () => {
-  //   // Check if user and item are defined
-  //   if (user && item) {
-  //     // Find the index of the item in the user's cart
-  //     const itemIndex = user.cart.findIndex(
-  //       (cartItem) => cartItem._id === item._id
-  //     );
-  //     // If the item is found, increment its quantity by 1
-  //     if (itemIndex !== -1) {
-  //       user.cart[itemIndex].quantity += 1;
-  //       setShowLoader && setShowLoader(true);
-  //     }
-  //     // Otherwise, push the item to the user's cart
-  //     else {
-  //       user.cart.push(item);
-  //     }
-  //     // Update the user in the database using the updateUser function
-  //     await updateUser({
-  //       updatedUser: user,
-  //       path: `/product/${product && product._id}`,
-  //     });
-  //     setShowLoader && setShowLoader(false);
-  //   }
-  // };
+  const pathname = usePathname();
 
-  // const decrementCartProductQuantity = async () => {
-  //   // Check if user and item are defined
-  //   if (user && item) {
-  //     // Find the index of the item in the user's cart
-  //     const itemIndex = user.cart.findIndex(
-  //       (cartItem) => cartItem._id === item._id
-  //     );
-  //     // If the item is found, decrement its quantity by 1
-  //     if (itemIndex !== -1) {
-  //       user.cart[itemIndex].quantity -= 1;
-  //       if (user.cart[itemIndex]._id === item._id)
-  //         setShowLoader && setShowLoader(true);
-  //     }
-  //     // Otherwise, push the item to the user's cart
-  //     else {
-  //       user.cart.push(item);
-  //     }
-  //     // Update the user in the database using the updateUser function
-  //     await updateUser({
-  //       updatedUser: user,
-  //       path: `/product/${product && product._id}`,
-  //     });
-  //     setShowLoader && setShowLoader(false);
-  //   }
-  // };
+  const incrementCartProductQuantity = async () => {
+    // Check if item is defined
+    if (item && type === "cart") {
+      const cartItem: TCartItem = { ...item, quantity: (quantity += 1) };
+
+      setShowLoader && setShowLoader(true);
+      // Update the cart in the database using the updateCartItem function
+      await updateCartItem(cartItem, pathname);
+
+      setShowLoader && setShowLoader(false);
+    }
+  };
+
+  const decrementCartProductQuantity = async () => {
+    // Check if item is defined
+    if (item && type === "cart") {
+      const cartItem: TCartItem = { ...item, quantity: (quantity -= 1) };
+
+      setShowLoader && setShowLoader(true);
+      // Update the cart in the database using the updateCartItem function
+      await updateCartItem(cartItem, pathname);
+
+      setShowLoader && setShowLoader(false);
+    }
+  };
 
   return (
     <span className="w-fit flex gap-8 items-center p-2 border-[1px] border-gray-300">
@@ -90,11 +55,11 @@ const QuantityCounter = ({
         className="disabled:cursor-not-allowed"
         disabled={quantity === 1 && true}
         type="button"
-        // onClick={
-        //   type === "productpage"
-        //     ? decrementQuantity
-        //     : decrementCartProductQuantity
-        // }
+        onClick={
+          type === "productpage"
+            ? decrementQuantity
+            : decrementCartProductQuantity
+        }
       >
         <Image
           className="hover:bg-gray-200 hover:transition rounded-[50%]"
@@ -107,11 +72,11 @@ const QuantityCounter = ({
       <p>{quantity}</p>
       <button
         type="button"
-        // onClick={
-        //   type === "productpage"
-        //     ? incrementQuantity
-        //     : incrementCartProductQuantity
-        // }
+        onClick={
+          type === "productpage"
+            ? incrementQuantity
+            : incrementCartProductQuantity
+        }
       >
         <Image
           className="hover:bg-gray-200 hover:transition rounded-[50%]"

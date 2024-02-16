@@ -3,40 +3,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import QuantityCounter from "../ui/QuantityCounter";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
 import { setSlideInCart } from "@/libs/redux-state/features/slide-in-cart/slideInCart";
 import Loader from "../ui/Loader";
-import { updateUser, getUserById } from "@/libs/actions/user.action";
 import { slideInCartState } from "@/libs/redux-state/features/slide-in-cart/slideInCart";
-import { usePathname } from "next/navigation";
-import { currentUserID } from "@/userID";
 import { formatNumber } from "@/libs/utils";
+import { TCartItem } from "@/libs/database/models/cart.model";
+import { removeProductFromCart } from "@/libs/actions/cart.actions";
+import { usePathname } from "next/navigation";
 
-type SlideInCartProp = {
-  fetchedUser?: IUser;
+type SlideInCartProps = {
+  userId: string;
+  userCart: TCartItem[];
 };
 
-const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
+const SlideInCart = ({ userId, userCart }: SlideInCartProps) => {
   const dispatch = useDispatch();
   const pathname = usePathname();
-
-  const [user, setUser] = useState<IUser>();
-
-  // useEffect(() => {
-  //   // Define an async function to get the user data
-  //   const getUser = async () => {
-  //     // Await the response from the getUserById function
-  //     // The getUserById function takes the current user ID as an argument and returns an IUser object
-  //     const currentUser: IUser = await getUserById(currentUserID);
-  //     // Update the user state with the fetched user object
-  //     setUser(currentUser);
-  //   };
-  //   getUser();
-  // }, [pathname, fetchedUser]);
-  // The pathname is the current URL of the browser
-  // The fetchedUser is the user object returned by the getUserById function
 
   const theCart = useSelector(slideInCartState);
   const { showSlideInCart } = theCart;
@@ -44,19 +29,17 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
   const [showLoader, setShowLoader] = useState(false);
 
   // Array to hold total amounts for each cart item
-  // const totals =
-  //   user &&
-  //   user.cart.map((item) => {
-  //     const total = item.price * item.quantity;
-  //     return total;
-  //   });
+  const totals = userCart?.map((item) => {
+    const total = item.price * item.quantity;
+    return total;
+  });
 
-  // // Use reduce to sum up the numbers
-  // const grandTotal =
-  //   totals &&
-  //   totals.reduce((a, b) => {
-  //     return a + b;
-  //   }, 0);
+  // Use reduce to sum up the numbers
+  const grandTotal =
+    totals &&
+    totals.reduce((a, b) => {
+      return a + b;
+    }, 0);
 
   // Close cart
   const handleCloseCart = () => {
@@ -65,31 +48,13 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
     document.body.classList.remove("no_scroll");
   };
 
-  // const removeFromCart = async (item: UserCart) => {
-  //   // Check if there is a current user logged in
-  //   if (user) {
-  //     // Find the index of the item in the user's cart by matching the item's _id property
-  //     const itemIndex = user.cart.findIndex(
-  //       (cartItem) => cartItem._id === item._id
-  //     );
-
-  //     // If the item is found in the cart, remove it using the splice method
-  //     if (itemIndex !== -1) {
-  //       user.cart.splice(itemIndex, 1);
-  //       // Show loader
-  //       setShowLoader(true);
-  //     }
-
-  //     // Update the user's data on the server using the updateUser function
-  //     // Pass the updated user object and the product's path as arguments
-  //     await updateUser({
-  //       updatedUser: user,
-  //       path: "/cart",
-  //     });
-  //     // Remove loader
-  //     setShowLoader(false);
-  //   }
-  // };
+  const removeFromCart = async (product: UserCart) => {
+    // Show loader
+    setShowLoader(true);
+    await removeProductFromCart({ product, userId, path: pathname });
+    // Remove loader
+    setShowLoader(false);
+  };
 
   return (
     <section
@@ -116,8 +81,8 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
               <Loader className="loader" />
             </section>
           )}
-          {/* {user && user.cart.length >= 1 ? (
-            user.cart.map((item) => (
+          {userCart.length >= 1 ? (
+            userCart.map((item) => (
               <div
                 key={item._id}
                 className="w-full relative flex items-start gap-6 border-b-[1px] border-gray-300 pb-8"
@@ -134,14 +99,13 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
                   </span>
                   <QuantityCounter
                     item={item}
-                    user={user}
                     type="cart"
                     quantity={item.quantity}
                     setShowLoader={setShowLoader}
                   />
                 </span>
                 <button
-                  className="absolute bottom-[28%] right-0 flex items-center gap-1"
+                  className="absolute bottom-[28%] right-2 flex items-center gap-1"
                   type="button"
                   onClick={() => removeFromCart(item)}
                 >
@@ -161,13 +125,13 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
                 Go shopping
               </Link>
             </div>
-          )} */}
+          )}
         </div>
         <div className="flex flex-col gap-12 mt-6">
           <span className="flex items-center justify-between">
             <p className="text-base capitalize text-black">Subtotal:</p>
             <p className="text-base capitalize text-black">
-              {/* {formatNumber(grandTotal, "₦")} */}
+              {formatNumber(grandTotal, "₦")}
             </p>
           </span>
           <span className="w-full flex flex-col gap-2">
@@ -182,6 +146,9 @@ const SlideInCart = ({ fetchedUser }: SlideInCartProp) => {
               className="border-[1px] border-gray-400 bg-transparent capitalize p-4 text-center"
               href={"/checkout"}
               onClick={handleCloseCart}
+              style={{
+                display: userCart.length === 0 || !userCart ? "none" : "block",
+              }}
             >
               Checkout
             </Link>

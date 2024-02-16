@@ -7,6 +7,8 @@ import { formatDate } from "@/libs/utils";
 import { TReviewSchema, reviewSchema } from "@/libs/zod";
 import { IProduct } from "@/libs/database/models/product.model";
 import { updateProduct } from "@/libs/actions/product.action";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
+import Link from "next/link";
 
 type ReviewFormProp = {
   product: IProduct;
@@ -101,13 +103,26 @@ const ReviewForm = ({ product }: ReviewFormProp) => {
               I comment.
             </p>
           </span>
-          <button
-            disabled={isSubmitting}
-            className="w-fit py-3 px-12 bg-[#272829] text-white disabled:bg-gray-300 transition"
-            type="submit"
-          >
-            {isSubmitting ? "...submitting" : "Submit"}
-          </button>
+          <SignedOut>
+            <Link href="/sign-in">
+              <button
+                disabled={isSubmitting}
+                className="w-fit py-3 px-12 bg-[#272829] text-white disabled:bg-gray-300 transition"
+                type="submit"
+              >
+                {isSubmitting ? "...submitting" : "Submit"}
+              </button>
+            </Link>
+          </SignedOut>
+          <SignedIn>
+            <button
+              disabled={isSubmitting}
+              className="w-fit py-3 px-12 bg-[#272829] text-white disabled:bg-gray-300 transition"
+              type="submit"
+            >
+              {isSubmitting ? "...submitting" : "Submit"}
+            </button>
+          </SignedIn>
         </form>
       </div>
     </section>

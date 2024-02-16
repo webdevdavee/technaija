@@ -18,7 +18,7 @@ const CollectionBanner = () => {
           <div className="w-fit absolute bottom-[-13%] translate-x-[30%] bg-white px-10 py-7 capitalize flex flex-col gap-3 items-center justify-center">
             <p className="text-2xl mb-3 font-medium">must have accessories</p>
             <span>
-              <Link href={"/accessories"}>
+              <Link href={"/shop?category=Accessories&Accessories=true"}>
                 <span className="flex gap-2 items-center justify-center">
                   <p className="text-base">shop now</p>
                   <Image
@@ -48,7 +48,7 @@ const CollectionBanner = () => {
               under NGN 10,000 collection
             </p>
             <span>
-              <Link href={"/accessories"}>
+              <Link href={"/shop"}>
                 <span className="flex gap-2 items-center justify-center">
                   <p className="text-base">shop now</p>
                   <Image

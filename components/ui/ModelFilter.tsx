@@ -28,7 +28,6 @@ const ModelFilter = ({
   fetchedProducts,
   categorySearchParams,
 }: ModelFilterProp) => {
-  const dispatch = useDispatch();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -67,19 +66,6 @@ const ModelFilter = ({
       });
       // Set the main products data to the retrieved data from the database
       setProducts(modifiedProducts && modifiedProducts.data);
-
-      // // Make a copy of the initial model array
-      // modelFilterArray.current = [...modelFilterArray.current];
-      // // Push the model to the current array
-      // modelFilterArray.current.push(model);
-      // dispatch(setModelFilterArray(modelFilterArray.current));
-      // // Use the callback function to get the new state value
-      // const modifiedProducts = await getProductsByFilter({
-      //   modelFilterArray: modelFilterArray.current,
-      //   limit: 8,
-      //   page,
-      // });
-      // setProducts(modifiedProducts && modifiedProducts.data);
     } else if (
       e.currentTarget.checked === false &&
       e.currentTarget.id === model
@@ -105,24 +91,6 @@ const ModelFilter = ({
           ? modifiedProducts.data
           : fetchedProducts
       );
-
-      // // Filter out the model from the current array
-      // const modelToRemove = modelFilterArray.current.filter(
-      //   (themodel) => themodel !== model
-      // );
-      // // Assign the filtered array to the current array
-      // modelFilterArray.current = modelToRemove;
-      // dispatch(setModelFilterArray(modelFilterArray.current));
-      // const modifiedProducts = await getProductsByFilter({
-      //   modelFilterArray: modelFilterArray.current,
-      //   limit: 8,
-      //   page,
-      // });
-      // setProducts(
-      //   modifiedProducts && modifiedProducts.data.length >= 1
-      //     ? modifiedProducts.data
-      //     : fetchedProducts
-      // );
     } else {
       setProducts(fetchedProducts);
     }

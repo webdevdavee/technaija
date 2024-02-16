@@ -1,18 +1,19 @@
 import ShopContent from "./ShopContent";
 import { getAllProducts } from "@/libs/actions/product.action";
 import { IProduct } from "@/libs/database/models/product.model";
-import { getUserById } from "@/libs/actions/user.action";
-import { currentUserID } from "@/userID";
+import { TWishlistItem } from "@/libs/database/models/wishlist.model";
 
 type ShopContainerProp = {
   page: number;
+  userId: string;
+  userWishlist: TWishlistItem[];
 };
 
-const ShopContainer = async ({ page }: ShopContainerProp) => {
-  // // Await the response from the getUserById function and store it in a variable
-  // // The function takes a user id as an argument and returns a user object of type IUser
-  // const user: IUser = await getUserById(currentUserID);
-
+const ShopContainer = async ({
+  page,
+  userId,
+  userWishlist,
+}: ShopContainerProp) => {
   // Await the response from the getAllProducts function and store it in a variable
   // The function takes a limit(number) as an argument
   const fetchedProducts = await getAllProducts(8, page);
@@ -33,11 +34,12 @@ const ShopContainer = async ({ page }: ShopContainerProp) => {
   return (
     <section>
       <ShopContent
-        // user={user}
         fetchedProducts={products}
         productsWithNoLimit={productsWithNoLimit}
         page={page}
         newLimit={newLimit && newLimit}
+        userId={userId}
+        userWishlist={userWishlist}
       />
     </section>
   );

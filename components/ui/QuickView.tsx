@@ -8,28 +8,27 @@ import { setQuickview } from "@/libs/redux-state/features/quickview/quickviewSli
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
 import { useState } from "react";
 import { IProduct } from "@/libs/database/models/product.model";
-import { getUserById, updateUser } from "@/libs/actions/user.action";
 import AlertBox from "./AlertBox";
 import Link from "next/link";
 import ProductInfo from "../shared/ProductInfo";
 import ProductOptions from "../shared/ProductOptions";
-import { currentUserID } from "@/userID";
 import { setCartCount } from "@/libs/redux-state/features/cart-count/cartCountSlice";
+import {
+  addProductToCart,
+  getTotalUserCart,
+} from "@/libs/actions/cart.actions";
+import { usePathname } from "next/navigation";
+import { addProductToWishlist } from "@/libs/actions/wishlist.actions";
 
-type CartItem = {
-  name: string;
-  price: number;
-  quantity: number;
-  photo: string;
-  model: string;
+type Quickview = {
+  userId: string;
 };
 
-type WishlistItem = { name: string; image: string; price: number };
-
-const QuickView = () => {
+const QuickView = ({ userId }: Quickview) => {
   const [quantity, setQuantity] = useState(1);
 
   const dispatch = useDispatch();
+  const pathname = usePathname();
 
   const currentProduct = useSelector(productState);
   const { product } = currentProduct;
@@ -52,96 +51,76 @@ const QuickView = () => {
   const [modelError, setModelError] = useState(false);
 
   // Define an async function that takes a product of type IProduct as a parameter
-  // const addToCart = async (product: IProduct) => {
-  //   // Await the response from the getUserById function and store it in a variable
-  //   // The function takes a user id as an argument and returns a user object of type IUser
-  //   const fetchedUser: IUser = await getUserById(currentUserID);
+  const addToCart = async (product: IProduct) => {
+    // Create an object of type CartItem with the product's details
+    const cartedProduct: CartItem = {
+      name: product.name,
+      model: selectedModel!, // Use the non-null assertion operator to indicate that selectedModel is not null or undefined
+      quantity: quantity,
+      photo: currentImage,
+      price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
+    };
 
-  //   // Create an object of type CartItem with the product's details
-  //   const cartedProduct: CartItem = {
-  //     name: product.name,
-  //     model: selectedModel!, // Use the non-null assertion operator to indicate that selectedModel is not null or undefined
-  //     quantity: quantity,
-  //     photo: currentImage,
-  //     price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
-  //   };
+    if (selectedModel !== undefined) {
+      // Show loader on the add to cart button
+      setShowLoader(true);
 
-  //   if (selectedModel !== undefined) {
-  //     // Create an object of type IUser with the updated cart
-  //     // Use the spread operator to copy the properties of the fetched user
-  //     const updatedUser = {
-  //       ...fetchedUser,
-  //       // Use the spread operator to add the cartedProduct to the beginning of the user's cart array
-  //       cart: [cartedProduct, ...fetchedUser.cart],
-  //     };
+      // Call server function to add product or item to the database Cart collection
+      await addProductToCart({
+        product: cartedProduct,
+        userId,
+        path: pathname,
+      });
 
-  //     // Show loader on the add to cart button
-  //     setShowLoader(true);
+      // Call server function to get the user's total carted products
+      const userCart = await getTotalUserCart(userId);
 
-  //     // Update the user's data on the server using the updateUser function
-  //     // Pass an object with the updatedUser and the product's path as properties
-  //     await updateUser({
-  //       updatedUser,
-  //       path: "/cart",
-  //     });
+      // Set the total carted product number to the redux cartCount state
+      dispatch(setCartCount(userCart[0]?.count));
 
-  //     dispatch(setCartCount(updatedUser.cart.length));
+      // Show a success status message or alert box when a product is added to cart
+      setShowCartAlertBox(true);
 
-  //     // Show a success status message or alert box when a product is added to cart
-  //     setShowCartAlertBox(true);
+      // Remove loader from the add to cart button
+      setShowLoader(false);
 
-  //     // Remove loader from the add to cart button
-  //     setShowLoader(false);
+      // After 3 seconds remove the alert message or alert box
+      setTimeout(() => {
+        setShowCartAlertBox(false);
+      }, 4000);
+    } else {
+      setModelError(true);
+    }
+  };
 
-  //     // After 3 seconds remove the alert message or alert box
-  //     setTimeout(() => {
-  //       setShowCartAlertBox(false);
-  //     }, 4000);
-  //   } else {
-  //     setModelError(true);
-  //   }
-  // };
+  const addToWishlist = async (product: IProduct) => {
+    // Create an object of type WishlistItem with the product's details
+    const wishlistProduct: WishlistItem = {
+      name: product.name,
+      price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
+      image: currentImage,
+    };
 
-  // const addToWishlist = async (product: IProduct) => {
-  //   // Await the response from the getUserById function and store it in a variable
-  //   // The function takes a user id as an argument and returns a user object of type IUser
-  //   const fetchedUser: IUser = await getUserById(currentUserID);
+    // Show loader on the add to cart button
+    setShowLoader(true);
 
-  //   // Create an object of type WishlistItem with the product's details
-  //   const wishlistProduct: WishlistItem = {
-  //     name: product.name,
-  //     price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
-  //     image: currentImage,
-  //   };
+    await addProductToWishlist({
+      product: wishlistProduct,
+      userId,
+      path: pathname,
+    });
 
-  //   // Use the spread operator to copy the properties of the fetched user
-  //   const updatedUser = {
-  //     ...fetchedUser,
-  //     // Use the spread operator to add the cartedProduct to the beginning of the user's cart array
-  //     wishlist: [wishlistProduct, ...fetchedUser.wishlist],
-  //   };
+    // Show a success status message or alert box when a product is added to cart
+    setShowWishlistAlertBox(true);
 
-  //   // Show loader on the add to cart button
-  //   setShowLoader(true);
+    // Remove loader from the add to cart button
+    setShowLoader(false);
 
-  //   // Update the user's data on the server using the updateUser function
-  //   // Pass an object with the updatedUser and the product's path as properties
-  //   await updateUser({
-  //     updatedUser,
-  //     path: "/wishlist",
-  //   });
-
-  //   // Show a success status message or alert box when a product is added to cart
-  //   setShowWishlistAlertBox(true);
-
-  //   // Remove loader from the add to cart button
-  //   setShowLoader(false);
-
-  //   // After 3 seconds remove the alert message or alert box
-  //   setTimeout(() => {
-  //     setShowWishlistAlertBox(false);
-  //   }, 4000);
-  // };
+    // After 3 seconds remove the alert message or alert box
+    setTimeout(() => {
+      setShowWishlistAlertBox(false);
+    }, 4000);
+  };
 
   const closeQuickview = () => {
     dispatch(setQuickview(false));
@@ -177,8 +156,8 @@ const QuickView = () => {
               setSelectedModel={setSelectedModel}
               quantity={quantity}
               setQuantity={setQuantity}
-              // addToCart={addToCart}
-              // addToWishlist={addToWishlist}
+              addToCart={addToCart}
+              addToWishlist={addToWishlist}
               showLoader={showLoader}
               modelError={modelError}
               setModelError={setModelError}

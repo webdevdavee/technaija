@@ -8,19 +8,26 @@ import { useDispatch } from "react-redux";
 import { setProduct } from "@/libs/redux-state/features/product/productSlice";
 import { setQuickview } from "@/libs/redux-state/features/quickview/quickviewSlice";
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
-import { updateUser } from "@/libs/actions/user.action";
 import { formatNumber } from "@/libs/utils";
+import { TWishlistItem } from "@/libs/database/models/wishlist.model";
+import {
+  addProductToWishlist,
+  removeProductFromWishlist,
+} from "@/libs/actions/wishlist.actions";
+import { usePathname } from "next/navigation";
 
 type CardProp = {
   type: string;
   product: IProduct;
-  // user: IUser;
+  userWishlist: TWishlistItem[];
+  userId: string;
 };
 
 type WishlistItem = { name: string; image: string; price: number };
 
-const ProductCard = ({ type, product }: CardProp) => {
+const ProductCard = ({ type, product, userWishlist, userId }: CardProp) => {
   const dispatch = useDispatch();
+  const pathname = usePathname();
 
   const { _id, name, price, sales_price, featured_image } = product;
 
@@ -34,43 +41,49 @@ const ProductCard = ({ type, product }: CardProp) => {
   };
 
   // Check if the index of the product or item exists in user's wishlist
-  // const existingItem = user.wishlist.findIndex((item) => {
-  //   return item.name === product.name;
-  // });
+  const existingItem = userWishlist.find((item) => {
+    return item.name === name;
+  });
 
-  // useEffect(() => {
-  //   if (existingItem !== -1) {
-  //     setItemExists(true);
-  //   } else {
-  //     setItemExists(false);
-  //   }
-  // }, [existingItem]);
+  useEffect(() => {
+    if (existingItem) {
+      setItemExists(true);
+    } else {
+      setItemExists(false);
+    }
+  }, [existingItem]);
 
-  // const addToWishlist = async (product: IProduct) => {
-  //   if (existingItem !== -1) {
-  //     // Call splice to remove element from array
-  //     user.wishlist.splice(existingItem, 1)[0];
-  //     setShowIconLoader(true);
-  //   } else {
-  //     // Create an object of type WishlistItem with the product's details
-  //     const wishlistProduct: WishlistItem = {
-  //       name: product.name,
-  //       price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
-  //       image: product.featured_image,
-  //     };
+  const addToWishlist = async (product: IProduct) => {
+    // If item exists in wishlist
+    if (existingItem) {
+      setShowIconLoader(true);
+      // Remove item from wishlist
+      await removeProductFromWishlist({
+        product: existingItem,
+        userId,
+        path: pathname,
+      });
+      setShowIconLoader(false);
+    }
+    // If item does not exist in wishlist
+    else {
+      // Create an object of type WishlistItem with the product's details
+      const wishlistProduct: WishlistItem = {
+        name: product.name,
+        price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
+        image: product.featured_image,
+      };
 
-  //     // Use the unshift method to add the wishlistProduct to the beginning of the user's cart array
-  //     user.wishlist.unshift(wishlistProduct);
-  //     setShowIconLoader(true);
-  //   }
-  //   // Update the user's data on the server using the updateUser function
-  //   // Pass an object with the updatedUser and the product's path as properties
-  //   await updateUser({
-  //     updatedUser: user,
-  //     path: "/wishlist",
-  //   });
-  //   setShowIconLoader(false);
-  // };
+      setShowIconLoader(true);
+      // Add wishlistProduct to userWishlist array
+      await addProductToWishlist({
+        product: wishlistProduct,
+        userId,
+        path: pathname,
+      });
+      setShowIconLoader(false);
+    }
+  };
 
   return (
     <section className="w-fit group">
@@ -87,7 +100,7 @@ const ProductCard = ({ type, product }: CardProp) => {
         </Link>
         <div
           className="absolute bg-white drop-shadow-md p-2 transition duration-300 cursor-pointer top-[5%] right-[10%] rounded-full hover:bg-gray-100 translate-x-[1000%] group-hover:-translate-x-0 group-hover:transition group-hover:duration-300"
-          // onClick={() => addToWishlist(product)}
+          onClick={() => addToWishlist(product)}
         >
           {showIconLoader ? (
             <Image

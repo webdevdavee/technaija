@@ -4,65 +4,53 @@ import Link from "next/link";
 import Image from "next/image";
 import QuantityCounter from "./QuantityCounter";
 import { useState } from "react";
-import { updateUser } from "@/libs/actions/user.action";
 import { usePathname } from "next/navigation";
 import { formatNumber } from "@/libs/utils";
+import { TCartItem } from "@/libs/database/models/cart.model";
+import { removeProductFromCart } from "@/libs/actions/cart.actions";
+import Loader from "./Loader";
 
-// type CartListItemProps = {
-//   fetchedUser: IUser;
-// };
+type CartList = {
+  userId: string;
+  userCart: TCartItem[];
+};
 
-const CartListItem = () => {
+const CartListItem = ({ userId, userCart }: CartList) => {
   const pathname = usePathname();
-
-  // Array to hold total amounts for each cart item
-  // const totals =
-  //   fetchedUser &&
-  //   fetchedUser.cart.map((item) => {
-  //     const total = item.price * item.quantity;
-  //     return total;
-  //   });
-
-  // // Use reduce to sum up the numbers
-  // const grandTotal =
-  //   totals &&
-  //   totals.reduce((a, b) => {
-  //     return a + b;
-  //   }, 0);
 
   const [showLoader, setShowLoader] = useState(false);
 
-  // const removeFromCart = async (item: UserCart) => {
-  //   // Check if there is a current user logged in
-  //   if (fetchedUser) {
-  //     // Find the index of the item in the user's cart by matching the item's _id property
-  //     const itemIndex = fetchedUser.cart.findIndex(
-  //       (cartItem) => cartItem._id === item._id
-  //     );
+  // Array to hold total amounts for each cart item
+  const totals = userCart.map((item) => {
+    const total = item.price * item.quantity;
+    return total;
+  });
 
-  //     // If the item is found in the cart, remove it using the splice method
-  //     if (itemIndex !== -1) {
-  //       fetchedUser.cart.splice(itemIndex, 1);
-  //       // Show loader
-  //       setShowLoader(true);
-  //     }
+  // Use reduce to sum up the numbers
+  const grandTotal =
+    totals &&
+    totals.reduce((a, b) => {
+      return a + b;
+    }, 0);
 
-  //     // Update the user's data on the server using the updateUser function
-  //     // Pass the updated user object and the product's path as arguments
-  //     await updateUser({
-  //       updatedUser: fetchedUser,
-  //       path: "/cart",
-  //     });
-  //     // Remove loader
-  //     setShowLoader(false);
-  //   }
-  // };
+  const removeFromCart = async (product: UserCart) => {
+    // Show loader
+    setShowLoader(true);
+    await removeProductFromCart({ product, userId, path: pathname });
+    // Remove loader
+    setShowLoader(false);
+  };
 
   return (
     <section className="flex gap-20 mt-6">
       <div className="flex flex-col gap-6 w-full">
-        {/* {fetchedUser.cart.length >= 1 ? (
-          fetchedUser.cart.map((item) => (
+        {showLoader && (
+          <section className="absolute w-full h-full top-0 bottom-0 left-0 right-0 transition-[0.3] ease-in-out duration-300 bg-white opacity-70 z-[56]">
+            <Loader className="loader" />
+          </section>
+        )}
+        {userCart.length >= 1 ? (
+          userCart.map((item) => (
             <div
               key={item._id}
               className="w-full relative flex items-start gap-6 border-b-[1px] border-gray-300 pb-8"
@@ -79,7 +67,6 @@ const CartListItem = () => {
                 </span>
                 <QuantityCounter
                   item={item}
-                  user={fetchedUser}
                   type="cart"
                   quantity={item.quantity}
                   setShowLoader={setShowLoader}
@@ -107,13 +94,13 @@ const CartListItem = () => {
               Return to shop
             </Link>
           </div>
-        )} */}
+        )}
       </div>
       <div className="w-[60%] flex flex-col gap-6 sticky">
         <div className="w-full p-4 bg-[#F5F5F5]">
           <span className="flex justify-between items-center gap-12 border-b-[1px] border-gray-300 p-4">
             <p>Total</p>
-            {/* <p>{formatNumber(grandTotal!, "₦")}</p> */}
+            <p>{formatNumber(grandTotal, "₦")}</p>
           </span>
           <span className="flex justify-between items-center">
             <p></p>

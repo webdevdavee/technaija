@@ -1,14 +1,21 @@
 import QuickView from "@/components/ui/QuickView";
 import ShopContainer from "@/components/shared/ShopContainer";
+import { auth } from "@clerk/nextjs";
+import { getUserWishlistItems } from "@/libs/actions/wishlist.actions";
 
 const Shop = async ({ searchParams }: SearchParamProps) => {
   let page = parseInt(searchParams.page as string, 10);
   page = !page || page < 1 ? 1 : page;
 
+  const { sessionClaims } = auth();
+  const userId = sessionClaims?.userId as string;
+
+  const userWishlist = await getUserWishlistItems(userId);
+
   return (
     <section className="px-20 py-8 overflow-hidden relative mt-24">
-      <QuickView />
-      <ShopContainer page={page} />
+      <QuickView userId={userId} />
+      <ShopContainer page={page} userId={userId} userWishlist={userWishlist} />
     </section>
   );
 };

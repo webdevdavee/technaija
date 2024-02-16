@@ -1,12 +1,15 @@
-import { getUserById } from "@/libs/actions/user.action";
 import NavbarItems from "./NavbarItems";
-import { currentUserID } from "@/userID";
+import { auth } from "@clerk/nextjs";
+import { getTotalUserCart } from "@/libs/actions/cart.actions";
 
 const Navbar = async () => {
-  // // Await the response from the getUserById function and store it in a variable
-  // const fetchedUser: IUser = await getUserById(currentUserID);
+  const { sessionClaims } = auth();
+  const userId = sessionClaims?.userId as string;
 
-  return <NavbarItems />;
+  // Call server function to get the user's total carted products
+  const userCart = await getTotalUserCart(userId);
+
+  return <NavbarItems userCart={userCart} />;
 };
 
 export default Navbar;

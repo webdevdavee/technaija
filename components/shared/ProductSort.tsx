@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent } from "react";
 import { productSortList } from "@/constants";
 import Image from "next/image";
 import { IProduct } from "@/libs/database/models/product.model";

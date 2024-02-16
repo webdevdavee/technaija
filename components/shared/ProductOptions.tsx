@@ -1,9 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
 import QuantityCounter from "../ui/QuantityCounter";
 import { IProduct } from "@/libs/database/models/product.model";
 import Loader from "../ui/Loader";
 import { ChangeEvent } from "react";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 
 type ProductOptionProp = {
   product: IProduct;
@@ -11,8 +13,8 @@ type ProductOptionProp = {
   setSelectedModel: Dispatch<SetStateAction<string | undefined>>;
   quantity: number;
   setQuantity: Dispatch<SetStateAction<number>>;
-  // addToCart: (product: IProduct) => Promise<void>;
-  // addToWishlist: (product: IProduct) => Promise<void>;
+  addToCart: (product: IProduct) => Promise<void>;
+  addToWishlist: (product: IProduct) => Promise<void>;
   showLoader: boolean;
   modelError?: boolean;
   setModelError?: Dispatch<SetStateAction<boolean>>;
@@ -24,8 +26,8 @@ const ProductOptions = ({
   setSelectedModel,
   quantity,
   setQuantity,
-  // addToCart,
-  // addToWishlist,
+  addToCart,
+  addToWishlist,
   showLoader,
   modelError,
   setModelError,
@@ -104,32 +106,67 @@ const ProductOptions = ({
           incrementQuantity={incrementQuantity}
           decrementQuantity={decrementQuantity}
         />
+        <SignedOut>
+          <Link href="/sign-in">
+            <button
+              type="button"
+              className={`w-[13rem] py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition ${
+                selectedModel === "" || showLoader
+                  ? "bg-gray-300 cursor-not-allowed hover:bg-gray-300 transition duration-500"
+                  : ""
+              }`}
+              disabled={selectedModel === "" || showLoader ? true : false}
+            >
+              {showLoader ? <Loader className={"loader2"} /> : "add to cart"}
+            </button>
+          </Link>
+        </SignedOut>
+        <SignedIn>
+          <button
+            type="button"
+            className={`w-[13rem] py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition ${
+              selectedModel === "" || showLoader
+                ? "bg-gray-300 cursor-not-allowed hover:bg-gray-300 transition duration-500"
+                : ""
+            }`}
+            disabled={selectedModel === "" || showLoader ? true : false}
+            onClick={() => addToCart(product)}
+          >
+            {showLoader ? <Loader className={"loader2"} /> : "add to cart"}
+          </button>
+        </SignedIn>
+      </span>
+      <SignedOut>
+        <Link href="/sign-in">
+          <button
+            type="button"
+            className={`flex gap-4 items-center py-2 px-6 capitalize transition duration-500 border-[1px] border-gray-300 ${
+              selectedModel === "" || showLoader
+                ? "bg-gray-300 cursor-not-allowed transition duration-500"
+                : ""
+            }`}
+            disabled={selectedModel === "" || showLoader ? true : false}
+          >
+            {showLoader ? <Loader className={"loader2"} /> : "wishlist"}
+            <Image src="/heart.svg" width={20} height={20} alt="wishlist" />
+          </button>
+        </Link>
+      </SignedOut>
+      <SignedIn>
         <button
           type="button"
-          className={`w-[13rem] py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition ${
+          className={`flex gap-4 items-center py-2 px-6 capitalize transition duration-500 border-[1px] border-gray-300 ${
             selectedModel === "" || showLoader
-              ? "bg-gray-300 cursor-not-allowed hover:bg-gray-300 transition duration-500"
+              ? "bg-gray-300 cursor-not-allowed transition duration-500"
               : ""
           }`}
           disabled={selectedModel === "" || showLoader ? true : false}
-          // onClick={() => addToCart(product)}
+          onClick={() => addToWishlist(product)}
         >
-          {showLoader ? <Loader className={"loader2"} /> : "add to cart"}
+          {showLoader ? <Loader className={"loader2"} /> : "wishlist"}
+          <Image src="/heart.svg" width={20} height={20} alt="wishlist" />
         </button>
-      </span>
-      <button
-        type="button"
-        className={`flex gap-4 items-center py-2 px-6 capitalize transition duration-500 border-[1px] border-gray-300 ${
-          selectedModel === "" || showLoader
-            ? "bg-gray-300 cursor-not-allowed transition duration-500"
-            : ""
-        }`}
-        disabled={selectedModel === "" || showLoader ? true : false}
-        // onClick={() => addToWishlist(product)}
-      >
-        {showLoader ? <Loader className={"loader2"} /> : "wishlist"}
-        <Image src="/heart.svg" width={20} height={20} alt="wishlist" />
-      </button>
+      </SignedIn>
     </section>
   );
 };

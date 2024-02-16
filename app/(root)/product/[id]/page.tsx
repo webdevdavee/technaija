@@ -3,6 +3,7 @@ import { getProductById } from "@/libs/actions/product.action";
 import { getAllProducts } from "@/libs/actions/product.action";
 import { IProduct } from "@/libs/database/models/product.model";
 import ProductDetails from "@/components/shared/ProductDetails";
+import { auth } from "@clerk/nextjs";
 
 type Params = {
   params: {
@@ -23,9 +24,12 @@ export async function generateMetadata({
 const ProductPage = async ({ params: { id } }: Params) => {
   const product: IProduct = await getProductById(id);
 
+  const { sessionClaims } = auth();
+  const userId = sessionClaims?.userId as string;
+
   return (
     <section className="relative mt-16 px-20 py-4">
-      <ProductDetails product={product} />
+      <ProductDetails product={product} userId={userId} />
     </section>
   );
 };

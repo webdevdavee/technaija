@@ -168,12 +168,35 @@ type CreateUserParam = {
   photo: string;
 };
 
-type IUser = {
-  _id: string;
-  clerkId?: string;
-  email: string;
-  username: string;
-  firstName: string;
-  lastName: string;
+type CartItem = {
+  name: string;
+  price: number;
+  quantity: number;
   photo: string;
+  model: string;
+  user?: string;
+};
+
+type CartParams = {
+  product: CartItem;
+  userId: string;
+  path: string;
+};
+
+type UserCartCount = {
+  _id: string;
+  count: number;
+};
+
+type WishlistItem = {
+  name: string;
+  image: string;
+  price: number;
+  user?: string;
+};
+
+type WishlistParams = {
+  product: WishlistItem;
+  userId: string;
+  path: string;
 };
