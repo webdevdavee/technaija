@@ -1,9 +1,9 @@
-import Hero from "@/components/ui/Hero";
-import FeaturedCategory from "@/components/ui/FeaturedCategory";
+import Hero from "@/components/shared/Hero";
+import FeaturedCategory from "@/components/shared/FeaturedCategory";
 import FeaturedProduct from "@/components/shared/FeaturedProduct";
-import CollectionBanner from "@/components/ui/CollectionBanner";
-import Newsletter from "@/components/ui/Newsletter";
-import QuickView from "@/components/ui/QuickView";
+import CollectionBanner from "@/components/shared/CollectionBanner";
+import Newsletter from "@/components/shared/Newsletter";
+import QuickView from "@/components/shared/QuickView";
 import { auth } from "@clerk/nextjs";
 
 export default async function Home() {

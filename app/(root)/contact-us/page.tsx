@@ -1,4 +1,4 @@
-import ContactForm from "@/components/ui/ContactForm";
+import ContactForm from "@/components/shared/ContactForm";
 
 const page = () => {
   return (

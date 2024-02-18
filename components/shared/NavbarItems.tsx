@@ -14,12 +14,14 @@ import { setCartCount } from "@/libs/redux-state/features/cart-count/cartCountSl
 import { setSlideInSearch } from "@/libs/redux-state/features/slide-in-search/slideInSearch";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { UserButton } from "@clerk/nextjs";
+import CurrencyConverter from "./CurrencyConverter";
 
 type NavBarProps = {
   userCart: UserCartCount[];
+  userId: string;
 };
 
-const NavbarItems = ({ userCart }: NavBarProps) => {
+const NavbarItems = ({ userCart, userId }: NavBarProps) => {
   const pathname = usePathname();
   const dispatch = useDispatch();
 
@@ -78,6 +80,7 @@ const NavbarItems = ({ userCart }: NavBarProps) => {
         })}
       </ul>
       <ul className="flex gap-4 items-center justify-center">
+        {/* <CurrencyConverter /> */}
         <button type="button" onClick={handleOpenSearch}>
           <Image
             className="text-lg"

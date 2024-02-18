@@ -6,6 +6,7 @@ import QuickviewReducer from "./features/quickview/quickviewSlice";
 import CartCountReducer from "./features/cart-count/cartCountSlice";
 import ShopFilterReducer from "./features/shop-filter/shopFilter";
 import SlideInSearchReducer from "./features/slide-in-search/slideInSearch";
+import CurrencyReducer from "./features/currency/currencySlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     cartCount: CartCountReducer,
     shopFilter: ShopFilterReducer,
     theSlideInSearch: SlideInSearchReducer,
+    currency: CurrencyReducer,
   },
 });
 

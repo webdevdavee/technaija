@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import Loader from "./Loader";
+import Loader from "../ui/Loader";
 import { TWishlistItem } from "@/libs/database/models/wishlist.model";
 import { removeProductFromWishlist } from "@/libs/actions/wishlist.actions";
 import { formatNumber } from "@/libs/utils";

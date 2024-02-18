@@ -8,10 +8,10 @@ import { setQuickview } from "@/libs/redux-state/features/quickview/quickviewSli
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
 import { useState } from "react";
 import { IProduct } from "@/libs/database/models/product.model";
-import AlertBox from "./AlertBox";
+import AlertBox from "../ui/AlertBox";
 import Link from "next/link";
-import ProductInfo from "../shared/ProductInfo";
-import ProductOptions from "../shared/ProductOptions";
+import ProductInfo from "./ProductInfo";
+import ProductOptions from "./ProductOptions";
 import { setCartCount } from "@/libs/redux-state/features/cart-count/cartCountSlice";
 import {
   addProductToCart,

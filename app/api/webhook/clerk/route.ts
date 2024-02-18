@@ -81,22 +81,22 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "OK", user: newUser });
   }
 
-  // if (eventType === "user.updated") {
-  //   const { id, email_addresses, image_url, first_name, last_name, username } =
-  //     evt.data;
+  if (eventType === "user.updated") {
+    const { id, email_addresses, image_url, first_name, last_name, username } =
+      evt.data;
 
-  //   const updatedUser = {
-  //     firstName: first_name,
-  //     lastName: last_name,
-  //     username: username!,
-  //     email: email_addresses[0].email_address,
-  //     photo: image_url,
-  //   };
+    const updatedUser = {
+      firstName: first_name,
+      lastName: last_name,
+      username: username!,
+      email: email_addresses[0].email_address,
+      photo: image_url,
+    };
 
-  //   const user = await updateUser(id, updatedUser);
+    const user = await updateUser(id, updatedUser);
 
-  //   return NextResponse.json({ message: "OK", user: user });
-  // }
+    return NextResponse.json({ message: "OK", user: user });
+  }
 
   return new Response("", { status: 200 });
 }

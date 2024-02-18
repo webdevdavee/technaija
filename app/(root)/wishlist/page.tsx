@@ -1,4 +1,4 @@
-import WishlistItem from "@/components/ui/WishlistItem";
+import WishlistItem from "@/components/shared/WishlistItem";
 import { auth } from "@clerk/nextjs";
 import { getUserWishlistItems } from "@/libs/actions/wishlist.actions";
 

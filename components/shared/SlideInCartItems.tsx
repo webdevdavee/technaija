@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import QuantityCounter from "../ui/QuantityCounter";
+import QuantityCounter from "./QuantityCounter";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";

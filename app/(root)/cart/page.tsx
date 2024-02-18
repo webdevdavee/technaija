@@ -1,4 +1,4 @@
-import CartListItem from "@/components/ui/CartListItem";
+import CartListItem from "@/components/shared/CartListItem";
 import { auth } from "@clerk/nextjs";
 import { getUserCartItems } from "@/libs/actions/cart.actions";
 

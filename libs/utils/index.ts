@@ -1,8 +1,10 @@
+// Handle error
 export const handleError = (error: unknown) => {
   console.error(error);
   throw new Error(typeof error === "string" ? error : JSON.stringify(error));
 };
 
+// Format date
 export const formatDate = (date: Date) => {
   const day = date.getDate();
   const month = date.toLocaleString("default", { month: "long" });
@@ -26,6 +28,7 @@ export const formatDate = (date: Date) => {
   return `${day}${getOrdinalSuffix(day)} ${month}, ${year}`;
 };
 
+// Format price
 export const formatNumber = (number: number | undefined, prefix = "") => {
   // Check if the number is defined
   if (number === undefined) {
@@ -46,6 +49,7 @@ export const formatNumber = (number: number | undefined, prefix = "") => {
   return prefix + integer + "." + fraction;
 };
 
+// Create URL
 import { ReadonlyURLSearchParams } from "next/navigation";
 export const createURL = (
   pathname: string,
@@ -55,3 +59,43 @@ export const createURL = (
   const queryString = `${paramString.length ? "?" : ""}${paramString}`;
   return `${pathname}${queryString}`;
 };
+
+// Convert currency
+// export const convertCurrency = async ({
+//   salesPrice,
+//   price,
+//   previousCurrency,
+//   currentCurrency,
+// }: CurrencyConverter) => {
+//   const salesPriceUrl = `https://currency-converter-pro1.p.rapidapi.com/convert?from=${previousCurrency}&to=${currentCurrency}&amount=${
+//     salesPrice ? salesPrice : price
+//   }`;
+
+//   const priceUrl = `https://currency-converter-pro1.p.rapidapi.com/convert?from=${previousCurrency}&to=${currentCurrency}&amount=${price}`;
+
+//   const options = {
+//     method: "GET",
+//     headers: {
+//       "X-RapidAPI-Key": "1414ad306emsh9e1d4b9ec0f61abp1ce22ajsndbe5f3d479af",
+//       "X-RapidAPI-Host": "currency-converter-pro1.p.rapidapi.com",
+//     },
+//   };
+
+//   try {
+//     const salesPriceResponse = await fetch(salesPriceUrl, options);
+//     const priceResponse = await fetch(priceUrl, options);
+
+//     const salesPriceData = await salesPriceResponse.json();
+//     const priceData = await priceResponse.json();
+
+//     const convertedSalePrice: number = salesPriceData.result;
+//     const convertedPrice: number = priceData.result;
+
+//     return {
+//       convertedSalePrice,
+//       convertedPrice,
+//     };
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };

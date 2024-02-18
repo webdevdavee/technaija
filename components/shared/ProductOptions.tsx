@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
-import QuantityCounter from "../ui/QuantityCounter";
+import QuantityCounter from "./QuantityCounter";
 import { IProduct } from "@/libs/database/models/product.model";
 import Loader from "../ui/Loader";
 import { ChangeEvent } from "react";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
+import EventButton from "../ui/EventButton";
+import LinkButton from "../ui/LinkButton";
 
 type ProductOptionProp = {
   product: IProduct;
@@ -98,7 +100,6 @@ const ProductOptions = ({
             </>
           )
         : ""}
-
       <span className="flex items-center gap-4">
         <QuantityCounter
           type="productpage"
@@ -107,33 +108,30 @@ const ProductOptions = ({
           decrementQuantity={decrementQuantity}
         />
         <SignedOut>
-          <Link href="/sign-in">
-            <button
-              type="button"
-              className={`w-[13rem] py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition ${
-                selectedModel === "" || showLoader
-                  ? "bg-gray-300 cursor-not-allowed hover:bg-gray-300 transition duration-500"
-                  : ""
-              }`}
-              disabled={selectedModel === "" || showLoader ? true : false}
-            >
-              {showLoader ? <Loader className={"loader2"} /> : "add to cart"}
-            </button>
-          </Link>
+          <LinkButton
+            type="button"
+            link="sign-in"
+            classname={`w-[13rem] py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition ${
+              selectedModel === "" || showLoader
+                ? "bg-gray-300 cursor-not-allowed hover:bg-gray-300 transition duration-500"
+                : ""
+            }`}
+            text={showLoader ? <Loader className={"loader2"} /> : "add to cart"}
+            disabled={selectedModel === "" || showLoader ? true : false}
+          />
         </SignedOut>
         <SignedIn>
-          <button
+          <EventButton
             type="button"
-            className={`w-[13rem] py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition ${
+            text={showLoader ? <Loader className={"loader2"} /> : "add to cart"}
+            classname={`w-[13rem] py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition ${
               selectedModel === "" || showLoader
                 ? "bg-gray-300 cursor-not-allowed hover:bg-gray-300 transition duration-500"
                 : ""
             }`}
             disabled={selectedModel === "" || showLoader ? true : false}
-            onClick={() => addToCart(product)}
-          >
-            {showLoader ? <Loader className={"loader2"} /> : "add to cart"}
-          </button>
+            onclick={() => addToCart(product)}
+          />
         </SignedIn>
       </span>
       <SignedOut>

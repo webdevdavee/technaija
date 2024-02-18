@@ -1,3 +1,7 @@
+type LoaderProp = {
+  className: string;
+};
+
 type MainNavigation = {
   id: number;
   text: string;
@@ -105,30 +109,16 @@ type UpdateProductParams = {
 };
 
 type UpdateUserParams = {
-  updatedUser: {
-    _id: string;
-    clerkId?: string;
-    email: string;
-    username: string;
-    firstName: string;
-    lastName: string;
-    photo: string;
-    cart: {
-      _id?: string;
-      name: string;
-      price: number;
-      quantity: number;
-      photo: string;
-      model: string;
-    }[];
-    wishlist: {
-      _id?: string;
-      name: string;
-      image: string;
-      price: number;
-    }[];
-  };
-  path: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  photo: string;
+};
+
+type UpdateUserMetadata = {
+  userId: string;
+  currency: string;
 };
 
 type GetProductsFilterParams = {
@@ -199,4 +189,17 @@ type WishlistParams = {
   product: WishlistItem;
   userId: string;
   path: string;
+};
+
+// type CurrencyConverter = {
+//   salesPrice?: number;
+//   price: number;
+//   previousCurrency: string;
+//   currentCurrency: string;
+// };
+
+type Country = {
+  id: number;
+  text: string;
+  flag: string;
 };

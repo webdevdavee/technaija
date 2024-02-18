@@ -4,7 +4,7 @@ import { IProduct } from "@/libs/database/models/product.model";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setProduct } from "@/libs/redux-state/features/product/productSlice";
 import { setQuickview } from "@/libs/redux-state/features/quickview/quickviewSlice";
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
@@ -15,6 +15,7 @@ import {
   removeProductFromWishlist,
 } from "@/libs/actions/wishlist.actions";
 import { usePathname } from "next/navigation";
+import { currencyState } from "@/libs/redux-state/features/currency/currencySlice";
 
 type CardProp = {
   type: string;
@@ -29,7 +30,36 @@ const ProductCard = ({ type, product, userWishlist, userId }: CardProp) => {
   const dispatch = useDispatch();
   const pathname = usePathname();
 
+  const theCurrentCurrency = useSelector(currencyState);
+  const { currentCurrency } = theCurrentCurrency;
+
   const { _id, name, price, sales_price, featured_image } = product;
+
+  // const [convertedSalesPrice, setConvertedSalesPrice] = useState<number>();
+  // const [convertedPrice, setConvertedPrice] = useState<number>();
+
+  // const storedCurrentCurrency = localStorage.getItem("current-currency");
+  // const retrivedCurrentCurrency =
+  //   storedCurrentCurrency && JSON.parse(storedCurrentCurrency);
+
+  // const storedPreviousCurrency = localStorage.getItem("previous-currency");
+  // const previousCurrency =
+  //   storedPreviousCurrency && JSON.parse(storedPreviousCurrency);
+
+  // useEffect(() => {
+  //   const getConvertedValue = async () => {
+  //     const convertedCurrency = await convertCurrency({
+  //       salesPrice: sales_price,
+  //       price: price,
+  //       currentCurrency: retrivedCurrentCurrency.text,
+  //       previousCurrency: previousCurrency.text,
+  //     });
+
+  //     setConvertedSalesPrice(convertedCurrency?.convertedSalePrice);
+  //     setConvertedPrice(convertedCurrency?.convertedPrice);
+  //   };
+  //   getConvertedValue();
+  // }, [currentCurrency]);
 
   const [itemExists, setItemExists] = useState(false);
   const [showIconLoader, setShowIconLoader] = useState(false);

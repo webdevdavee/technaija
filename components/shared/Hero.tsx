@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { heroImages } from "@/constants";
-import LinkButton from "./LinkButton";
+import LinkButton from "../ui/LinkButton";
 
 const Hero = () => {
   const [index, setIndex] = useState<number>(1);

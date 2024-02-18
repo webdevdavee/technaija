@@ -1,21 +1,28 @@
 "use client";
 
 type EventButtonProp = {
-  text: string;
+  type: "submit" | "reset" | "button" | undefined;
+  text: string | JSX.Element;
   onclick?: () => any;
   classname: string;
-  isSubmitting?: boolean;
+  disabled?: boolean;
 };
 
 const EventButton = ({
+  type,
   text,
   onclick,
   classname,
-  isSubmitting,
+  disabled,
 }: EventButtonProp) => {
   return (
-    <button disabled={isSubmitting} className={classname} onClick={onclick}>
-      {isSubmitting ? "...submitting" : text}
+    <button
+      type={type}
+      disabled={disabled}
+      className={classname}
+      onClick={onclick}
+    >
+      {disabled ? "...submitting" : text}
     </button>
   );
 };

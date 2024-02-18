@@ -3,7 +3,6 @@
 import { connectToDatabase } from "../database";
 import { handleError } from "../utils";
 import Users from "../database/models/user.model";
-import { revalidatePath } from "next/cache";
 
 export const createUser = async (user: CreateUserParam) => {
   try {
@@ -24,8 +23,6 @@ export const updateUser = async (clerkId: string, user: UpdateUserParams) => {
     });
 
     if (!updatedUser) throw new Error("User update failed");
-    // revalidatePath(path);
-    // revalidatePath("/");
     return JSON.parse(JSON.stringify(updatedUser));
   } catch (error) {
     handleError(error);
@@ -44,23 +41,3 @@ export const getUserById = async (userId: string) => {
     handleError(error);
   }
 };
-
-// export const updateUser = async ({ updatedUser, path }: UpdateUserParams) => {
-//   try {
-//     await connectToDatabase();
-//     const userToUpdate = await Users.findById(updatedUser._id);
-//     if (!userToUpdate) {
-//       throw new Error("Unauthorized or user not found");
-//     }
-//     const user = await Users.findByIdAndUpdate(
-//       updatedUser._id,
-//       { ...updatedUser },
-//       { new: true }
-//     );
-//     revalidatePath(path);
-//     revalidatePath("/");
-//     return JSON.parse(JSON.stringify(user));
-//   } catch (error) {
-//     handleError(error);
-//   }
-// };

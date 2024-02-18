@@ -1,4 +1,4 @@
-import QuickView from "@/components/ui/QuickView";
+import QuickView from "@/components/shared/QuickView";
 import ShopContainer from "@/components/shared/ShopContainer";
 import { auth } from "@clerk/nextjs";
 import { getUserWishlistItems } from "@/libs/actions/wishlist.actions";

@@ -1,16 +1,18 @@
 import Link from "next/link";
 
 type Props = {
+  type: "submit" | "reset" | "button" | undefined;
   link: string;
   classname: string;
-  text: string;
+  text: string | JSX.Element;
   icon?: string;
+  disabled?: boolean;
 };
 
-const LinkButton = ({ link, classname, text, icon }: Props) => {
+const LinkButton = ({ link, classname, text, icon, disabled }: Props) => {
   return (
     <Link className={`w-fit ${classname}`} href={`/${link}`}>
-      <button>{text}</button>
+      <button disabled={disabled}>{text}</button>
     </Link>
   );
 };

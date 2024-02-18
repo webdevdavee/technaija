@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import { formatNumber } from "@/libs/utils";
 import { TCartItem } from "@/libs/database/models/cart.model";
 import { removeProductFromCart } from "@/libs/actions/cart.actions";
-import Loader from "./Loader";
+import Loader from "../ui/Loader";
 
 type CartList = {
   userId: string;

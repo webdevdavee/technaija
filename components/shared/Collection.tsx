@@ -1,6 +1,5 @@
-import ProductCard from "../ui/ProductCard";
+import ProductCard from "./ProductCard";
 import { IProduct } from "@/libs/database/models/product.model";
-import { getUserWishlistItems } from "@/libs/actions/wishlist.actions";
 import { TWishlistItem } from "@/libs/database/models/wishlist.model";
 
 type CollectionProps = {

@@ -117,3 +117,9 @@ export const productSortList: ProductSortList[] = [
   { id: 3, text: "Sort by price: low to high" },
   { id: 4, text: "Sort by price: high to low" },
 ];
+
+export const countries: Country[] = [
+  { id: 1, text: "NGN", flag: "https://flagsapi.com/NG/flat/64.png" },
+  { id: 2, text: "EUR", flag: "https://flagsapi.com/GB/flat/64.png" },
+  { id: 3, text: "USD", flag: "https://flagsapi.com/US/flat/64.png" },
+];

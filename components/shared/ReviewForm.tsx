@@ -1,5 +1,5 @@
-import InputBox from "./InputBox";
-import TextArea from "./TextArea";
+import InputBox from "../ui/InputBox";
+import TextArea from "../ui/TextArea";
 import StarRating from "./StarRating";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
