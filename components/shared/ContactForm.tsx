@@ -58,9 +58,10 @@ const ContactForm = () => {
         }
       />
       <EventButton
+        type="button"
         text="Submit"
         classname="w-fit py-3 px-12 bg-[#272829] text-white disabled:bg-gray-300 transition"
-        isSubmitting={isSubmitting}
+        disabled={isSubmitting}
       />
     </form>
   );
