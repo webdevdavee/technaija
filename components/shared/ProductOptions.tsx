@@ -109,7 +109,6 @@ const ProductOptions = ({
         />
         <SignedOut>
           <LinkButton
-            type="button"
             link="sign-in"
             classname={`w-[13rem] py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition ${
               selectedModel === "" || showLoader
