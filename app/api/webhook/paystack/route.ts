@@ -18,7 +18,7 @@ type Response = {
 };
 
 // Export default function for nextjs server
-export default function handler(req: Request, res: Response) {
+export function HANDLER(req: Request, res: Response) {
   // Check if request method is POST
   if (req.method === "POST") {
     // Validate event
