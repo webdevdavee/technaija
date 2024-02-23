@@ -198,8 +198,8 @@ type WishlistParams = {
 //   currentCurrency: string;
 // };
 
-type Country = {
-  id: number;
-  text: string;
-  flag: string;
-};
+// type Country = {
+//   id: number;
+//   text: string;
+//   flag: string;
+// };

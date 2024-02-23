@@ -122,7 +122,7 @@ const NavbarItems = ({ userCart, userId }: NavBarProps) => {
             alt="wishlist"
           />
         </Link>
-        {pathname !== "/cart" ? (
+        {pathname !== "/cart" && pathname !== "/checkout" ? (
           <button className="relative" type="button" onClick={handleOpenCart}>
             <Image
               className="text-lg"
