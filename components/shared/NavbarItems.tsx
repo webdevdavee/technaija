@@ -14,7 +14,7 @@ import { setCartCount } from "@/libs/redux-state/features/cart-count/cartCountSl
 import { setSlideInSearch } from "@/libs/redux-state/features/slide-in-search/slideInSearch";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { UserButton } from "@clerk/nextjs";
-import CurrencyConverter from "./CurrencyConverter";
+// import CurrencyConverter from "./CurrencyConverter";
 
 type NavBarProps = {
   userCart: UserCartCount[];
