@@ -18,7 +18,7 @@ export const contactSchema = z.object({
   message: z.string().min(3, "Use 3 characters or more"),
 });
 
-export type TContactSchema = z.infer<typeof checkoutSchema>;
+export type TContactSchema = z.infer<typeof contactSchema>;
 
 // CHECKOUT SCHEMA
 export const checkoutSchema = z.object({
