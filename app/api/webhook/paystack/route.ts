@@ -10,7 +10,7 @@ interface PaystackEvent {
   // other properties
 }
 // Define the API route handler
-export default async function POST(req: NextRequest, res: NextResponse) {
+export function POST(req: NextRequest, res: NextResponse) {
   const secret = process.env.PAYSTACK_SECRET_KEY as string;
   // Check if the request method is POST
   if (req.method === "POST") {
