@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import { NextRequest, NextResponse } from "next/server";
 
 interface HeadersWithSignature extends Headers {
   "x-paystack-signature": string;
@@ -9,7 +10,7 @@ interface PaystackEvent {
   // other properties
 }
 // Define the API route handler
-export default async function POST(req: Request, res: Response) {
+export default async function POST(req: NextRequest, res: NextResponse) {
   const secret = process.env.PAYSTACK_SECRET_KEY as string;
   // Check if the request method is POST
   if (req.method === "POST") {
