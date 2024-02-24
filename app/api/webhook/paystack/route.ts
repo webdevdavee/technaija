@@ -1,45 +1,3 @@
-import crypto from "crypto";
-import { NextResponse } from "next/server";
-
-const secret = process.env.PAYSTACK_SECRET_KEY as string;
-
-interface HeadersWithSignature extends Headers {
-  "x-paystack-signature": string;
-}
-
-interface PaystackEvent {
-  event: string;
-}
-
-function verify(eventData: any, signature: string): boolean {
-  const hmac = crypto.createHmac("sha512", secret);
-  const expectedSignature = hmac
-    .update(JSON.stringify(eventData))
-    .digest("hex");
-  return expectedSignature === signature;
-}
-
-export function POST(req: Request) {
-  const headers = req.headers as HeadersWithSignature;
-  const eventData = req.body as unknown as PaystackEvent;
-  const signature = headers["x-paystack-signature"];
-
-  if (!verify(eventData, signature)) {
-    return new Response("", { status: 400 });
-  }
-
-  if (eventData?.event === "charge.success") {
-    // Process the successful transaction to maybe fund wallet and update your WalletModel
-    console.log(`Transaction ${eventData.event} was successful`);
-    return NextResponse.json({
-      message: "Transfer successful",
-      event: eventData,
-    });
-  }
-
-  return new Response("", { status: 200 });
-}
-
 // import { NextResponse } from "next/server";
 // import crypto from "crypto";
 
@@ -87,12 +45,20 @@ export function POST(req: Request) {
 
 // Paystack Webhook function ends here
 
-// import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+interface PaystackEvent {
+  event: string;
+}
 
-// export function POST(req: NextRequest, res: NextResponse) {
-//   // Retrieve the request's body
-//   const event = req.body;
-
-//   // Do something with event
-//   return new Response("", { status: 200 });
-// }
+export function POST(req: NextRequest, res: NextResponse) {
+  // Retrieve the request's body
+  const event = req.body as unknown as PaystackEvent;
+  if (event?.event === "charge.success") {
+    console.log("Transfer successful");
+    return NextResponse.json({
+      message: "Transfer successful",
+      event: event,
+    });
+  }
+  return new Response("", { status: 200 });
+}
