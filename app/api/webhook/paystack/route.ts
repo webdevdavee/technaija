@@ -3,7 +3,7 @@ import crypto from "crypto";
 
 const secret = process.env.PAYSTACK_SECRET_KEY as string;
 
-export function handler(req: NextApiRequest, res: NextApiResponse) {
+export function POST(req: NextApiRequest, res: NextApiResponse) {
   // Check if the request method is POST
   if (req.method === "POST") {
     // Validate the event
