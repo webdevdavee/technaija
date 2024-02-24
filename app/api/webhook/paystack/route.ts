@@ -1,10 +1,15 @@
-import { NextApiRequest, NextApiResponse } from "next";
-
-// Import the crypto module
 import crypto from "crypto";
 
+interface HeadersWithSignature extends Headers {
+  "x-paystack-signature": string;
+}
+
+interface PaystackEvent {
+  event: string;
+  // other properties
+}
 // Define the API route handler
-export default async function just(req: NextApiRequest, res: NextApiResponse) {
+export default async function POST(req: Request, res: Response) {
   const secret = process.env.PAYSTACK_SECRET_KEY as string;
   // Check if the request method is POST
   if (req.method === "POST") {
@@ -14,20 +19,22 @@ export default async function just(req: NextApiRequest, res: NextApiResponse) {
       .update(JSON.stringify(req.body))
       .digest("hex");
 
-    if (hash === req.headers["x-paystack-signature"]) {
+    const headers = req.headers as HeadersWithSignature;
+
+    if (hash === headers["x-paystack-signature"]) {
       // Retrieve the request body
-      const event = req.body;
+      const event = req.body as unknown as PaystackEvent;
       // Do something with the event
       if (event && event.event === "transfer.success") {
-        return res.status(200).json({ message: "Transfer successful" });
+        return new Response("Transfer successful", { status: 200 });
       }
     }
 
     // Send a 200 response
-    res.send(200);
+    return new Response("", { status: 200 });
   } else {
     // Send a 405 response for other methods
-    res.status(405).send("Method Not Allowed");
+    return new Response("Method Not Allowed", { status: 405 });
   }
 }
 
