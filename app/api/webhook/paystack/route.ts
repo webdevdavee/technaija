@@ -1,17 +1,9 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import crypto from "crypto";
-import { NextRequest, NextResponse } from "next/server";
 
-interface HeadersWithSignature extends Headers {
-  "x-paystack-signature": string;
-}
+const secret = process.env.PAYSTACK_SECRET_KEY as string;
 
-interface PaystackEvent {
-  event: string;
-  // other properties
-}
-// Define the API route handler
-export function POST(req: NextRequest, res: NextResponse) {
-  const secret = process.env.PAYSTACK_SECRET_KEY as string;
+export function handler(req: NextApiRequest, res: NextApiResponse) {
   // Check if the request method is POST
   if (req.method === "POST") {
     // Validate the event
@@ -20,22 +12,21 @@ export function POST(req: NextRequest, res: NextResponse) {
       .update(JSON.stringify(req.body))
       .digest("hex");
 
-    const headers = req.headers as HeadersWithSignature;
-
-    if (hash === headers["x-paystack-signature"]) {
+    if (hash === req.headers["x-paystack-signature"]) {
       // Retrieve the request body
-      const event = req.body as unknown as PaystackEvent;
+      const event = req.body;
       // Do something with the event
       if (event && event.event === "transfer.success") {
-        return new Response("Transfer successful", { status: 200 });
+        console.log("Transfer successful");
+        return res.status(200).json({ message: "Transfer successful" });
       }
     }
 
     // Send a 200 response
-    return new Response("", { status: 200 });
+    res.send(200);
   } else {
     // Send a 405 response for other methods
-    return new Response("Method Not Allowed", { status: 405 });
+    res.status(405).send("Method Not Allowed");
   }
 }
 
