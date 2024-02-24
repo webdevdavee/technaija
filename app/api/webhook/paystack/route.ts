@@ -3,10 +3,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 // Import the crypto module
 import crypto from "crypto";
 
-const secret = process.env.PAYSTACK_SECRET_KEY as string;
-
 // Define the API route handler
-export default async function POST(req: NextApiRequest, res: NextApiResponse) {
+export default async function just(req: NextApiRequest, res: NextApiResponse) {
+  const secret = process.env.PAYSTACK_SECRET_KEY as string;
   // Check if the request method is POST
   if (req.method === "POST") {
     // Validate the event
