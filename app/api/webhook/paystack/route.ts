@@ -26,7 +26,7 @@ export function POST(req: Request) {
       // Retrieve the request body
       const event = req.body as unknown as PaystackEvent;
       // Do something with the event
-      if (event && event.event === "transfer.success") {
+      if (event && event.event === "charge.success") {
         console.log("Transfer successful");
         return NextResponse.json({
           message: "Transfer successful",
