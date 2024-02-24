@@ -19,7 +19,7 @@ function verify(eventData: any, signature: string): boolean {
   return expectedSignature === signature;
 }
 
-export function handler(req: Request) {
+export function POST(req: Request) {
   const headers = req.headers as HeadersWithSignature;
   const eventData = req.body as unknown as PaystackEvent;
   const signature = headers["x-paystack-signature"];
