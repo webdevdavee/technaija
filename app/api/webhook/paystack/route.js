@@ -13,7 +13,9 @@ export function POST(req, res) {
     if (event?.event === "charge.success") {
       console.log("Transfer successful");
     }
+    console.log("Outside event");
   }
+  console.log("Outside hash");
   res.status(200).send("OK");
 }
 
