@@ -1,7 +1,7 @@
 import crypto from "crypto";
 const secret = process.env.PAYSTACK_SECRET_KEY;
 
-export default function handler(req, res) {
+export function POST(req, res) {
   // Validate event
   const hash = crypto
     .createHmac("sha512", secret)
