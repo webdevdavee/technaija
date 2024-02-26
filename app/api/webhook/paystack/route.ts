@@ -23,6 +23,7 @@ export async function POST(req: Request, res: Response) {
     // console.log(eventType, "alright");
     if (eventType === "charge.success") {
       console.log("Yes, event type is charge success!");
+      console.log(event?.data.reference);
     }
     // Handle the event data
     // Do something with event
