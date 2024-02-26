@@ -20,7 +20,7 @@ export async function POST(req: Request, res: Response) {
     let event = body;
     const eventType = event?.event;
 
-    console.log(eventType, "alright");
+    // console.log(eventType, "alright");
     if (eventType === "charge.success") {
       console.log("Yes, event type is charge success!");
     }
