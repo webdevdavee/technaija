@@ -22,9 +22,10 @@ export function POST(req: Request) {
 
     const headers = req.headers as HeadersWithSignature;
 
+    const event = req.body as unknown as PaystackEvent;
+
     if (hash === headers["x-paystack-signature"]) {
       // Retrieve the request body
-      const event = req.body as unknown as PaystackEvent;
       // Do something with the event
       if (event && event.event === "charge.success") {
         console.log("Transfer successful");
@@ -36,7 +37,7 @@ export function POST(req: Request) {
       console.log("Outside event");
     }
 
-    console.log("Outside hash");
+    console.log(event);
 
     // Send a 200 response
     return new Response("", { status: 200 });
