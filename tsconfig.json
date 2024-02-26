@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/api/webhook/paystack/route.ts"
+    "app/api/webhook/paystack/route.js"
   ],
   "exclude": ["node_modules"]
 }
