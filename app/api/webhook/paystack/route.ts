@@ -2,35 +2,36 @@
 import crypto from "crypto";
 
 // Your secret key from Paystack
-const API_SECRET_KEY = "yoursecretkey";
+const secret = process.env.PAYSTACK_SECRET_KEY!;
 
 // Your webhook URL
-export async function POST(req, res) {
+export async function POST(req: Request, res: Response) {
   // Retrieve the request's body
-  const event = req.body;
+  const body = await req.json();
 
   // Retrieve the signature header
-  const signature = req.headers["x-paystack-signature"];
+  const signature = req.headers.get("x-paystack-signature") as string;
 
   // Verify the event origin
-  if (verify(event, signature)) {
+  if (verify(body, signature)) {
     // Acknowledge the event
-    res.status(200).end();
+    new Response("", { status: 200 });
 
-    const eventType = event.event;
+    let event = body;
+    const eventType = event?.event;
 
     console.log(eventType);
     // Handle the event data
     // Do something with event
   } else {
     // Reject the event
-    res.status(400).end();
+    return new Response("", { status: 400 });
   }
 }
 
 // Verify the event origin
-function verify(eventData, signature) {
-  const hmac = crypto.createHmac("sha512", API_SECRET_KEY);
+function verify(eventData: any, signature: string) {
+  const hmac = crypto.createHmac("sha512", secret);
   const expectedSignature = hmac
     .update(JSON.stringify(eventData))
     .digest("hex");
