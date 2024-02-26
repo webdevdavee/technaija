@@ -13,7 +13,7 @@ export default authMiddleware({
     "/api/webhook/clerk",
     "/api/webhook/paystack/route.ts",
   ],
-  ignoredRoutes: ["/api/webhook/clerk", "/api/webhook/paystack"],
+  ignoredRoutes: ["/api/webhook/clerk", "/api/webhook/paystack/route.ts"],
 });
 
 export const config = {
