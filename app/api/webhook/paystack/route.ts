@@ -20,12 +20,13 @@ export async function POST(req: Request, res: Response) {
     let event = body;
     const eventType = event?.event;
 
-    console.log(eventType);
+    console.log(eventType, "alright");
     // Handle the event data
     // Do something with event
+    return new Response("Event handled successfully", { status: 200 });
   } else {
     // Reject the event
-    return new Response("", { status: 400 });
+    return new Response("Invalid signature", { status: 400 });
   }
 }
 
