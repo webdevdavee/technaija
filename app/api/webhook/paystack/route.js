@@ -5,7 +5,7 @@ import crypto from "crypto";
 const API_SECRET_KEY = "yoursecretkey";
 
 // Your webhook URL
-export default function handler(req, res) {
+export async function handler(req, res) {
   // Retrieve the request's body
   const event = req.body;
 
