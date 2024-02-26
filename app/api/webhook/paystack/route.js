@@ -9,7 +9,7 @@ export function POST(req, res) {
     .digest("hex");
   if (hash == req.headers["x-paystack-signature"]) {
     // Retrieve the request's body
-    const event = req.body;
+    const event = req.body.json();
     if (event?.event === "charge.success") {
       console.log("Transfer successful");
     }
