@@ -11,7 +11,7 @@ export default authMiddleware({
     "/contact-us",
     "/about-technaija",
     "/api/webhook/clerk",
-    "/api/webhook/paystack",
+    "/api/webhook/paystack/route.ts",
   ],
   ignoredRoutes: ["/api/webhook/clerk", "/api/webhook/paystack"],
 });
