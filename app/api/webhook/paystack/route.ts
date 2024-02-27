@@ -20,8 +20,8 @@ export async function POST(req: Request, res: Response) {
 
     console.log(eventType, "alright");
     if (eventType === "charge.success") {
-      console.log(event?.customer.first_name);
-      console.log(event?.customer.last_name);
+      console.log(event?.data.status);
+      console.log(event?.data.reference);
       console.log(event?.customer.email);
     }
 
