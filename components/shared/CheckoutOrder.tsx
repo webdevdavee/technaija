@@ -4,11 +4,11 @@ import { formatNumber } from "@/libs/utils";
 import { PaystackButton } from "react-paystack";
 import { useState } from "react";
 import { TCheckoutSchema } from "@/libs/zod";
-import { PaystackMetadata } from "react-paystack/dist/types";
+import { MainPaystackMetadata } from "react-paystack/dist/types";
 import EventButton from "../ui/EventButton";
 
 type CheckoutOrderProp = {
-  formData: TCheckoutSchema | PaystackMetadata | undefined;
+  formData: TCheckoutSchema | MainPaystackMetadata | undefined;
   paystackPublicKey: string;
   userCart: TCartItem[];
   user: Users;
