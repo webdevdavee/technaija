@@ -7,6 +7,7 @@ import {
   FieldErrors,
 } from "react-hook-form";
 import { TCheckoutSchema } from "@/libs/zod";
+import EventButton from "../ui/EventButton";
 
 type CheckoutDetailsProp = {
   handleSubmit: UseFormHandleSubmit<{
@@ -151,6 +152,11 @@ const CheckoutDetails = ({
           }
         />
       </div>
+      <EventButton
+        type="submit"
+        text="Finish"
+        classname="py-3 px-5 bg-[#272829] text-white text-sm mt-4"
+      />
     </form>
   );
 };

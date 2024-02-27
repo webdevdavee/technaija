@@ -3,17 +3,24 @@ import Coupon from "./Coupon";
 import { formatNumber } from "@/libs/utils";
 import { PaystackButton } from "react-paystack";
 import { useState } from "react";
+import { TCheckoutSchema } from "@/libs/zod";
+import { PaystackMetadata } from "react-paystack/dist/types";
+import EventButton from "../ui/EventButton";
 
 type CheckoutOrderProp = {
+  formData: TCheckoutSchema | PaystackMetadata | undefined;
   paystackPublicKey: string;
   userCart: TCartItem[];
   user: Users;
+  formReady: boolean;
 };
 
 const CheckoutOrder = async ({
+  formData,
   paystackPublicKey,
   userCart,
   user,
+  formReady,
 }: CheckoutOrderProp) => {
   const [formattedGrandTotal, setFormattedGrandTotal] = useState<string>();
   const [couponPrice, setCouponPrice] = useState<number>();
@@ -71,13 +78,26 @@ const CheckoutOrder = async ({
         setFormattedGrandTotal={setFormattedGrandTotal}
         setCouponPrice={setCouponPrice}
       />
-      <PaystackButton
-        text="Place order"
-        className="w-full py-3 px-5 bg-[#272829] text-white mt-14"
-        publicKey={paystackPublicKey}
-        email={user?.email as string}
-        amount={couponPrice ? couponPrice * 100 : grandTotal * 100}
-      />
+      {formReady ? (
+        <PaystackButton
+          text="Place order"
+          className="w-full py-3 px-5 bg-[#272829] text-white mt-14"
+          publicKey={paystackPublicKey}
+          email={user?.email as string}
+          amount={couponPrice ? couponPrice * 100 : grandTotal * 100}
+          metadata={formData && formData}
+        />
+      ) : (
+        <EventButton
+          type="button"
+          text="Place order"
+          classname={`w-full py-3 px-5 text-sm mt-14 ${
+            !formReady
+              ? "bg-gray-300 text-[#272829] cursor-not-allowed"
+              : "bg-[#272829] text-white"
+          }`}
+        />
+      )}
     </section>
   );
 };

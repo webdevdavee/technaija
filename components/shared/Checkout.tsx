@@ -6,30 +6,28 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TCheckoutSchema, checkoutSchema } from "@/libs/zod";
 import { TCartItem } from "@/libs/database/models/cart.model";
+import { useState } from "react";
 
 type CheckoutProp = {
-  userId: string;
   paystackPublicKey: string;
   userCart: TCartItem[];
   user: Users;
 };
 
-const Checkout = ({
-  userId,
-  paystackPublicKey,
-  userCart,
-  user,
-}: CheckoutProp) => {
+const Checkout = ({ paystackPublicKey, userCart, user }: CheckoutProp) => {
+  const [formData, setFormData] = useState<TCheckoutSchema>();
+  const [formReady, setFormReady] = useState<boolean>(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset,
     setValue,
   } = useForm<TCheckoutSchema>({ resolver: zodResolver(checkoutSchema) });
 
   const onSubmit = async (data: TCheckoutSchema) => {
-    reset();
+    setFormData(data);
+    setFormReady(true);
   };
 
   return (
@@ -43,8 +41,10 @@ const Checkout = ({
       />
       <CheckoutOrder
         paystackPublicKey={paystackPublicKey}
+        formData={formData}
         userCart={userCart}
         user={user}
+        formReady={formReady}
       />
     </section>
   );

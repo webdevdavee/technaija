@@ -18,11 +18,11 @@ export async function POST(req: Request, res: Response) {
     let event = body;
     const eventType = event?.event;
 
-    console.log(eventType, "alright");
+    // console.log(eventType, "alright");
     if (eventType === "charge.success") {
+      console.log(event);
       console.log(event?.data.status);
       console.log(event?.data.reference);
-      console.log(event?.customer.email);
     }
 
     return new Response("Event handled successfully", { status: 200 });
