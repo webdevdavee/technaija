@@ -16,7 +16,6 @@ const page = async () => {
     <section className="relative mt-16 px-20 py-12">
       <h1 className="text-center text-3xl font-medium py-6 mb-6">Checkout</h1>
       <Checkout
-        userId={userId}
         paystackPublicKey={paystackPublicKey!}
         userCart={userCart}
         user={user}
