@@ -19,10 +19,11 @@ export async function POST(req: Request, res: Response) {
     const eventType = event?.event;
 
     console.log(eventType, "alright");
-    // if (eventType === "charge.success") {
-    //   console.log("Yes, event type is charge success!");
-    //   console.log(event?.data.reference);
-    // }
+    if (eventType === "charge.success") {
+      console.log(event?.customer.first_name);
+      console.log(event?.customer.last_name);
+      console.log(event?.customer.email);
+    }
 
     return new Response("Event handled successfully", { status: 200 });
   } else {

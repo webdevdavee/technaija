@@ -12,8 +12,12 @@ import { useDispatch } from "react-redux";
 import {
   addProductToCart,
   getTotalUserCart,
+  getUserCartItems,
 } from "@/libs/actions/cart.actions";
-import { addProductToWishlist } from "@/libs/actions/wishlist.actions";
+import {
+  addProductToWishlist,
+  getUserWishlistItems,
+} from "@/libs/actions/wishlist.actions";
 import { usePathname } from "next/navigation";
 
 type Prop = {
@@ -39,6 +43,11 @@ const ProductDetails = ({ product, userId }: Prop) => {
 
   const [showLoader, setShowLoader] = useState(false);
 
+  const [productExistsInCart, setProductExistsInCart] = useState<boolean>();
+
+  const [productExistsInWishlist, setProductExistsInWishlist] =
+    useState<boolean>();
+
   // Define an async function that takes a product of type IProduct as a parameter
   const addToCart = async (product: IProduct) => {
     // Create an object of type CartItem with the product's details
@@ -50,28 +59,57 @@ const ProductDetails = ({ product, userId }: Prop) => {
       model: selectedModel!, // Use the non-null assertion operator to indicate that selectedModel is not null or undefined
     };
 
-    // Show loader on the add to cart button
-    setShowLoader(true);
+    // Get user carted items or products
+    const userCart: UserCart[] = await getUserCartItems(userId);
 
-    // Call server function to add product or item to the database Cart collection
-    await addProductToCart({ product: cartedProduct, userId, path: pathname });
+    // Check if carted product exists in the cart database of the user
+    const itemExists = userCart.some(
+      (product: UserCart) =>
+        product.name === cartedProduct.name &&
+        product.model === cartedProduct.model
+    );
 
-    // Call server function to get the user's total carted products
-    const userCart = await getTotalUserCart(userId);
+    // If not, add product to cart
+    if (!itemExists) {
+      setProductExistsInCart(false);
+      // Show loader on the add to cart button
+      setShowLoader(true);
 
-    // Set the total carted product number to the redux cartCount state
-    dispatch(setCartCount(userCart[0]?.count));
+      // Call server function to add product or item to the database Cart collection
+      await addProductToCart({
+        product: cartedProduct,
+        userId,
+        path: pathname,
+      });
 
-    // Show a success status message or alert box when a product is added to cart
-    setShowCartAlertBox(true);
+      // Call server function to get the user's total carted products
+      const userTotalCart = await getTotalUserCart(userId);
 
-    // Remove loader from the add to cart button
-    setShowLoader(false);
+      // Set the total carted product number to the redux cartCount state
+      dispatch(setCartCount(userTotalCart[0]?.count));
 
-    // After 3 seconds remove the alert message or alert box
-    setTimeout(() => {
-      setShowCartAlertBox(false);
-    }, 4000);
+      // Show a success status message or alert box when a product is added to cart
+      setShowCartAlertBox(true);
+
+      // Remove loader from the add to cart button
+      setShowLoader(false);
+
+      // After 3 seconds remove the alert message or alert box
+      setTimeout(() => {
+        setShowCartAlertBox(false);
+      }, 4000);
+    }
+    // If product exists, show error message
+    else {
+      setProductExistsInCart(true);
+      // Show a success status message or alert box when a product is added to cart
+      setShowCartAlertBox(true);
+
+      // After 3 seconds remove the alert message or alert box
+      setTimeout(() => {
+        setShowCartAlertBox(false);
+      }, 4000);
+    }
   };
 
   const addToWishlist = async (product: IProduct) => {
@@ -82,32 +120,64 @@ const ProductDetails = ({ product, userId }: Prop) => {
       image: currentImage,
     };
 
-    // Show loader on the add to cart button
-    setShowLoader(true);
+    // Get user carted items or products
+    const userWishlist: UserWishlist[] = await getUserWishlistItems(userId);
 
-    await addProductToWishlist({
-      product: wishlistProduct,
-      userId,
-      path: pathname,
-    });
+    // Check if carted product exists in the cart database of the user
+    const itemExists = userWishlist.some(
+      (product: UserWishlist) => product.name === wishlistProduct.name
+    );
 
-    // Show a success status message or alert box when a product is added to cart
-    setShowWishlistAlertBox(true);
+    if (!itemExists) {
+      setProductExistsInWishlist(false);
 
-    // Remove loader from the add to cart button
-    setShowLoader(false);
+      // Show loader on the add to cart button
+      setShowLoader(true);
 
-    // After 3 seconds remove the alert message or alert box
-    setTimeout(() => {
-      setShowWishlistAlertBox(false);
-    }, 4000);
+      // Call server function to add product or item to the database Wishlist collection
+      await addProductToWishlist({
+        product: wishlistProduct,
+        userId,
+        path: pathname,
+      });
+
+      // Show a success status message or alert box when a product is added to cart
+      setShowWishlistAlertBox(true);
+
+      // Remove loader from the add to cart button
+      setShowLoader(false);
+
+      // After 3 seconds remove the alert message or alert box
+      setTimeout(() => {
+        setShowWishlistAlertBox(false);
+      }, 4000);
+    } else {
+      setProductExistsInWishlist(true);
+      // Show a success status message or alert box when a product is added to cart
+      setShowWishlistAlertBox(true);
+
+      // After 3 seconds remove the alert message or alert box
+      setTimeout(() => {
+        setShowWishlistAlertBox(false);
+      }, 4000);
+    }
   };
 
   return (
     <>
       <div className="relative w-full grid grid-cols-2 justify-between bg-white py-8">
-        {showCartAlertBox && <AlertBox type="success" feature="cart" />}
-        {showWishlistAlertBox && <AlertBox type="success" feature="wishlist" />}
+        {showCartAlertBox && !productExistsInCart && (
+          <AlertBox type="success" feature="cart" />
+        )}
+        {showCartAlertBox && productExistsInCart && (
+          <AlertBox type="error" feature="cart" />
+        )}
+        {showWishlistAlertBox && !productExistsInWishlist && (
+          <AlertBox type="success" feature="wishlist" />
+        )}
+        {showWishlistAlertBox && productExistsInWishlist && (
+          <AlertBox type="error" feature="wishlist" />
+        )}
         <ProductGallery
           data={product}
           currentImage={currentImage}

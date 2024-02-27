@@ -2,6 +2,7 @@ import { TCartItem } from "@/libs/database/models/cart.model";
 import Coupon from "./Coupon";
 import { formatNumber } from "@/libs/utils";
 import { PaystackButton } from "react-paystack";
+import { useState } from "react";
 
 type CheckoutOrderProp = {
   paystackPublicKey: string;
@@ -14,6 +15,9 @@ const CheckoutOrder = async ({
   userCart,
   user,
 }: CheckoutOrderProp) => {
+  const [formattedGrandTotal, setFormattedGrandTotal] = useState<string>();
+  const [couponPrice, setCouponPrice] = useState<number>();
+
   // Array to hold total amounts for each cart item
   const totals = userCart?.map((item: TCartItem) => {
     const total = item.price * item.quantity;
@@ -48,18 +52,31 @@ const CheckoutOrder = async ({
         ))}
         <span className="flex items-center justify-between pt-6">
           <p className="text-base font-medium">Total</p>
-          <p className="text-base font-medium">
-            {formatNumber(grandTotal, "₦")}
-          </p>
+          <span className="flex gap-2">
+            <p
+              className={`text-base font-medium ${
+                formattedGrandTotal && "line-through text-red-400"
+              }`}
+            >
+              {formatNumber(grandTotal, "₦")}
+            </p>
+            {formattedGrandTotal && (
+              <p className="text-base font-medium">{formattedGrandTotal}</p>
+            )}
+          </span>
         </span>
       </div>
-      <Coupon />
+      <Coupon
+        grandTotal={grandTotal}
+        setFormattedGrandTotal={setFormattedGrandTotal}
+        setCouponPrice={setCouponPrice}
+      />
       <PaystackButton
         text="Place order"
         className="w-full py-3 px-5 bg-[#272829] text-white mt-14"
         publicKey={paystackPublicKey}
         email={user?.email as string}
-        amount={grandTotal * 100}
+        amount={couponPrice ? couponPrice * 100 : grandTotal * 100}
       />
     </section>
   );

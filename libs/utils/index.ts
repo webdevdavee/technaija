@@ -29,7 +29,10 @@ export const formatDate = (date: Date) => {
 };
 
 // Format price
-export const formatNumber = (number: number | undefined, prefix = "") => {
+export const formatNumber = (
+  number: number | undefined,
+  prefix: string | undefined = ""
+) => {
   // Check if the number is defined
   if (number === undefined) {
     // Return an empty string or a message
@@ -58,6 +61,19 @@ export const createURL = (
   const paramString = params.toString();
   const queryString = `${paramString.length ? "?" : ""}${paramString}`;
   return `${pathname}${queryString}`;
+};
+
+export const discountPrice = (originalPrice: number, discount?: number) => {
+  // Calculate the discounted price
+  const discountedPrice = discount
+    ? originalPrice - (originalPrice * discount) / 100
+    : originalPrice;
+
+  // Format the discounted price and return it
+  return {
+    formatedPrice: formatNumber(discountedPrice, "₦"),
+    discountedPrice: discountedPrice,
+  };
 };
 
 // Convert currency

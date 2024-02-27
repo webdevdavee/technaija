@@ -191,6 +191,12 @@ type WishlistParams = {
   path: string;
 };
 
+type Coupon = {
+  _id: string;
+  coupon: string;
+  percentoff: number;
+};
+
 // type CurrencyConverter = {
 //   salesPrice?: number;
 //   price: number;

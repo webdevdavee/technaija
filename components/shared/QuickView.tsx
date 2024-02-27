@@ -16,9 +16,13 @@ import { setCartCount } from "@/libs/redux-state/features/cart-count/cartCountSl
 import {
   addProductToCart,
   getTotalUserCart,
+  getUserCartItems,
 } from "@/libs/actions/cart.actions";
 import { usePathname } from "next/navigation";
-import { addProductToWishlist } from "@/libs/actions/wishlist.actions";
+import {
+  addProductToWishlist,
+  getUserWishlistItems,
+} from "@/libs/actions/wishlist.actions";
 
 type Quickview = {
   userId: string;
@@ -50,6 +54,11 @@ const QuickView = ({ userId }: Quickview) => {
 
   const [modelError, setModelError] = useState(false);
 
+  const [productExistsInCart, setProductExistsInCart] = useState<boolean>();
+
+  const [productExistsInWishlist, setProductExistsInWishlist] =
+    useState<boolean>();
+
   // Define an async function that takes a product of type IProduct as a parameter
   const addToCart = async (product: IProduct) => {
     // Create an object of type CartItem with the product's details
@@ -61,7 +70,20 @@ const QuickView = ({ userId }: Quickview) => {
       price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
     };
 
-    if (selectedModel !== undefined) {
+    // Get user carted items or products
+    const userCart: UserCart[] = await getUserCartItems(userId);
+
+    // Check if carted product exists in the cart database of the user
+    const itemExists = userCart.some(
+      (product: UserCart) =>
+        product.name === cartedProduct.name &&
+        product.model === cartedProduct.model
+    );
+
+    // If not, add product to cart
+    if (selectedModel !== undefined && !itemExists) {
+      setProductExistsInCart(false);
+
       // Show loader on the add to cart button
       setShowLoader(true);
 
@@ -88,8 +110,19 @@ const QuickView = ({ userId }: Quickview) => {
       setTimeout(() => {
         setShowCartAlertBox(false);
       }, 4000);
-    } else {
+    }
+    // If product exists, show error message
+    else {
       setModelError(true);
+
+      setProductExistsInCart(true);
+      // Show a success status message or alert box when a product is added to cart
+      setShowCartAlertBox(true);
+
+      // After 3 seconds remove the alert message or alert box
+      setTimeout(() => {
+        setShowCartAlertBox(false);
+      }, 4000);
     }
   };
 
@@ -101,25 +134,47 @@ const QuickView = ({ userId }: Quickview) => {
       image: currentImage,
     };
 
-    // Show loader on the add to cart button
-    setShowLoader(true);
+    // Get user carted items or products
+    const userWishlist: UserWishlist[] = await getUserWishlistItems(userId);
 
-    await addProductToWishlist({
-      product: wishlistProduct,
-      userId,
-      path: pathname,
-    });
+    // Check if carted product exists in the cart database of the user
+    const itemExists = userWishlist.some(
+      (product: UserWishlist) => product.name === wishlistProduct.name
+    );
 
-    // Show a success status message or alert box when a product is added to cart
-    setShowWishlistAlertBox(true);
+    if (!itemExists) {
+      setProductExistsInWishlist(false);
+      // Show loader on the add to cart button
+      setShowLoader(true);
 
-    // Remove loader from the add to cart button
-    setShowLoader(false);
+      // Call server function to add product or item to the database Wishlist collection
+      await addProductToWishlist({
+        product: wishlistProduct,
+        userId,
+        path: pathname,
+      });
 
-    // After 3 seconds remove the alert message or alert box
-    setTimeout(() => {
-      setShowWishlistAlertBox(false);
-    }, 4000);
+      // Show a success status message or alert box when a product is added to cart
+      setShowWishlistAlertBox(true);
+
+      // Remove loader from the add to cart button
+      setShowLoader(false);
+
+      // After 3 seconds remove the alert message or alert box
+      setTimeout(() => {
+        setShowWishlistAlertBox(false);
+      }, 4000);
+    } else {
+      setProductExistsInWishlist(true);
+
+      // Show a success status message or alert box when a product is added to cart
+      setShowWishlistAlertBox(true);
+
+      // After 3 seconds remove the alert message or alert box
+      setTimeout(() => {
+        setShowWishlistAlertBox(false);
+      }, 4000);
+    }
   };
 
   const closeQuickview = () => {
@@ -132,8 +187,19 @@ const QuickView = ({ userId }: Quickview) => {
       className="relative quickview z-[55] w-[85%] drop-shadow-xl"
       style={{ display: showQuickview ? "block" : "none" }}
     >
-      {showCartAlertBox && <AlertBox type="success" feature="cart" />}
-      {showWishlistAlertBox && <AlertBox type="success" feature="wishlist" />}
+      {showCartAlertBox && !productExistsInCart && (
+        <AlertBox type="success" feature="cart" />
+      )}
+      {showCartAlertBox && productExistsInCart && (
+        <AlertBox type="error" feature="cart" />
+      )}
+      {showWishlistAlertBox && !productExistsInWishlist && (
+        <AlertBox type="success" feature="wishlist" />
+      )}
+      {showWishlistAlertBox && productExistsInWishlist && (
+        <AlertBox type="error" feature="wishlist" />
+      )}
+
       <div className="grid grid-cols-2 bg-white p-8">
         <Link href={`product/${product._id}`} onClick={() => closeQuickview()}>
           <Image

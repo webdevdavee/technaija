@@ -7,7 +7,7 @@ import { setQuickview } from "@/libs/redux-state/features/quickview/quickviewSli
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
 
 type AlertBoxProps = {
-  type: string;
+  type: "success" | "error";
   feature: "cart" | "wishlist";
 };
 
@@ -29,8 +29,12 @@ const AlertBox = ({ type, feature }: AlertBoxProps) => {
         {type === "success" && feature === "cart" && (
           <p>You have successfully added product to cart</p>
         )}
+        {type === "error" && feature === "cart" && <p>Item already in cart</p>}
         {type === "success" && feature === "wishlist" && (
           <p>You have successfully added product to wishlist</p>
+        )}
+        {type === "error" && feature === "wishlist" && (
+          <p>Item already in wishlist</p>
         )}
         {type === "success" && (
           <Link
