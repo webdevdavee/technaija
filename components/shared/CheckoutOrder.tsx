@@ -7,7 +7,7 @@ import { TCheckoutSchema } from "@/libs/zod";
 import EventButton from "../ui/EventButton";
 
 type CheckoutOrderProp = {
-  formData: TCheckoutSchema | undefined;
+  formData: TCheckoutSchema | undefined | any;
   paystackPublicKey: string;
   userCart: TCartItem[];
   user: Users;
