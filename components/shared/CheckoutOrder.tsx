@@ -5,9 +5,10 @@ import { PaystackButton } from "react-paystack";
 import { useState } from "react";
 import { TCheckoutSchema } from "@/libs/zod";
 import EventButton from "../ui/EventButton";
+import { MainPaystackMetadata } from "react-paystack/dist/types";
 
 type CheckoutOrderProp = {
-  formData: TCheckoutSchema | undefined;
+  formData: MainPaystackMetadata | undefined;
   paystackPublicKey: string;
   userCart: TCartItem[];
   user: Users;
