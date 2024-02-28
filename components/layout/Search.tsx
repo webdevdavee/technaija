@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import SearchBox from "./SearchBox";
+import SearchBox from "../ui/SearchBox";
 import { getProductsBySearchInput } from "@/libs/actions/product.action";
 import { useState, useEffect } from "react";
 import { IProduct } from "@/libs/database/models/product.model";

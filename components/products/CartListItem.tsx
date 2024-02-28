@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import QuantityCounter from "./QuantityCounter";
+import QuantityCounter from "../utility/QuantityCounter";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { formatNumber } from "@/libs/utils";

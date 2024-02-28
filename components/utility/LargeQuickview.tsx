@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import ProductInfo from "./ProductInfo";
-import ProductOptions from "./ProductOptions";
+import ProductInfo from "../products/ProductInfo";
+import ProductOptions from "../products/ProductOptions";
 import AlertBox from "../ui/AlertBox";
 import { IProduct } from "@/libs/database/models/product.model";
 import { Dispatch, SetStateAction } from "react";

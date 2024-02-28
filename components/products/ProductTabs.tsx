@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { IProduct } from "@/libs/database/models/product.model";
 import Image from "next/image";
-import ReviewForm from "./ReviewForm";
+import ReviewForm from "../forms/ReviewForm";
 
 type Prop = {
   product: IProduct;

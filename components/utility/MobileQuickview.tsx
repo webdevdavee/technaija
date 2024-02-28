@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import ProductInfo from "./ProductInfo";
-import ProductOptions from "./ProductOptions";
+import ProductOptions from "../products/ProductOptions";
 import AlertBox from "../ui/AlertBox";
 import { IProduct } from "@/libs/database/models/product.model";
 import { Dispatch, SetStateAction } from "react";
@@ -50,6 +49,18 @@ const MobileQuickview = ({
     <>
       {showQuickview && (
         <div className="fixed right-0 top-0 bottom-0 z-[56] w-[80%] h-screen bg-white overflow-y-auto xl:hidden xxl:hidden xxxl:hidden ultra:hidden">
+          {showCartAlertBox && !productExistsInCart && (
+            <AlertBox type="success" feature="cart" />
+          )}
+          {showCartAlertBox && productExistsInCart && (
+            <AlertBox type="error" feature="cart" />
+          )}
+          {showWishlistAlertBox && !productExistsInWishlist && (
+            <AlertBox type="success" feature="wishlist" />
+          )}
+          {showWishlistAlertBox && productExistsInWishlist && (
+            <AlertBox type="error" feature="wishlist" />
+          )}
           <button type="button" onClick={closeQuickview}>
             <Image
               className="absolute top-6 right-3 text-base"

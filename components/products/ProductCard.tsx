@@ -68,6 +68,7 @@ const ProductCard = ({ type, product, userWishlist, userId }: CardProp) => {
     dispatch(setProduct(product));
     dispatch(setQuickview(true));
     dispatch(setOverlay(true));
+    document.body.classList.add("no_scroll");
   };
 
   // Check if the index of the product or item exists in user's wishlist

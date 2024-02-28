@@ -1,5 +1,3 @@
-"use client";
-
 const Newsletter = () => {
   return (
     <section className="flex items-center justify-center px-20 py-8 m:px-6">
@@ -10,7 +8,10 @@ const Newsletter = () => {
         <p className="text-base text-gray-500 mb-8 m:w-[19rem] m:text-sm m:text-center">
           Receive an exclusive 10% discount code when you signup.
         </p>
-        <span className="flex items-center justify-between">
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className="flex items-center justify-between"
+        >
           <input
             type="email"
             placeholder="Enter Email"
@@ -18,11 +19,11 @@ const Newsletter = () => {
           />
           <button
             className="capitalize bg-none pb-2 border-b-[1px] border-[#272829] font-semibold"
-            type="button"
+            type="submit"
           >
             subscribe
           </button>
-        </span>
+        </form>
       </article>
     </section>
   );

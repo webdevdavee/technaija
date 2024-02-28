@@ -1,4 +1,4 @@
-import NavbarItems from "./NavbarItems";
+import NavbarItems from "../navigation/NavbarItems";
 import { auth } from "@clerk/nextjs";
 import { getTotalUserCart } from "@/libs/actions/cart.actions";
 

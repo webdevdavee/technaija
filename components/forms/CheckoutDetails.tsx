@@ -1,5 +1,5 @@
 import InputBox from "../ui/InputBox";
-import CountryList from "./CountryList";
+import CountryList from "../utility/CountryList";
 import {
   UseFormHandleSubmit,
   UseFormRegister,

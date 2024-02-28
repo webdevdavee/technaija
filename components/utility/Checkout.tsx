@@ -1,7 +1,7 @@
 "use client";
 
-import CheckoutDetails from "@/components/shared/CheckoutDetails";
-import CheckoutOrder from "@/components/shared/CheckoutOrder";
+import CheckoutDetails from "@/components/forms/CheckoutDetails";
+import CheckoutOrder from "@/components/utility/CheckoutOrder";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TCheckoutSchema, checkoutSchema } from "@/libs/zod";

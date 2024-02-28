@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
-import QuantityCounter from "./QuantityCounter";
+import QuantityCounter from "../utility/QuantityCounter";
 import { IProduct } from "@/libs/database/models/product.model";
 import Loader from "../ui/Loader";
 import { ChangeEvent } from "react";

@@ -1,4 +1,4 @@
-import SlideInCartItems from "./SlideInCartItems";
+import SlideInCartItems from "../utility/SlideInCartItems";
 import { auth } from "@clerk/nextjs";
 import { getUserCartItems } from "@/libs/actions/cart.actions";
 

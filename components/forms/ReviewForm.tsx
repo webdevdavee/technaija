@@ -1,6 +1,6 @@
 import InputBox from "../ui/InputBox";
 import TextArea from "../ui/TextArea";
-import StarRating from "./StarRating";
+import StarRating from "../utility/StarRating";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formatDate } from "@/libs/utils";

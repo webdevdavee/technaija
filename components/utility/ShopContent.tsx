@@ -1,11 +1,11 @@
 "use client";
 
-import ProductFilterBar from "./ProductFilterBar";
-import Collection from "./Collection";
+import ProductFilterBar from "../products/ProductFilterBar";
+import Collection from "../products/Collection";
 import { IProduct } from "@/libs/database/models/product.model";
 import { useState, useEffect } from "react";
 import { getProductsByFilter } from "@/libs/actions/product.action";
-import ProductSort from "./ProductSort";
+import ProductSort from "../products/ProductSort";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { createURL } from "@/libs/utils";
 import { TWishlistItem } from "@/libs/database/models/wishlist.model";

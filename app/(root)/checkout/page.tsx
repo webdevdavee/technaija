@@ -1,4 +1,4 @@
-import Checkout from "@/components/shared/Checkout";
+import Checkout from "@/components/utility/Checkout";
 import { auth } from "@clerk/nextjs";
 import { getUserCartItems } from "@/libs/actions/cart.actions";
 import { getUserById } from "@/libs/actions/user.action";

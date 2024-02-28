@@ -177,6 +177,7 @@ const QuickView = ({ userId }: Quickview) => {
   const closeQuickview = () => {
     dispatch(setQuickview(false));
     dispatch(setOverlay(false));
+    document.body.classList.remove("no_scroll");
   };
 
   return (

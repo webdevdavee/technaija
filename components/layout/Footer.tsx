@@ -4,7 +4,7 @@ import { footerMenu2 } from "@/constants";
 import { footerMenu3 } from "@/constants";
 import { footerMenu4 } from "@/constants";
 import { footerMenu5 } from "@/constants";
-import FooterList from "./FooterList";
+import FooterList from "../utility/FooterList";
 import Link from "next/link";
 
 const Footer = () => {

@@ -1,10 +1,10 @@
-import Navbar from "@/components/shared/Navbar";
-import Footer from "@/components/shared/Footer";
-import Overlay from "@/components/ui/Overlay";
-import SlideInCart from "@/components/shared/SlideInCart";
-import Search from "@/components/ui/Search";
-import BottomNav from "@/components/shared/BottomNav";
-import MobileMenu from "@/components/shared/MobileMenu";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import Overlay from "@/components/layout/Overlay";
+import SlideInCart from "@/components/layout/SlideInCart";
+import Search from "@/components/layout/Search";
+import BottomNav from "@/components/layout/BottomNav";
+import MobileMenu from "@/components/layout/MobileMenu";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

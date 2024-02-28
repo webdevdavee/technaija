@@ -1,6 +1,6 @@
 import { IProduct } from "@/libs/database/models/product.model";
-import CategoryFilter from "./CategoryFilter";
-import ModelFilter from "./ModelFilter";
+import CategoryFilter from "../utility/CategoryFilter";
+import ModelFilter from "../utility/ModelFilter";
 import { Dispatch, SetStateAction } from "react";
 
 type ProductFilterBarProp = {

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getProductById } from "@/libs/actions/product.action";
 import { getAllProducts } from "@/libs/actions/product.action";
 import { IProduct } from "@/libs/database/models/product.model";
-import ProductDetails from "@/components/shared/ProductDetails";
+import ProductDetails from "@/components/products/ProductDetails";
 import { auth } from "@clerk/nextjs";
 
 type Params = {
