@@ -13,6 +13,9 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      dropShadow: {
+        "2xl": "0 0 7px rgba(0, 0, 0, 0.211)",
+      },
     },
     screens: {
       ss: { max: "290px" },

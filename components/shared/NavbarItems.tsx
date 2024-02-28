@@ -31,7 +31,7 @@ const NavbarItems = ({ userCart }: NavBarProps) => {
 
   return (
     <header
-      className={`w-full px-20 py-4 g-4 z-50 transition-[0.3s] fixed top-0 drop-shadow-sm m:px-6 ${
+      className={`w-full px-20 py-4 g-4 z-[56] transition-[0.3s] fixed top-0 drop-shadow-md m:px-6 ${
         isScrolled ? "bg-white" : "bg-transparent"
       }`}
     >
