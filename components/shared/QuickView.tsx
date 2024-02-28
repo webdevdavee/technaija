@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
 import { productState } from "@/libs/redux-state/features/product/productSlice";
 import { quickviewState } from "@/libs/redux-state/features/quickview/quickviewSlice";
@@ -8,10 +7,6 @@ import { setQuickview } from "@/libs/redux-state/features/quickview/quickviewSli
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
 import { useState } from "react";
 import { IProduct } from "@/libs/database/models/product.model";
-import AlertBox from "../ui/AlertBox";
-import Link from "next/link";
-import ProductInfo from "./ProductInfo";
-import ProductOptions from "./ProductOptions";
 import { setCartCount } from "@/libs/redux-state/features/cart-count/cartCountSlice";
 import {
   addProductToCart,
@@ -23,6 +18,8 @@ import {
   addProductToWishlist,
   getUserWishlistItems,
 } from "@/libs/actions/wishlist.actions";
+import LargeQuickview from "./LargeQuickview";
+import MobileQuickview from "./MobileQuickview";
 
 type Quickview = {
   userId: string;
@@ -183,63 +180,43 @@ const QuickView = ({ userId }: Quickview) => {
   };
 
   return (
-    <section
-      className="relative quickview z-[55] w-[85%] drop-shadow-xl"
-      style={{ display: showQuickview ? "block" : "none" }}
-    >
-      {showCartAlertBox && !productExistsInCart && (
-        <AlertBox type="success" feature="cart" />
-      )}
-      {showCartAlertBox && productExistsInCart && (
-        <AlertBox type="error" feature="cart" />
-      )}
-      {showWishlistAlertBox && !productExistsInWishlist && (
-        <AlertBox type="success" feature="wishlist" />
-      )}
-      {showWishlistAlertBox && productExistsInWishlist && (
-        <AlertBox type="error" feature="wishlist" />
-      )}
-
-      <div className="grid grid-cols-2 bg-white p-8">
-        <Link href={`product/${product._id}`} onClick={() => closeQuickview()}>
-          <Image
-            src={product.featured_image}
-            width={450}
-            height={450}
-            quality={100}
-            alt="product-img"
-          />
-          <p className="absolute bottom-0 left-0 right-0 w-full bg-red-500 p-4 text-center text-white">
-            See more product info
-          </p>
-        </Link>
-        <div className="flex flex-col items-start gap-8">
-          <div className="flex flex-col items-start gap-8">
-            <ProductInfo product={product} />
-            <ProductOptions
-              product={product}
-              selectedModel={selectedModel}
-              setSelectedModel={setSelectedModel}
-              quantity={quantity}
-              setQuantity={setQuantity}
-              addToCart={addToCart}
-              addToWishlist={addToWishlist}
-              showLoader={showLoader}
-              modelError={modelError}
-              setModelError={setModelError}
-            />
-          </div>
-        </div>
-      </div>
-      <button type="button" onClick={closeQuickview}>
-        <Image
-          className="absolute top-16 right-5 text-base"
-          src="/close.svg"
-          width={45}
-          height={45}
-          alt="close"
-        />
-      </button>
+    <section>
+      <LargeQuickview
+        product={product}
+        showQuickview={showQuickview}
+        showCartAlertBox={showCartAlertBox}
+        showWishlistAlertBox={showWishlistAlertBox}
+        showLoader={showLoader}
+        modelError={modelError}
+        productExistsInCart={productExistsInCart}
+        productExistsInWishlist={productExistsInWishlist}
+        closeQuickview={closeQuickview}
+        addToCart={addToCart}
+        addToWishlist={addToWishlist}
+        selectedModel={selectedModel}
+        setSelectedModel={setSelectedModel}
+        quantity={quantity}
+        setQuantity={setQuantity}
+        setModelError={setModelError}
+      />
+      <MobileQuickview
+        product={product}
+        showQuickview={showQuickview}
+        showCartAlertBox={showCartAlertBox}
+        showWishlistAlertBox={showWishlistAlertBox}
+        showLoader={showLoader}
+        modelError={modelError}
+        productExistsInCart={productExistsInCart}
+        productExistsInWishlist={productExistsInWishlist}
+        closeQuickview={closeQuickview}
+        addToCart={addToCart}
+        addToWishlist={addToWishlist}
+        selectedModel={selectedModel}
+        setSelectedModel={setSelectedModel}
+        quantity={quantity}
+        setQuantity={setQuantity}
+        setModelError={setModelError}
+      />
     </section>
   );
 };

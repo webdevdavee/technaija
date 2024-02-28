@@ -22,20 +22,20 @@ const Collection = async ({
   return (
     <section
       className={`${
-        type === "shop" ? "px-0 py-0" : "px-20 py-8"
+        type === "shop" ? "px-0 py-0" : "px-20 py-8 m:px-6"
       } overflow-hidden`}
     >
       <div className="text-center">
         <h1
-          className={`text-3xl ${
+          className={`text-3xl m:text-2xl ${
             type === "shop" && "text-left"
           } font-medium mb-2`}
         >
           {title}
         </h1>
-        <h3 className="text-base">{subtitle}</h3>
+        <h3 className="text-base m:text-xs">{subtitle}</h3>
       </div>
-      <div className="grid grid-cols-4 gap-4 gap-y-12 mt-6">
+      <div className="grid grid-cols-4 gap-4 gap-y-12 mt-6 m:grid-cols-2">
         {products.map((product) => (
           <ProductCard
             key={product._id}

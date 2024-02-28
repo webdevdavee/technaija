@@ -41,21 +41,21 @@ body {
 
 @layer utilities {
   @variants responsive {
-    .animate-slideOut {
-      animation: slideOut 0.3s ease-in;
+    .animate-slideInLeft {
+      animation: slideInLeft 0.3s ease-in;
       animation-fill-mode: both;
     }
   }
 }
 
-@keyframes slideOut {
+@keyframes slideInLeft {
   from {
-    transform: translateX(0);
-    opacity: 1;
+    transform: translateX(-100%);
+    opacity: 0;
   }
   to {
-    transform: translateX(100%);
-    opacity: 0;
+    transform: translateX(-0);
+    opacity: 1;
   }
 }
 

@@ -4,8 +4,8 @@ import { featuredCategories } from "@/constants";
 
 const FeaturedCategory = () => {
   return (
-    <section className="px-20 py-8 overflow-hidden">
-      <div className="flex items-center justify-between gap-10">
+    <section className="px-20 py-8 overflow-hidden m:px-6">
+      <div className="flex items-center justify-between gap-10 m:flex-col m:gap-4 m:justify-normal">
         {featuredCategories.map((category) => (
           <Link
             key={category.id}

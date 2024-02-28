@@ -21,8 +21,6 @@ export async function POST(req: Request, res: Response) {
     // console.log(eventType, "alright");
     if (eventType === "charge.success") {
       console.log(event);
-      console.log(event?.data.status);
-      console.log(event?.data.reference);
     }
 
     return new Response("Event handled successfully", { status: 200 });

@@ -51,7 +51,7 @@ const ProductOptions = ({
   };
 
   return (
-    <section className="w-full flex flex-col items-start gap-8">
+    <section className="w-full flex flex-col items-start gap-8 m:gap-4 m:my-4">
       {product.additional_information?.model?.length
         ? product.additional_information?.model?.length >= 1 && (
             <>
@@ -100,7 +100,7 @@ const ProductOptions = ({
             </>
           )
         : ""}
-      <span className="flex items-center gap-4">
+      <span className="flex items-center gap-4 m:flex-col m:w-full">
         <QuantityCounter
           type="productpage"
           quantity={quantity}
@@ -110,7 +110,7 @@ const ProductOptions = ({
         <SignedOut>
           <LinkButton
             link="sign-in"
-            classname={`w-[13rem] py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition ${
+            classname={`w-[13rem] py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition m:w-full ${
               selectedModel === "" || showLoader
                 ? "bg-gray-300 cursor-not-allowed hover:bg-gray-300 transition duration-500"
                 : ""
@@ -123,7 +123,7 @@ const ProductOptions = ({
           <EventButton
             type="button"
             text={showLoader ? <Loader className={"loader2"} /> : "add to cart"}
-            classname={`w-[13rem] py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition ${
+            classname={`w-[13rem] py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition m:w-full ${
               selectedModel === "" || showLoader
                 ? "bg-gray-300 cursor-not-allowed hover:bg-gray-300 transition duration-500"
                 : ""
@@ -137,7 +137,7 @@ const ProductOptions = ({
         <Link href="/sign-in">
           <button
             type="button"
-            className={`flex gap-4 items-center py-2 px-6 capitalize transition duration-500 border-[1px] border-gray-300 ${
+            className={`flex gap-4 items-center py-2 px-6 capitalize transition duration-500 border-[1px] border-gray-300 m:w-full m:justify-center ${
               selectedModel === "" || showLoader
                 ? "bg-gray-300 cursor-not-allowed transition duration-500"
                 : ""
@@ -152,7 +152,7 @@ const ProductOptions = ({
       <SignedIn>
         <button
           type="button"
-          className={`flex gap-4 items-center py-2 px-6 capitalize transition duration-500 border-[1px] border-gray-300 ${
+          className={`flex gap-4 items-center py-2 px-6 capitalize transition duration-500 border-[1px] border-gray-300 m:w-full m:justify-center ${
             selectedModel === "" || showLoader
               ? "bg-gray-300 cursor-not-allowed transition duration-500"
               : ""
