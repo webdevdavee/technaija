@@ -140,10 +140,10 @@ const ProductOptions = ({
         </SignedIn>
       </span>
       <SignedOut>
-        <Link href="/sign-in">
+        <Link href="/sign-in" className="m:w-full">
           <button
             type="button"
-            className={`flex gap-4 items-center py-2 px-6 transition duration-500 border-[1px] border-gray-300 m:w-full m:justify-center ${
+            className={`flex gap-4 items-center py-2 px-6 transition duration-500 border-[1px] border-gray-300 m:justify-center ${
               selectedModel === "" || showLoader
                 ? "bg-gray-300 cursor-not-allowed transition duration-500"
                 : ""
