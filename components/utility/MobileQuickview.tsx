@@ -48,7 +48,7 @@ const MobileQuickview = ({
   return (
     <>
       {showQuickview && (
-        <div className="fixed right-0 top-0 bottom-0 z-[56] w-[80%] h-screen bg-white overflow-y-auto xl:hidden xxl:hidden xxxl:hidden ultra:hidden">
+        <div className="fixed right-0 top-0 bottom-0 z-[56] w-[80%] h-screen bg-white pb-12 overflow-y-auto xl:hidden xxl:hidden xxxl:hidden ultra:hidden">
           {showCartAlertBox && !productExistsInCart && (
             <AlertBox type="success" feature="cart" />
           )}

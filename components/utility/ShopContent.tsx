@@ -9,6 +9,8 @@ import ProductSort from "../products/ProductSort";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { createURL } from "@/libs/utils";
 import { TWishlistItem } from "@/libs/database/models/wishlist.model";
+import MobileProductFilter from "./MobileProductFilter";
+import Image from "next/image";
 
 type ShopContent = {
   fetchedProducts: IProduct[];
@@ -32,6 +34,8 @@ const ShopContent = ({
   const pathname = usePathname();
 
   const [products, setProducts] = useState<IProduct[]>(fetchedProducts);
+
+  const [showMobileFilter, setShowMobileFilter] = useState(false);
 
   const [newProductsWithNoLimit, setNewProductsWithNoLimit] =
     useState<IProduct[]>(productsWithNoLimit);
@@ -81,22 +85,47 @@ const ShopContent = ({
   };
 
   return (
-    <section className="flex gap-20">
-      <ProductFilterBar
-        productsWithNoLimit={productsWithNoLimit}
-        newProductsWithNoLimit={newProductsWithNoLimit}
-        setNewProductsWithNoLimit={setNewProductsWithNoLimit}
-        fetchedProducts={fetchedProducts}
-        setProducts={setProducts}
-        page={page}
-        categorySearchParams={categorySearchParams}
-      />
-      <div className="w-[75%]">
-        <ProductSort
-          products={products}
-          setProducts={setProducts}
+    <section className="flex gap-20 m:block">
+      <div className="m:hidden">
+        <ProductFilterBar
+          productsWithNoLimit={productsWithNoLimit}
+          newProductsWithNoLimit={newProductsWithNoLimit}
+          setNewProductsWithNoLimit={setNewProductsWithNoLimit}
           fetchedProducts={fetchedProducts}
+          setProducts={setProducts}
+          page={page}
+          categorySearchParams={categorySearchParams}
+          setShowMobileFilter={setShowMobileFilter}
         />
+      </div>
+      {showMobileFilter && (
+        <MobileProductFilter
+          productsWithNoLimit={productsWithNoLimit}
+          newProductsWithNoLimit={newProductsWithNoLimit}
+          setNewProductsWithNoLimit={setNewProductsWithNoLimit}
+          fetchedProducts={fetchedProducts}
+          setProducts={setProducts}
+          page={page}
+          categorySearchParams={categorySearchParams}
+          setShowMobileFilter={setShowMobileFilter}
+        />
+      )}
+      <div className="w-[75%] m:w-full">
+        <div className="flex items-start justify-between gap-3">
+          <button
+            type="button"
+            className="w-full flex items-center justify-between gap-3 p-2 border-[1px] border-gray-300 focus:outline-none xl:hidden xxl:hidden xxxl:hidden ultra:hidden"
+            onClick={() => setShowMobileFilter((prev) => !prev)}
+          >
+            <p className="text-sm">Filter</p>
+            <Image src="/filter.svg" width={20} height={20} alt="filter" />
+          </button>
+          <ProductSort
+            products={products}
+            setProducts={setProducts}
+            fetchedProducts={fetchedProducts}
+          />
+        </div>
         <Collection
           userId={userId}
           products={products}

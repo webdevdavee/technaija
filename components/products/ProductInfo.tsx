@@ -10,7 +10,7 @@ const ProductInfo = ({ product }: ProductInfoProp) => {
   const stars = ["1", "2", "3", "4", "5"];
 
   return (
-    <section className="flex flex-col items-start gap-8">
+    <section className="flex flex-col items-start gap-8 m:mt-12">
       <span className="w-full flex items-center justify-between">
         <p className="text-gray-400 text-sm">{product.original_category}</p>
         <span className="flex items-center gap-1">

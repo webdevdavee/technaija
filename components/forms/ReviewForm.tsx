@@ -40,7 +40,7 @@ const ReviewForm = ({ product }: ReviewFormProp) => {
 
   return (
     <section className="flex items-center justify-center mt-12">
-      <div className="w-[65%]">
+      <div className="w-[65%] m:w-full">
         <h1 className="text-2xl font-medium mb-4 text-center">Add a review</h1>
         <p className="text-sm text-center">
           Your email address will not be published. Required fields are marked *
@@ -72,7 +72,7 @@ const ReviewForm = ({ product }: ReviewFormProp) => {
               )
             }
           />
-          <span className="flex items-start justify-between gap-8">
+          <span className="flex items-start justify-between gap-8 m:flex-col">
             <InputBox
               inputRegister={register("user")}
               label="Name"
@@ -96,7 +96,7 @@ const ReviewForm = ({ product }: ReviewFormProp) => {
               }
             />
           </span>
-          <span className="flex gap-1 items-center">
+          <span className="flex gap-1 items-center m:gap-3">
             <input type="checkbox" {...register("saveDetails")} />
             <p className="text-sm">
               Save my name, email, and website in this browser for the next time

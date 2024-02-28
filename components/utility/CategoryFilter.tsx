@@ -23,6 +23,7 @@ type CategoryFilterProp = {
   productsWithNoLimit: IProduct[];
   setNewProductsWithNoLimit: Dispatch<SetStateAction<IProduct[]>>;
   categorySearchParams: URLSearchParams;
+  setShowMobileFilter: Dispatch<SetStateAction<boolean>>;
 };
 const CategoryFilter = ({
   uniqueCategories,
@@ -33,6 +34,7 @@ const CategoryFilter = ({
   productsWithNoLimit,
   setNewProductsWithNoLimit,
   categorySearchParams,
+  setShowMobileFilter,
 }: CategoryFilterProp) => {
   const [showFilter, setShowFilter] = useState(true);
 
@@ -108,6 +110,7 @@ const CategoryFilter = ({
     } else {
       setProducts(fetchedProducts);
     }
+    setShowMobileFilter(false);
   };
 
   const handleCheckboxClick = (

@@ -58,7 +58,7 @@ const ProductSort = ({
   };
 
   return (
-    <section className="flex items-center justify-end relative mb-8">
+    <section className="w-full flex items-center justify-end relative mb-8">
       <Image
         className="absolute right-3 top-2"
         src="/arrow-down.svg"
@@ -67,7 +67,7 @@ const ProductSort = ({
         alt="arrow"
       />
       <select
-        className="w-[30%] text-sm p-2 border-[1px] border-gray-300 focus:outline-none appearance-none cursor-pointer"
+        className="w-[30%] m:w-full text-sm p-2 border-[1px] border-gray-300 focus:outline-none appearance-none cursor-pointer"
         name="options"
         onChange={(e) => sortProducts(e)}
       >

@@ -26,8 +26,8 @@ const ProductGallery = ({
   };
 
   return (
-    <span className="flex gap-2 items-start overflow-hidden">
-      <span className="custom-scrollbar h-[90%] flex flex-col gap-8 hover:overflow-y-scroll">
+    <span className="flex gap-2 items-start overflow-hidden m:flex-col">
+      <span className="custom-scrollbar h-[90%] flex flex-col gap-8 hover:overflow-y-scroll m:overflow-x-scroll m:order-2 m:flex-row">
         {data.gallery &&
           data.gallery.map((img, index) => (
             <Image
@@ -41,7 +41,7 @@ const ProductGallery = ({
             />
           ))}
       </span>
-      <span className="overflow-hidden">
+      <span className="overflow-hidden m:order-1">
         <Image
           src={currentImage}
           className={`transition-transform duration-700 ${

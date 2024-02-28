@@ -43,7 +43,7 @@ const ProductTabs = ({ product }: Prop) => {
 
   return (
     <div className="w-full mt-12">
-      <span className="flex items-center justify-center gap-12 mb-4">
+      <span className="flex items-center justify-center gap-12 mb-4 m:flex-col m:items-start m:gap-6">
         <p
           className={`capitalize text-sm cursor-pointer font-medium hover:text-red-400 hover:transition ${
             activeTab === 0 && "text-red-400 border-b-[1px] border-b-red-400"
@@ -73,57 +73,98 @@ const ProductTabs = ({ product }: Prop) => {
       <div>
         {activeTab === 0 && (
           <div className="w-full flex items-center justify-center mt-8">
-            <p className="w-[65%] text-sm">{product.description}</p>
+            <p className="w-[65%] text-sm m:w-full">{product.description}</p>
           </div>
         )}
         {activeTab === 1 && (
           <div className="flex items-center justify-center mt-8">
-            <span className="w-[65%] border-[1px] py-4">
+            <span className="w-[65%] flex border-[1px] m:w-full">
               <span className="text-sm border-r-[1px] p-4">model</span>
-              {product.additional_information?.model?.map((info) => (
-                <span
-                  key={info.id}
-                  className="text-sm py-4 px-2"
-                >{`${info.text},`}</span>
-              ))}
+              <div className="flex flex-wrap items-center">
+                {product.additional_information?.model?.map((info) => (
+                  <span
+                    key={info.id}
+                    className="text-sm px-2"
+                  >{`${info.text},`}</span>
+                ))}
+              </div>
             </span>
           </div>
         )}
         {activeTab === 2 && (
           <>
             <div className="flex items-center justify-center mt-8">
-              <span className="w-[65%] p-8 border-[1px] border-gray-400 flex flex-col item-center gap-12">
+              <span className="w-[65%] p-8 border-[1px] border-gray-400 flex flex-col item-center gap-12 m:w-full">
                 {product.reviews && product.reviews.length > 0 ? (
                   product.reviews?.map((review, index) => (
-                    <span
-                      key={index}
-                      className={`relative flex items-start justify-between overflow-hidden pb-10 ${
-                        product.reviews && index === product.reviews.length - 1
-                          ? "border-b-0"
-                          : "border-b-[1px] border-gray-400"
-                      }`}
-                    >
-                      <span className="flex items-start gap-6">
-                        <Image
-                          className="rounded-[50%]"
-                          src="/avatar.png"
-                          width={70}
-                          height={70}
-                          alt="avatar"
-                        />
-                        <span>
-                          <span className="flex items-start flex-col gap-3">
-                            <p className="text-sm">{review.date}</p>
-                            <p className="text-xl font-medium">{review.user}</p>
-                            <p className="text-sm">{review.comment}</p>
+                    <>
+                      {/*------------------------------ Larger screens --------------*/}
+                      <span
+                        key={index}
+                        className={`relative flex items-start justify-between overflow-hidden pb-10 m:hidden ${
+                          product.reviews &&
+                          index === product.reviews.length - 1
+                            ? "border-b-0"
+                            : "border-b-[1px] border-gray-400"
+                        }`}
+                      >
+                        <span className="flex items-start gap-6">
+                          <Image
+                            className="rounded-[50%]"
+                            src="/avatar.png"
+                            width={70}
+                            height={70}
+                            alt="avatar"
+                          />
+                          <span>
+                            <span className="flex items-start flex-col gap-3">
+                              <p className="text-sm">{review.date}</p>
+                              <p className="text-xl font-medium">
+                                {review.user}
+                              </p>
+                              <p className="text-sm">{review.comment}</p>
+                            </span>
                           </span>
                         </span>
-                      </span>
 
-                      <span className="absolute top-0 right-0">
-                        {renderStars(review.rating)}
+                        <span className="absolute top-0 right-0">
+                          {renderStars(review.rating)}
+                        </span>
                       </span>
-                    </span>
+                      {/*----------------------------- Mobile screens------------------- */}
+                      <span
+                        key={index}
+                        className={`relative flex items-start justify-between overflow-hidden pb-10 xl:hidden xxl:hidden xxxl:hidden ultra:hidden ${
+                          product.reviews &&
+                          index === product.reviews.length - 1
+                            ? "border-b-0"
+                            : "border-b-[1px] border-gray-400"
+                        }`}
+                      >
+                        <span className="flex items-start gap-6">
+                          <Image
+                            className="rounded-[50%]"
+                            src="/avatar.png"
+                            width={35}
+                            height={35}
+                            alt="avatar"
+                          />
+                          <span>
+                            <span className="flex items-start flex-col gap-3">
+                              <p className="text-sm">{review.date}</p>
+                              <p className="text-base font-medium">
+                                {review.user}
+                              </p>
+                              <p className="text-sm">{review.comment}</p>
+                            </span>
+                          </span>
+                        </span>
+
+                        <span className="absolute top-0 right-0">
+                          {renderStars(review.rating)}
+                        </span>
+                      </span>
+                    </>
                   ))
                 ) : (
                   <p className="text-center">No reviews to display</p>

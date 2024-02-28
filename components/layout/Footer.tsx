@@ -10,7 +10,7 @@ import Link from "next/link";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
-    <footer className="mt-12 w-full bg-[#F5F5F5]">
+    <footer className="mt-12 w-full bg-[#F5F5F5] m:pb-12">
       <section className="px-20 py-12 m:px-6">
         <div className="flex items-start justify-start gap-60 flex-wrap m:grid m:grid-cols-2 m:gap-20 m:justify-between">
           <FooterList data={footerMenu1} />

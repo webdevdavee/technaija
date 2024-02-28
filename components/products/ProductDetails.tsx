@@ -165,7 +165,7 @@ const ProductDetails = ({ product, userId }: Prop) => {
 
   return (
     <>
-      <div className="relative w-full grid grid-cols-2 justify-between bg-white py-8">
+      <div className="relative w-full grid grid-cols-2 justify-between bg-white py-8 m:flex m:flex-col">
         {showCartAlertBox && !productExistsInCart && (
           <AlertBox type="success" feature="cart" />
         )}

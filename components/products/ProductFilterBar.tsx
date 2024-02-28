@@ -11,6 +11,7 @@ type ProductFilterBarProp = {
   setNewProductsWithNoLimit: Dispatch<SetStateAction<IProduct[]>>;
   page: number;
   categorySearchParams: URLSearchParams;
+  setShowMobileFilter: Dispatch<SetStateAction<boolean>>;
 };
 
 const ProductFilterBar = async ({
@@ -21,6 +22,7 @@ const ProductFilterBar = async ({
   setProducts,
   page,
   categorySearchParams,
+  setShowMobileFilter,
 }: ProductFilterBarProp) => {
   // Get categories
   const categories = productsWithNoLimit.map((item) => {
@@ -61,7 +63,7 @@ const ProductFilterBar = async ({
   const models = Array.from(uniqueModels);
 
   return (
-    <aside className="w-[25%]">
+    <aside className="w-full">
       <section className="flex flex-col gap-10 items-start justify-start overflow-hidden">
         <CategoryFilter
           uniqueCategories={uniqueCategories}
@@ -72,6 +74,7 @@ const ProductFilterBar = async ({
           productsWithNoLimit={productsWithNoLimit}
           setNewProductsWithNoLimit={setNewProductsWithNoLimit}
           categorySearchParams={categorySearchParams}
+          setShowMobileFilter={setShowMobileFilter}
         />
         <ModelFilter
           models={models}
@@ -79,6 +82,7 @@ const ProductFilterBar = async ({
           page={page}
           fetchedProducts={fetchedProducts}
           categorySearchParams={categorySearchParams}
+          setShowMobileFilter={setShowMobileFilter}
         />
       </section>
     </aside>

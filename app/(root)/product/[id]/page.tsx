@@ -28,7 +28,7 @@ const ProductPage = async ({ params: { id } }: Params) => {
   const userId = sessionClaims?.userId as string;
 
   return (
-    <section className="relative mt-16 px-20 py-4">
+    <section className="relative mt-16 px-20 py-4 m:px-6">
       <ProductDetails product={product} userId={userId} />
     </section>
   );

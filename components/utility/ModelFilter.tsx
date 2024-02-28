@@ -19,6 +19,7 @@ type ModelFilterProp = {
   page: number;
   fetchedProducts: IProduct[];
   categorySearchParams: URLSearchParams;
+  setShowMobileFilter: Dispatch<SetStateAction<boolean>>;
 };
 
 const ModelFilter = ({
@@ -27,6 +28,7 @@ const ModelFilter = ({
   page,
   fetchedProducts,
   categorySearchParams,
+  setShowMobileFilter,
 }: ModelFilterProp) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -39,8 +41,6 @@ const ModelFilter = ({
   const handleShowFilter = () => {
     setShowFilter((prev) => !prev);
   };
-
-  const modelFilterArray = useRef<string[]>([]);
 
   const handleModelFilter = async (
     e: ChangeEvent<HTMLInputElement>,
@@ -94,6 +94,7 @@ const ModelFilter = ({
     } else {
       setProducts(fetchedProducts);
     }
+    setShowMobileFilter(false);
   };
 
   const handleCheckboxClick = (
