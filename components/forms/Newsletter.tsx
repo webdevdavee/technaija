@@ -1,3 +1,5 @@
+"use client";
+
 const Newsletter = () => {
   return (
     <section className="flex items-center justify-center px-20 py-8 m:px-6">
