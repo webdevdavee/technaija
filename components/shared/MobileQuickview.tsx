@@ -49,7 +49,7 @@ const MobileQuickview = ({
   return (
     <>
       {showQuickview && (
-        <div className="fixed right-0 top-0 bottom-0 z-[55] w-[80%] h-screen bg-white overflow-y-auto xl:hidden xxl:hidden xxxl:hidden ultra:hidden">
+        <div className="fixed right-0 top-0 bottom-0 z-[57] w-[80%] h-screen bg-white overflow-y-auto xl:hidden xxl:hidden xxxl:hidden ultra:hidden">
           <button type="button" onClick={closeQuickview}>
             <Image
               className="absolute top-6 right-3 text-base"
