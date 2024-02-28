@@ -119,7 +119,7 @@ const ProductOptions = ({
               showLoader ? (
                 <Loader className={"loader2"} />
               ) : (
-                <p className="capitalize">"add to cart"</p>
+                <p className="capitalize">add to cart</p>
               )
             }
             disabled={selectedModel === "" || showLoader ? true : false}
