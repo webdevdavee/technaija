@@ -15,7 +15,7 @@ const CollectionBanner = () => {
               alt="banner"
             />
           </div>
-          <div className="w-fit absolute bottom-[-13%] translate-x-[30%] bg-white px-10 py-7 capitalize flex flex-col gap-3 items-center justify-center m:px-6 m:py-4 m:translate-x-[22%]">
+          <div className="w-fit absolute bottom-[-13%] left-0 bg-white px-10 py-7 capitalize flex flex-col gap-3 items-center justify-center m:gap-0 m:px-6 m:py-4">
             <p className="text-2xl mb-3 font-medium m:text-base">
               must have accessories
             </p>
@@ -45,7 +45,7 @@ const CollectionBanner = () => {
               alt="banner"
             />
           </div>
-          <div className="w-fit absolute bottom-[-13%] translate-x-[20%] bg-white px-10 py-7 capitalize flex flex-col gap-3 items-center justify-center m:px-6 m:py-4 m:translate-x-[10%]">
+          <div className="w-fit absolute bottom-[-13%] right-0 bg-white px-10 py-7 capitalize flex flex-col gap-3 items-center justify-center m:gap-0 m:px-6 m:py-4">
             <p className="text-2xl mb-3 font-medium m:text-base">
               under NGN 10,000 collection
             </p>
