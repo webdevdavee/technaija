@@ -110,12 +110,18 @@ const ProductOptions = ({
         <SignedOut>
           <LinkButton
             link="sign-in"
-            classname={`w-[13rem] py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition m:w-full ${
+            classname={`w-[13rem] py-2 px-10 bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition m:w-full ${
               selectedModel === "" || showLoader
                 ? "bg-gray-300 cursor-not-allowed hover:bg-gray-300 transition duration-500"
                 : ""
             }`}
-            text={showLoader ? <Loader className={"loader2"} /> : "add to cart"}
+            text={
+              showLoader ? (
+                <Loader className={"loader2"} />
+              ) : (
+                <p className="capitalize">"add to cart"</p>
+              )
+            }
             disabled={selectedModel === "" || showLoader ? true : false}
           />
         </SignedOut>
@@ -137,14 +143,18 @@ const ProductOptions = ({
         <Link href="/sign-in">
           <button
             type="button"
-            className={`flex gap-4 items-center py-2 px-6 capitalize transition duration-500 border-[1px] border-gray-300 m:w-full m:justify-center ${
+            className={`flex gap-4 items-center py-2 px-6 transition duration-500 border-[1px] border-gray-300 m:w-full m:justify-center ${
               selectedModel === "" || showLoader
                 ? "bg-gray-300 cursor-not-allowed transition duration-500"
                 : ""
             }`}
             disabled={selectedModel === "" || showLoader ? true : false}
           >
-            {showLoader ? <Loader className={"loader2"} /> : "wishlist"}
+            {showLoader ? (
+              <Loader className={"loader2"} />
+            ) : (
+              <p className="capitalize">wishlist</p>
+            )}
             <Image src="/heart.svg" width={20} height={20} alt="wishlist" />
           </button>
         </Link>
@@ -152,7 +162,7 @@ const ProductOptions = ({
       <SignedIn>
         <button
           type="button"
-          className={`flex gap-4 items-center py-2 px-6 capitalize transition duration-500 border-[1px] border-gray-300 m:w-full m:justify-center ${
+          className={`flex gap-4 items-center py-2 px-6 transition duration-500 border-[1px] border-gray-300 m:w-full m:justify-center ${
             selectedModel === "" || showLoader
               ? "bg-gray-300 cursor-not-allowed transition duration-500"
               : ""
@@ -160,7 +170,11 @@ const ProductOptions = ({
           disabled={selectedModel === "" || showLoader ? true : false}
           onClick={() => addToWishlist(product)}
         >
-          {showLoader ? <Loader className={"loader2"} /> : "wishlist"}
+          {showLoader ? (
+            <Loader className={"loader2"} />
+          ) : (
+            <p className="capitalize">wishlist</p>
+          )}
           <Image src="/heart.svg" width={20} height={20} alt="wishlist" />
         </button>
       </SignedIn>

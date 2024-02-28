@@ -7,6 +7,7 @@ import CartCountReducer from "./features/cart-count/cartCountSlice";
 import ShopFilterReducer from "./features/shop-filter/shopFilter";
 import SlideInSearchReducer from "./features/slide-in-search/slideInSearch";
 import CurrencyReducer from "./features/currency/currencySlice";
+import MobileMenuReducer from "./features/mobile-menu/mobileMenuSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     shopFilter: ShopFilterReducer,
     theSlideInSearch: SlideInSearchReducer,
     currency: CurrencyReducer,
+    mobileMenu: MobileMenuReducer,
   },
 });
 
