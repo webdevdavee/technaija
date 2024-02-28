@@ -38,7 +38,7 @@ const CheckoutOrder = async ({
     }, 0);
 
   return (
-    <section className="w-[30%]">
+    <section className="w-[30%] m:w-full">
       <h2 className="mb-8 text-lg font-medium">Your order</h2>
       <div className="border-[1px] border-gray-400 p-6">
         <span className="border-b-[1px] border-gray-400 flex items-center justify-between pb-4">

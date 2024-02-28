@@ -68,8 +68,8 @@ const WishlistItem = ({ userId, userWishlist }: Wishlist) => {
                     alt="product-img"
                   />
                 </td>
-                <td>{item.name}</td>
-                <td>{formatNumber(item.price, "₦")}</td>
+                <td className="text-sm">{item.name}</td>
+                <td className="text-sm">{formatNumber(item.price, "₦")}</td>
               </tr>
             ))}
           </tbody>

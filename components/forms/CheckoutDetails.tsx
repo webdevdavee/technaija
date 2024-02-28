@@ -61,9 +61,9 @@ const CheckoutDetails = ({
   errors,
 }: CheckoutDetailsProp) => {
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-[60%]">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-[60%] m:w-full">
       <h2 className="mb-8 text-lg font-medium">Billing details</h2>
-      <div className="flex items-center gap-6 justify-between mb-6">
+      <div className="flex items-center gap-6 justify-between mb-6 m:flex-col">
         <InputBox
           inputRegister={register("firstname")}
           label="First name"
@@ -155,7 +155,7 @@ const CheckoutDetails = ({
       <EventButton
         type="submit"
         text="Finish"
-        classname="py-3 px-5 bg-[#272829] text-white text-sm mt-4"
+        classname="py-3 px-5 bg-[#272829] text-white text-sm mt-4 m:text-base"
       />
     </form>
   );

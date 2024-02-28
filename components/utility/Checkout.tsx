@@ -31,7 +31,7 @@ const Checkout = ({ paystackPublicKey, userCart, user }: CheckoutProp) => {
   };
 
   return (
-    <section className="flex items-start justify-between gap-8">
+    <section className="flex items-start justify-between gap-8 m:flex-col m:w-full m:gap-16">
       <CheckoutDetails
         handleSubmit={handleSubmit}
         onSubmit={onSubmit}
