@@ -24,7 +24,9 @@ export default function RootLayout({
     >
       <html lang="en">
         <body>
-          <ReduxProvider>{children}</ReduxProvider>
+          <section className="ultra:max-w-[1300px] ultra:mx-auto">
+            <ReduxProvider>{children}</ReduxProvider>
+          </section>
         </body>
       </html>
     </ClerkProvider>

@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import ProductInfo from "../products/ProductInfo";
@@ -43,6 +45,7 @@ const LargeQuickview = ({
   setQuantity,
   setModelError,
 }: LargeQuickviewProp) => {
+  const windowSize = window.innerWidth;
   return (
     <>
       {showQuickview && (
@@ -60,15 +63,15 @@ const LargeQuickview = ({
             <AlertBox type="error" feature="wishlist" />
           )}
 
-          <div className="grid grid-cols-2 bg-white p-8">
+          <div className="grid grid-cols-2 bg-white p-8 xl:p-4">
             <Link
               href={`product/${product._id}`}
               onClick={() => closeQuickview()}
             >
               <Image
                 src={product.featured_image}
-                width={450}
-                height={450}
+                width={windowSize >= 768 && windowSize <= 1023 ? 300 : 450}
+                height={windowSize >= 768 && windowSize <= 1023 ? 300 : 450}
                 quality={100}
                 alt="product-img"
               />
@@ -96,7 +99,7 @@ const LargeQuickview = ({
           </div>
           <button type="button" onClick={closeQuickview}>
             <Image
-              className="absolute top-16 right-5 text-base"
+              className="absolute top-16 right-5 text-base xl:top-8"
               src="/close.svg"
               width={45}
               height={45}

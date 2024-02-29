@@ -61,9 +61,12 @@ const CheckoutDetails = ({
   errors,
 }: CheckoutDetailsProp) => {
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-[60%] m:w-full">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-[60%] m:w-full xl:w-[50%]"
+    >
       <h2 className="mb-8 text-lg font-medium">Billing details</h2>
-      <div className="flex items-center gap-6 justify-between mb-6 m:flex-col">
+      <div className="flex items-center gap-6 justify-between mb-6 m:flex-col xl:flex-col">
         <InputBox
           inputRegister={register("firstname")}
           label="First name"

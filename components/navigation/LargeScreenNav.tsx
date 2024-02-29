@@ -40,7 +40,7 @@ const LargeScreenNav = ({ pathname, cartCount }: LargeScreenNavProps) => {
           priority={true}
         />
       </Link>
-      <ul className="flex gap-10">
+      <ul className="flex gap-10 xl:gap-6">
         {mainNavigation.map((navigation) => {
           const isActive = pathname === navigation.link;
           return (
@@ -56,7 +56,7 @@ const LargeScreenNav = ({ pathname, cartCount }: LargeScreenNavProps) => {
           );
         })}
       </ul>
-      <ul className="flex gap-4 items-center justify-center">
+      <ul className="flex gap-4 items-center justify-center xl:gap-3">
         {/* <CurrencyConverter /> */}
         <button type="button" onClick={handleOpenSearch}>
           <Image

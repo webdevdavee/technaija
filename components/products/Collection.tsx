@@ -22,12 +22,12 @@ const Collection = async ({
   return (
     <section
       className={`${
-        type === "shop" ? "px-0 py-0" : "px-20 py-8 m:px-6"
+        type === "shop" ? "px-0 py-0" : "px-20 py-8 m:px-6 xl:px-12"
       } overflow-hidden`}
     >
       <div className="text-center">
         <h1
-          className={`text-3xl m:text-2xl ${
+          className={`text-3xl m:text-2xl xl:text-2xl ${
             type === "shop" && "text-left"
           } font-medium mb-2`}
         >

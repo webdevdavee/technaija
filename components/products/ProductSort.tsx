@@ -67,7 +67,7 @@ const ProductSort = ({
         alt="arrow"
       />
       <select
-        className="w-[30%] m:w-full text-sm p-2 border-[1px] border-gray-300 focus:outline-none appearance-none cursor-pointer"
+        className="w-[30%] m:w-full text-sm p-2 border-[1px] border-gray-300 focus:outline-none appearance-none cursor-pointer xl:w-[40%]"
         name="options"
         onChange={(e) => sortProducts(e)}
       >

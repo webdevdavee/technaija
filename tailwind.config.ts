@@ -24,7 +24,7 @@ const config: Config = {
       xl: { min: "768px", max: "1023px" },
       xxl: { min: "1024px", max: "1279px" },
       xxxl: { min: "1280px" },
-      ultra: { min: "2000px" },
+      ultra: { min: "1500px" },
     },
   },
   plugins: [],

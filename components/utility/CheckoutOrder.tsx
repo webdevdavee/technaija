@@ -38,7 +38,7 @@ const CheckoutOrder = async ({
     }, 0);
 
   return (
-    <section className="w-[30%] m:w-full">
+    <section className="w-[30%] m:w-full xl:w-[45%]">
       <h2 className="mb-8 text-lg font-medium">Your order</h2>
       <div className="border-[1px] border-gray-400 p-6">
         <span className="border-b-[1px] border-gray-400 flex items-center justify-between pb-4">
@@ -48,7 +48,7 @@ const CheckoutOrder = async ({
         {userCart.map((item: TCartItem) => (
           <span
             key={item._id}
-            className="border-b-[1px] border-gray-400 flex items-center justify-between py-4 m:gap-4"
+            className="border-b-[1px] border-gray-400 flex items-center justify-between py-4 m:gap-4 xl:gap-6"
           >
             <p className="text-sm">
               {item.name} - {item.model} <b>x {item.quantity}</b>

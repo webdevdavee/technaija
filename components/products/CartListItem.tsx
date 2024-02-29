@@ -55,7 +55,7 @@ const CartListItem = ({ userId, userCart }: CartList) => {
           userCart.map((item) => (
             <div
               key={item._id}
-              className="w-full relative flex items-start gap-6 border-b-[1px] border-gray-300 pb-8 m:pb-16"
+              className="w-full relative flex items-start gap-6 border-b-[1px] border-gray-300 pb-8 m:pb-16 xl:pb-12"
             >
               <Image
                 src={item.photo}
@@ -80,7 +80,7 @@ const CartListItem = ({ userId, userCart }: CartList) => {
                 />
               </span>
               <button
-                className="absolute bottom-[28%] right-0 flex items-center gap-1 m:bottom-[7%]"
+                className="absolute bottom-[28%] right-0 flex items-center gap-1 m:bottom-[7%] xl:bottom-[7%]"
                 type="button"
                 onClick={() => removeFromCart(item)}
               >

@@ -27,7 +27,7 @@ const Hero = () => {
   };
   return (
     <section>
-      <div className="relative h-screen overflow-hidden m:h-[23rem]">
+      <div className="relative h-screen overflow-hidden m:h-[23rem] xl:h-[80%] xxl:h-[80%] ultra:h-[80%]">
         <Image
           src="/arrow-right.svg"
           className="absolute left-[2%] top-[50%] rotate-180 cursor-pointer hover:-translate-x-1 hover:ease-in-out duration-500 hover:transition hover:duration-500 m:top-[50%]"

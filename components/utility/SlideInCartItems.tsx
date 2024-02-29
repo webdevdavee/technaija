@@ -60,7 +60,7 @@ const SlideInCart = ({ userId, userCart }: SlideInCartProps) => {
 
   return (
     <section
-      className="w-[35%] bottom-0 fixed top-0 right-0 ease-in-out transition duration-300 p-4 bg-white z-[56] drop-shadow-md animate-slideIn m:w-[100%]"
+      className="w-[35%] bottom-0 fixed top-0 right-0 ease-in-out transition duration-300 p-4 bg-white z-[56] drop-shadow-md animate-slideIn m:w-[100%] xl:w-[50%]"
       style={{ display: showSlideInCart ? "block" : "none" }}
     >
       <div>
@@ -87,7 +87,7 @@ const SlideInCart = ({ userId, userCart }: SlideInCartProps) => {
             userCart.map((item) => (
               <div
                 key={item._id}
-                className="w-full relative flex items-start gap-6 border-b-[1px] border-gray-300 pb-8 sm:pb-12"
+                className="w-full relative flex items-start gap-6 border-b-[1px] border-gray-300 pb-8 sm:pb-12 xl:pb-12"
               >
                 <Image
                   src={item.photo}
@@ -112,7 +112,7 @@ const SlideInCart = ({ userId, userCart }: SlideInCartProps) => {
                   />
                 </span>
                 <button
-                  className="absolute bottom-[28%] right-2 flex items-center gap-1 m:bottom-[8%] sm:bottom-[4%]"
+                  className="absolute bottom-[28%] right-2 flex items-center gap-1 m:bottom-[8%] sm:bottom-[4%] xl:bottom-[4%]"
                   type="button"
                   onClick={() => removeFromCart(item)}
                 >

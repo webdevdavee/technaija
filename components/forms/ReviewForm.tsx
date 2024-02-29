@@ -72,7 +72,7 @@ const ReviewForm = ({ product }: ReviewFormProp) => {
               )
             }
           />
-          <span className="flex items-start justify-between gap-8 m:flex-col">
+          <span className="flex items-start justify-between gap-8 m:flex-col xl:flex-col">
             <InputBox
               inputRegister={register("user")}
               label="Name"
@@ -96,9 +96,9 @@ const ReviewForm = ({ product }: ReviewFormProp) => {
               }
             />
           </span>
-          <span className="flex gap-1 items-center m:gap-3">
+          <span className="flex gap-3 items-center">
             <input
-              className="m:w-12 m:h-12"
+              className="m:w-12 m:h-12 xl:w-6 xl:h-6"
               type="checkbox"
               {...register("saveDetails")}
             />

@@ -11,8 +11,8 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
     <footer className="mt-12 w-full bg-[#F5F5F5] m:pb-12">
-      <section className="px-20 py-12 m:px-6">
-        <div className="flex items-start justify-start gap-60 flex-wrap m:grid m:grid-cols-2 m:gap-20 m:justify-between">
+      <section className="px-20 py-12 m:px-6 xl:px-12">
+        <div className="flex items-start justify-start gap-60 flex-wrap m:grid m:grid-cols-2 m:gap-20 m:justify-between xl:gap-20 xxl:gap-24">
           <FooterList data={footerMenu1} />
           <FooterList data={footerMenu2} />
           <FooterList data={footerMenu3} />

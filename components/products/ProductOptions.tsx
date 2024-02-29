@@ -51,7 +51,7 @@ const ProductOptions = ({
   };
 
   return (
-    <section className="w-full flex flex-col items-start gap-8 m:gap-4 m:my-4">
+    <section className="w-full flex flex-col items-start gap-8 m:gap-4 m:my-4 xl:gap-4 xl:mb-6">
       {product.additional_information?.model?.length
         ? product.additional_information?.model?.length >= 1 && (
             <>

@@ -10,10 +10,10 @@ const ProductInfo = ({ product }: ProductInfoProp) => {
   const stars = ["1", "2", "3", "4", "5"];
 
   return (
-    <section className="flex flex-col items-start gap-8 m:mt-12">
+    <section className="flex flex-col items-start gap-8 m:mt-12 xl:gap-4">
       <span className="w-full flex items-center justify-between sm:flex-col sm:items-start sm:gap-4">
         <p className="text-gray-400 text-sm">{product.original_category}</p>
-        <span className="flex items-center gap-1">
+        <span className="flex items-center gap-1 xl:hidden">
           {stars.map((_, index) => (
             <Image
               key={index}

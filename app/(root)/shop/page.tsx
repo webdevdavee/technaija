@@ -13,7 +13,7 @@ const Shop = async ({ searchParams }: SearchParamProps) => {
   const userWishlist = await getUserWishlistItems(userId);
 
   return (
-    <section className="px-20 py-8 overflow-hidden relative mt-24 m:px-6">
+    <section className="px-20 py-8 overflow-hidden relative mt-24 m:px-6 xl:px-12">
       <QuickView userId={userId} />
       <ShopContainer page={page} userId={userId} userWishlist={userWishlist} />
     </section>

@@ -85,7 +85,7 @@ const ShopContent = ({
   };
 
   return (
-    <section className="flex gap-20 m:block">
+    <section className="flex gap-20 m:block xl:gap-14">
       <div className="m:hidden">
         <ProductFilterBar
           productsWithNoLimit={productsWithNoLimit}
