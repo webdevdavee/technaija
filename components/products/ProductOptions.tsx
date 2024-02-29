@@ -126,17 +126,18 @@ const ProductOptions = ({
           />
         </SignedOut>
         <SignedIn>
-          <EventButton
+          <button
             type="button"
-            text={showLoader ? <Loader className={"loader2"} /> : "add to cart"}
-            classname={`w-[13rem] py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition m:w-full ${
+            className={`w-[13rem] py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition m:w-full ${
               selectedModel === "" || showLoader
                 ? "bg-gray-300 cursor-not-allowed hover:bg-gray-300 transition duration-500"
                 : ""
             }`}
             disabled={selectedModel === "" || showLoader ? true : false}
-            onclick={() => addToCart(product)}
-          />
+            onClick={() => addToCart(product)}
+          >
+            {showLoader ? <Loader className={"loader2"} /> : "add to cart"}
+          </button>
         </SignedIn>
       </span>
       <SignedOut>

@@ -41,6 +41,8 @@ const CartListItem = ({ userId, userCart }: CartList) => {
     setShowLoader(false);
   };
 
+  const windowSize = window.innerWidth;
+
   return (
     <section className="flex gap-20 mt-6 m:flex-col">
       <div className="flex flex-col gap-6 w-full">
@@ -55,10 +57,15 @@ const CartListItem = ({ userId, userCart }: CartList) => {
               key={item._id}
               className="w-full relative flex items-start gap-6 border-b-[1px] border-gray-300 pb-8 m:pb-16"
             >
-              <Image src={item.photo} width={120} height={120} alt="img" />
+              <Image
+                src={item.photo}
+                width={windowSize <= 290 ? 70 : 120}
+                height={windowSize <= 290 ? 70 : 120}
+                alt="img"
+              />
               <span className="w-full flex flex-col items-start gap-6 pt-2">
                 <span className="w-full flex justify-between items-center gap-3 m:flex-col m:items-start">
-                  <p className="text-sm capitalize font-semibold m:text-base">
+                  <p className="text-sm capitalize font-semibold">
                     {item.name} - {item.model}
                   </p>
                   <p className="capitalize text-base font-medium">
@@ -78,7 +85,7 @@ const CartListItem = ({ userId, userCart }: CartList) => {
                 onClick={() => removeFromCart(item)}
               >
                 <Image src="/close.svg" width={20} height={20} alt="close" />
-                <p className="text-xs m:text-base">remove</p>
+                <p className="text-xs m:text-sm">remove</p>
               </button>
             </div>
           ))

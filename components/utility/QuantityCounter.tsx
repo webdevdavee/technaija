@@ -50,7 +50,7 @@ const QuantityCounter = ({
   };
 
   return (
-    <span className="w-fit flex gap-8 items-center p-2 border-[1px] border-gray-300 m:w-full m:justify-between">
+    <span className="w-fit flex gap-8 items-center p-2 border-[1px] border-gray-300 m:justify-between m:w-full">
       <button
         className="disabled:cursor-not-allowed"
         disabled={quantity === 1 && true}

@@ -23,7 +23,7 @@ const ContactForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="px-24 py-6 flex flex-col gap-4"
+      className="px-24 py-6 flex flex-col gap-4 m:px-0"
     >
       <InputBox
         inputRegister={register("name")}

@@ -11,7 +11,7 @@ const ProductInfo = ({ product }: ProductInfoProp) => {
 
   return (
     <section className="flex flex-col items-start gap-8 m:mt-12">
-      <span className="w-full flex items-center justify-between">
+      <span className="w-full flex items-center justify-between sm:flex-col sm:items-start sm:gap-4">
         <p className="text-gray-400 text-sm">{product.original_category}</p>
         <span className="flex items-center gap-1">
           {stars.map((_, index) => (
@@ -28,13 +28,13 @@ const ProductInfo = ({ product }: ProductInfoProp) => {
           </p>
         </span>
       </span>
-      <h1 className="text-2xl font-semibold">{product.name}</h1>
+      <h1 className="text-2xl font-semibold sm:text-xl">{product.name}</h1>
       {product.sales_price ? (
-        <div className="flex items-center gap-2">
-          <p className="line-through text-2xl font-medium text-red-500">
+        <div className="flex items-center gap-2 sm:flex-col sm:items-start">
+          <p className="line-through text-2xl font-medium text-red-500 sm:text-xl">
             {formatNumber(product.price, "₦")}
           </p>
-          <p className="ml-3 text-2xl">
+          <p className="ml-3 text-2xl sm:ml-0 sm:text-xl">
             {formatNumber(product.sales_price, "₦")}
           </p>
         </div>

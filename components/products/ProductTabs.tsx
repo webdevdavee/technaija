@@ -45,7 +45,7 @@ const ProductTabs = ({ product }: Prop) => {
     <div className="w-full mt-12">
       <span className="flex items-center justify-center gap-12 mb-4 m:flex-col m:items-start m:gap-6">
         <p
-          className={`capitalize text-sm cursor-pointer font-medium hover:text-red-400 hover:transition ${
+          className={`capitalize text-sm cursor-pointer font-medium hover:text-red-400 hover:transition m:text-base ${
             activeTab === 0 && "text-red-400 border-b-[1px] border-b-red-400"
           }`}
           onClick={() => setActiveTab(0)}
@@ -53,7 +53,7 @@ const ProductTabs = ({ product }: Prop) => {
           description
         </p>
         <p
-          className={`capitalize text-sm cursor-pointer font-medium hover:text-red-400 hover:transition ${
+          className={`capitalize text-sm cursor-pointer font-medium hover:text-red-400 hover:transition m:text-base ${
             activeTab === 1 && "text-red-400 border-b-[1px] border-b-red-400"
           }`}
           onClick={() => setActiveTab(1)}
@@ -61,7 +61,7 @@ const ProductTabs = ({ product }: Prop) => {
           additional information
         </p>
         <p
-          className={`capitalize text-sm cursor-pointer font-medium hover:text-red-400 hover:transition ${
+          className={`capitalize text-sm cursor-pointer font-medium hover:text-red-400 hover:transition m:text-base ${
             activeTab === 2 && "text-red-400 border-b-[1px] border-b-red-400"
           }`}
           onClick={() => setActiveTab(2)}
@@ -94,7 +94,7 @@ const ProductTabs = ({ product }: Prop) => {
         {activeTab === 2 && (
           <>
             <div className="flex items-center justify-center mt-8">
-              <span className="w-[65%] p-8 border-[1px] border-gray-400 flex flex-col item-center gap-12 m:w-full">
+              <span className="w-[65%] p-8 border-[1px] border-gray-400 flex flex-col item-center gap-12 m:w-full sm:p-3">
                 {product.reviews && product.reviews.length > 0 ? (
                   product.reviews?.map((review, index) => (
                     <>
@@ -134,7 +134,7 @@ const ProductTabs = ({ product }: Prop) => {
                       {/*----------------------------- Mobile screens------------------- */}
                       <span
                         key={index}
-                        className={`relative flex items-start justify-between overflow-hidden pb-10 xl:hidden xxl:hidden xxxl:hidden ultra:hidden ${
+                        className={`relative flex items-start justify-between overflow-hidden pb-10 sm:pt-8 xl:hidden xxl:hidden xxxl:hidden ultra:hidden ${
                           product.reviews &&
                           index === product.reviews.length - 1
                             ? "border-b-0"
@@ -160,7 +160,7 @@ const ProductTabs = ({ product }: Prop) => {
                           </span>
                         </span>
 
-                        <span className="absolute top-0 right-0">
+                        <span className="absolute top-0 right-0 sm:left-14">
                           {renderStars(review.rating)}
                         </span>
                       </span>

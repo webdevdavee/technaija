@@ -111,7 +111,7 @@ const ShopContent = ({
         />
       )}
       <div className="w-[75%] m:w-full">
-        <div className="flex items-start justify-between gap-3">
+        <div className="flex items-start justify-between gap-3 sm:flex-col">
           <button
             type="button"
             className="w-full flex items-center justify-between gap-3 p-2 border-[1px] border-gray-300 focus:outline-none xl:hidden xxl:hidden xxxl:hidden ultra:hidden"

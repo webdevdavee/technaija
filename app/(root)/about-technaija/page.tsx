@@ -2,12 +2,12 @@ import Image from "next/image";
 
 const page = () => {
   return (
-    <section className="relative mt-16 px-20 py-12">
+    <section className="relative mt-16 px-20 py-12 m:px-6">
       <h1 className="text-center text-3xl font-medium py-6 capitalize">
         about us
       </h1>
-      <div className="grid grid-cols-2 gap-10 mt-12">
-        <span className="about-us-text">
+      <div className="grid grid-cols-2 gap-10 mt-12 m:flex m:flex-col">
+        <span className="about-us-text m:order-2">
           <p>
             <b>Our Story</b> <br /> Technaija was born from a shared vision
             among a group of tech enthusiasts who saw an opportunity to bridge
@@ -45,6 +45,7 @@ const page = () => {
           </p>
         </span>
         <Image
+          className="m:order-1"
           src="/banner (1).jpg"
           width={1050}
           height={1050}

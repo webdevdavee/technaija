@@ -81,6 +81,7 @@ const MobileQuickview = ({
             <Link
               href={`product/${product._id}`}
               className="w-full p-3 bg-red-500 text-center text-white"
+              onClick={closeQuickview}
             >
               See more product info
             </Link>
@@ -101,11 +102,11 @@ const MobileQuickview = ({
             <div className="flex flex-col gap-3 px-3">
               <h1 className="text-2xl font-semibold">{product.name}</h1>
               {product.sales_price ? (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 ss:flex-col ss:items-start">
                   <p className="line-through text-xl font-medium text-red-500">
                     {formatNumber(product.price, "₦")}
                   </p>
-                  <p className="ml-3 text-xl">
+                  <p className="ml-3 text-xl ss:ml-0">
                     {formatNumber(product.sales_price, "₦")}
                   </p>
                 </div>

@@ -56,6 +56,8 @@ const SlideInCart = ({ userId, userCart }: SlideInCartProps) => {
     setShowLoader(false);
   };
 
+  const windowSize = window.innerWidth;
+
   return (
     <section
       className="w-[35%] bottom-0 fixed top-0 right-0 ease-in-out transition duration-300 p-4 bg-white z-[56] drop-shadow-md animate-slideIn m:w-[100%]"
@@ -85,9 +87,14 @@ const SlideInCart = ({ userId, userCart }: SlideInCartProps) => {
             userCart.map((item) => (
               <div
                 key={item._id}
-                className="w-full relative flex items-start gap-6 border-b-[1px] border-gray-300 pb-8"
+                className="w-full relative flex items-start gap-6 border-b-[1px] border-gray-300 pb-8 sm:pb-12"
               >
-                <Image src={item.photo} width={120} height={120} alt="img" />
+                <Image
+                  src={item.photo}
+                  width={windowSize <= 290 ? 70 : 120}
+                  height={windowSize <= 290 ? 70 : 120}
+                  alt="img"
+                />
                 <span className="flex flex-col items-start gap-6 pt-2">
                   <span className="flex flex-col gap-3">
                     <p className="text-sm capitalize font-semibold">
@@ -105,7 +112,7 @@ const SlideInCart = ({ userId, userCart }: SlideInCartProps) => {
                   />
                 </span>
                 <button
-                  className="absolute bottom-[28%] right-2 flex items-center gap-1 m:bottom-[8%]"
+                  className="absolute bottom-[28%] right-2 flex items-center gap-1 m:bottom-[8%] sm:bottom-[4%]"
                   type="button"
                   onClick={() => removeFromCart(item)}
                 >

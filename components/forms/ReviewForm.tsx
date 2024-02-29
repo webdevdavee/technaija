@@ -97,7 +97,11 @@ const ReviewForm = ({ product }: ReviewFormProp) => {
             />
           </span>
           <span className="flex gap-1 items-center m:gap-3">
-            <input type="checkbox" {...register("saveDetails")} />
+            <input
+              className="m:w-12 m:h-12"
+              type="checkbox"
+              {...register("saveDetails")}
+            />
             <p className="text-sm">
               Save my name, email, and website in this browser for the next time
               I comment.

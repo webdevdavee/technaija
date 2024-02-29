@@ -39,6 +39,8 @@ const Search = () => {
     document.body.classList.remove("no_scroll");
   };
 
+  const windowSize = window.innerWidth;
+
   return (
     <section
       className="w-[35%] bottom-0 fixed top-0 right-0 ease-in-out transition duration-300 p-4 bg-white z-[56] drop-shadow-md animate-slideIn m:w-[100%]"
@@ -69,8 +71,8 @@ const Search = () => {
                 <div className="flex items-center gap-6">
                   <Image
                     src={`${product.featured_image}`}
-                    width={150}
-                    height={150}
+                    width={windowSize <= 290 ? 70 : 150}
+                    height={windowSize <= 290 ? 70 : 150}
                     alt="product-img"
                   />
                   <span className="flex flex-col justify-center gap-2">

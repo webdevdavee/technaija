@@ -27,20 +27,20 @@ const WishlistItem = ({ userId, userWishlist }: Wishlist) => {
   };
 
   return (
-    <section className="mt-6">
+    <section className="mt-6 sm:overflow-x-scroll">
       {showLoader && (
         <section className="absolute w-full h-screen top-0 bottom-0 transition-[0.3] ease-in-out duration-300 left-0 right-0 bg-white opacity-70 z-[56]">
           <Loader className="loader" />
         </section>
       )}
       {userWishlist && userWishlist.length >= 1 ? (
-        <table>
+        <table className="sm:w-max">
           <thead className="bg-slate-100">
             <tr>
               <th></th>
               <th></th>
-              <th className="font-medium">Product</th>
-              <th className="font-medium">Price</th>
+              <th className="font-medium sm:text-sm">Product</th>
+              <th className="font-medium sm:text-sm">Price</th>
             </tr>
           </thead>
 

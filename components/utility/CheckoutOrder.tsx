@@ -48,7 +48,7 @@ const CheckoutOrder = async ({
         {userCart.map((item: TCartItem) => (
           <span
             key={item._id}
-            className="border-b-[1px] border-gray-400 flex items-center justify-between py-4"
+            className="border-b-[1px] border-gray-400 flex items-center justify-between py-4 m:gap-4"
           >
             <p className="text-sm">
               {item.name} - {item.model} <b>x {item.quantity}</b>

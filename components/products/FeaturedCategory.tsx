@@ -12,10 +12,10 @@ const FeaturedCategory = () => {
             className="relative overflow-hidden"
             href={category.link}
           >
-            <p className="absolute top-20 left-11 text-2xl font-medium z-10">
+            <p className="absolute top-20 left-11 text-2xl font-medium z-10 ss:text-xl ss:top-12 ss:left-4">
               {category.text}
             </p>
-            <p className="absolute text-base capitalize top-32 left-11 z-10 mb-4 border-b-[1px] border-[#272829]">
+            <p className="absolute text-base capitalize top-32 left-11 z-10 mb-4 border-b-[1px] border-[#272829] ss:top-20 ss:left-4">
               {category.subtext}
             </p>
             <Image
