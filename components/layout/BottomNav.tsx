@@ -30,7 +30,7 @@ const BottomNav = () => {
 
   const isHomeActive = pathname === "/";
   const isShopActive = pathname === "/shop";
-  const isWishlistActive = pathname === "/cart";
+  const isWishlistActive = pathname === "/wishlist";
 
   return (
     <section className="fixed drop-shadow-2xl bottom-0 w-full p-3 bg-white flex items-center justify-between gap-3 z-50 xl:hidden xxl:hidden xxxl:hidden ultra:hidden">

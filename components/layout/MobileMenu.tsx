@@ -22,8 +22,6 @@ const MobileMenu = () => {
     document.body.classList.remove("no_scroll");
   };
 
-  const isProfileActive = pathname === "/profile";
-
   return (
     <section>
       {openMobileMenu && (
@@ -52,15 +50,6 @@ const MobileMenu = () => {
                 </Link>
               );
             })}
-            <Link
-              href="/profile"
-              className={`hover:text-red-400 hover:transition cursor-pointer ${
-                isProfileActive && "text-red-400"
-              }`}
-              onClick={handleCloseMenu}
-            >
-              <p className="text-xl">Profile</p>
-            </Link>
           </div>
         </ul>
       )}

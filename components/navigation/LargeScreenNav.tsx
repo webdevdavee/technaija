@@ -79,15 +79,6 @@ const LargeScreenNav = ({ pathname, cartCount }: LargeScreenNavProps) => {
           </Link>
         </SignedOut>
         <SignedIn>
-          <Link href="/profile">
-            <Image
-              className="text-lg"
-              width={20}
-              height={20}
-              src="/user.svg"
-              alt="user"
-            />
-          </Link>
           <UserButton afterSignOutUrl="/" />
         </SignedIn>
         <Link href={"/wishlist"}>
