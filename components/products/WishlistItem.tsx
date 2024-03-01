@@ -30,7 +30,7 @@ const WishlistItem = ({ userId, userWishlist }: Wishlist) => {
     <section className="mt-6 sm:overflow-x-scroll">
       {showLoader && (
         <section className="absolute w-full h-screen top-0 bottom-0 transition-[0.3] ease-in-out duration-300 left-0 right-0 bg-white opacity-70 z-[56]">
-          <Loader className="loader" />
+          <Loader className="loader3" />
         </section>
       )}
       {userWishlist && userWishlist.length >= 1 ? (

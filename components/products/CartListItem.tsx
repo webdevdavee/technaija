@@ -48,7 +48,7 @@ const CartListItem = ({ userId, userCart }: CartList) => {
       <div className="flex flex-col gap-6 w-full">
         {showLoader && (
           <section className="absolute w-full h-full top-0 bottom-0 left-0 right-0 transition-[0.3] ease-in-out duration-300 bg-white opacity-70 z-[56]">
-            <Loader className="loader" />
+            <Loader className="loader3" />
           </section>
         )}
         {userCart.length >= 1 ? (

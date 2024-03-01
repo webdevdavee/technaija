@@ -80,7 +80,7 @@ const SlideInCart = ({ userId, userCart }: SlideInCartProps) => {
         <div className="custom-scrollbar overflow-y-scroll h-[19rem] w-full flex flex-col gap-4 items-start">
           {showLoader && (
             <section className="absolute w-full h-screen top-0 bottom-0 transition-[0.3] ease-in-out duration-300 left-0 right-0 bg-white opacity-70 z-[56]">
-              <Loader className="loader" />
+              <Loader className="loader3" />
             </section>
           )}
           {userCart.length >= 1 ? (

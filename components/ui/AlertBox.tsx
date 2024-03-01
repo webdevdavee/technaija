@@ -21,7 +21,7 @@ const AlertBox = ({ type, feature }: AlertBoxProps) => {
 
   return (
     <section
-      className={`fixed top-[7rem] right-[5rem] animate-slideIn w-fit p-4 border-[1px] z-[56] m:top-[5rem] m:right-[1rem] ${
+      className={`fixed top-[7rem] right-[5rem] animate-slideIn w-fit p-4 border-[1px] z-[58] m:top-[5rem] m:right-[1rem] ${
         type === "success" ? "border-[#65B741]" : "border-red-500"
       }  ${type === "success" ? "bg-[#C1F2B0]" : "bg-red-400"}`}
     >
