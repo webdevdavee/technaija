@@ -18,7 +18,7 @@ const page = async () => {
       <Checkout
         paystackPublicKey={paystackPublicKey!}
         userCart={userCart}
-        user={user}
+        user={user && user}
       />
     </section>
   );

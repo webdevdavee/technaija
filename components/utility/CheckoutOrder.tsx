@@ -3,11 +3,10 @@ import Coupon from "./Coupon";
 import { formatNumber } from "@/libs/utils";
 import { PaystackButton } from "react-paystack";
 import { useState } from "react";
-import { TCheckoutSchema } from "@/libs/zod";
 import EventButton from "../ui/EventButton";
 
 type CheckoutOrderProp = {
-  formData: TCheckoutSchema | undefined | any;
+  formData: CheckoutFormData | undefined | any;
   paystackPublicKey: string;
   userCart: TCartItem[];
   user: Users;

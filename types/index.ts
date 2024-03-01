@@ -197,6 +197,20 @@ type Coupon = {
   percentoff: number;
 };
 
+type CheckoutFormData = {
+  userId: string;
+  userPhoto: string;
+  userCart: string[];
+  firstname: string;
+  lastname: string;
+  email: string;
+  country: string;
+  address: string;
+  city: string;
+  zipcode: string;
+  phone: string;
+};
+
 // type CurrencyConverter = {
 //   salesPrice?: number;
 //   price: number;

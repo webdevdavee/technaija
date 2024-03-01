@@ -15,7 +15,7 @@ type CheckoutProp = {
 };
 
 const Checkout = ({ paystackPublicKey, userCart, user }: CheckoutProp) => {
-  const [formData, setFormData] = useState<TCheckoutSchema>();
+  const [formData, setFormData] = useState<CheckoutFormData>();
   const [formReady, setFormReady] = useState<boolean>(false);
 
   const {
@@ -26,7 +26,12 @@ const Checkout = ({ paystackPublicKey, userCart, user }: CheckoutProp) => {
   } = useForm<TCheckoutSchema>({ resolver: zodResolver(checkoutSchema) });
 
   const onSubmit = async (data: TCheckoutSchema) => {
-    setFormData(data);
+    setFormData({
+      ...data,
+      userId: user._id,
+      userPhoto: user.photo,
+      userCart: userCart.map((product) => product.name),
+    });
     setFormReady(true);
   };
 
