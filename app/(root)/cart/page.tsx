@@ -9,7 +9,7 @@ const CartPage = async () => {
   const userCart = await getUserCartItems(userId);
 
   return (
-    <section className="relative mt-16 px-20 py-12 m:px-6 xl:px-12">
+    <section className="relative mt-16 px-20 pt-6 pb-12 m:px-6 xl:px-12">
       <h1 className="text-center text-3xl font-medium py-6">Cart</h1>
       <CartListItem userId={userId} userCart={userCart.reverse()} />
     </section>
