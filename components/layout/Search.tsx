@@ -71,8 +71,8 @@ const Search = () => {
                 <div className="flex items-center gap-6">
                   <Image
                     src={`${product.featured_image}`}
-                    width={windowSize <= 290 ? 70 : 150}
-                    height={windowSize <= 290 ? 70 : 150}
+                    width={windowSize && windowSize <= 290 ? 70 : 150}
+                    height={windowSize && windowSize <= 290 ? 70 : 150}
                     alt="product-img"
                   />
                   <span className="flex flex-col justify-center gap-2">

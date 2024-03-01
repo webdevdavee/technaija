@@ -9,7 +9,7 @@ const WishlistPage = async () => {
   const userWishlist = await getUserWishlistItems(userId);
 
   return (
-    <section className="relative mt-16 px-20 pt-6 pb-12 m:px-6 xl:px-12">
+    <section className="relative px-20 pt-6 pb-12 m:px-6 xl:px-12">
       <h1 className="text-center text-3xl font-medium py-6">Wishlist</h1>
       <WishlistItem userId={userId} userWishlist={userWishlist.reverse()} />
     </section>

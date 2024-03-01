@@ -91,8 +91,8 @@ const SlideInCart = ({ userId, userCart }: SlideInCartProps) => {
               >
                 <Image
                   src={item.photo}
-                  width={windowSize <= 290 ? 70 : 120}
-                  height={windowSize <= 290 ? 70 : 120}
+                  width={windowSize && windowSize <= 290 ? 70 : 120}
+                  height={windowSize && windowSize <= 290 ? 70 : 120}
                   alt="img"
                 />
                 <span className="flex flex-col items-start gap-6 pt-2">
