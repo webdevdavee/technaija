@@ -2,13 +2,14 @@ import { Schema, model, models } from "mongoose";
 
 const OrderSchema = new Schema({
   orderId: { type: String, required: true, unique: true },
-  firtname: { type: String, required: true, unique: true },
+  firstname: { type: String, required: true, unique: true },
   lastname: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   amount: { type: Number, required: true, unique: true },
   products: [
     {
       name: { type: String, required: true },
+      model: { type: String, required: true },
     },
   ],
   date: { type: String, required: true },

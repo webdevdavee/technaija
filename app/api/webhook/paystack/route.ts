@@ -37,6 +37,8 @@ export async function POST(req: Request, res: Response) {
         channel: event.data.channel,
       };
 
+      console.log(order);
+
       const newOrder = await createOrder(order);
 
       return NextResponse.json({ message: "OK", user: newOrder });

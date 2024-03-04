@@ -200,7 +200,7 @@ type Coupon = {
 type CheckoutFormData = {
   userId: string;
   userPhoto: string;
-  userCart: { name: string; model: string }[];
+  userCart: CartItem[];
   firstname: string;
   lastname: string;
   email: string;
@@ -217,10 +217,7 @@ type CreateOrderParam = {
   lastname: string;
   email: string;
   amount: number;
-  products: {
-    name: string;
-    model: string;
-  }[];
+  products: string[];
   date: string;
   status: string;
   channel: string;
