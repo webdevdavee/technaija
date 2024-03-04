@@ -1,5 +1,6 @@
 import crypto from "crypto";
 import { createOrder } from "@/libs/actions/orders.action";
+import { convertDateFormat } from "@/libs/utils";
 
 // Secret key from Paystack
 const secret = process.env.PAYSTACK_SECRET_KEY!;
@@ -28,7 +29,7 @@ export async function POST(req: Request, res: Response) {
         email: event.data.customer.email,
         amount: event.data.amount / 100,
         products: event.data.metadata.userCart,
-        date: event.data.paid_at,
+        date: convertDateFormat(event.data.paid_at),
         status: event.data.status,
         channel: event.data.channel,
       };
