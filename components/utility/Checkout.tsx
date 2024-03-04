@@ -30,7 +30,7 @@ const Checkout = ({ paystackPublicKey, userCart, user }: CheckoutProp) => {
       ...data,
       userId: user._id,
       userPhoto: user.photo,
-      userCart: userCart.map((product) => product),
+      userCart: userCart.map((product) => `${product.name} - ${product.model}`),
     });
     setFormReady(true);
   };
