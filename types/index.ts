@@ -213,12 +213,13 @@ type CheckoutFormData = {
 
 type CreateOrderParam = {
   orderId: string;
-  firtname: string;
+  firstname: string;
   lastname: string;
   email: string;
   amount: number;
   products: {
     name: string;
+    model: string;
   }[];
   date: string;
   status: string;

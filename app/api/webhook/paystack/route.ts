@@ -2,6 +2,7 @@ import crypto from "crypto";
 import { createOrder } from "@/libs/actions/orders.action";
 import { convertDateFormat } from "@/libs/utils";
 import { TCartItem } from "@/libs/database/models/cart.model";
+import { NextResponse } from "next/server";
 
 // Secret key from Paystack
 const secret = process.env.PAYSTACK_SECRET_KEY!;
@@ -23,7 +24,7 @@ export async function POST(req: Request, res: Response) {
 
     if (eventType === "charge.success") {
       const order = {
-        orderID: event.data.id,
+        orderId: event.data.id,
         firstname: event.data.customer.first_name,
         lastname: event.data.customer.last_name,
         email: event.data.customer.email,
@@ -35,7 +36,10 @@ export async function POST(req: Request, res: Response) {
         status: event.data.status,
         channel: event.data.channel,
       };
-      console.log(order);
+
+      const newOrder = await createOrder(order);
+
+      return NextResponse.json({ message: "OK", user: newOrder });
     }
 
     return new Response("Event handled successfully", { status: 200 });
