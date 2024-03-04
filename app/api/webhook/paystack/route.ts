@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import { createOrder } from "@/libs/actions/orders.action";
 
 // Secret key from Paystack
 const secret = process.env.PAYSTACK_SECRET_KEY!;
@@ -20,7 +21,18 @@ export async function POST(req: Request, res: Response) {
 
     // console.log(eventType, "alright");
     if (eventType === "charge.success") {
-      console.log(event);
+      const order = {
+        orderID: event.data.id,
+        firstname: event.data.customer.first_name,
+        lastname: event.data.customer.last_name,
+        email: event.data.customer.email,
+        amount: event.data.amount / 100,
+        products: event.data.metadata.userCart,
+        date: event.data.paid_at,
+        status: event.data.status,
+        channel: event.data.channel,
+      };
+      console.log(order);
     }
 
     return new Response("Event handled successfully", { status: 200 });

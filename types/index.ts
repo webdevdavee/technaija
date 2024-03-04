@@ -211,6 +211,20 @@ type CheckoutFormData = {
   phone: string;
 };
 
+type CreateOrderParam = {
+  orderId: string;
+  firtname: string;
+  lastname: string;
+  email: string;
+  amount: number;
+  products: {
+    name: string;
+  }[];
+  date: string;
+  status: string;
+  channel: string;
+};
+
 // type CurrencyConverter = {
 //   salesPrice?: number;
 //   price: number;
