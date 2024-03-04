@@ -29,7 +29,7 @@ export async function POST(req: Request, res: Response) {
         email: event.data.customer.email,
         amount: event.data.amount / 100,
         products: event.data.metadata.userCart.map(
-          (product: TCartItem) => `${product.name} - ${product.name}`
+          (product: TCartItem) => `${product.name} - ${product.model}`
         ),
         date: convertDateFormat(event.data.paid_at),
         status: event.data.status,
