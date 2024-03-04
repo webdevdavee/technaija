@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import { createOrder } from "@/libs/actions/orders.action";
 import { convertDateFormat } from "@/libs/utils";
+import { TCartItem } from "@/libs/database/models/cart.model";
 
 // Secret key from Paystack
 const secret = process.env.PAYSTACK_SECRET_KEY!;
@@ -20,7 +21,6 @@ export async function POST(req: Request, res: Response) {
     let event = body;
     const eventType = event?.event;
 
-    // console.log(eventType, "alright");
     if (eventType === "charge.success") {
       const order = {
         orderID: event.data.id,
@@ -28,7 +28,9 @@ export async function POST(req: Request, res: Response) {
         lastname: event.data.customer.last_name,
         email: event.data.customer.email,
         amount: event.data.amount / 100,
-        products: event.data.metadata.userCart,
+        products: event.data.metadata.userCart.map(
+          (product: TCartItem) => `${product.name} - ${product.name}`
+        ),
         date: convertDateFormat(event.data.paid_at),
         status: event.data.status,
         channel: event.data.channel,
