@@ -4,7 +4,7 @@ const OrderSchema = new Schema({
   orderId: { type: String, required: true, unique: true },
   firstname: { type: String, required: true },
   lastname: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
+  email: { type: String, required: true },
   amount: { type: Number, required: true },
   products: [{ type: String, required: true }],
   date: { type: String, required: true },
