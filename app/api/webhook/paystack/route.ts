@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import { createOrder } from "@/libs/actions/orders.action";
-import { convertDateFormat } from "@/libs/utils";
+import { convertDateFormat, formatDateToCustom } from "@/libs/utils";
 import { TCartItem } from "@/libs/database/models/cart.model";
 import { NextResponse } from "next/server";
 
@@ -30,7 +30,7 @@ export async function POST(req: Request, res: Response) {
         email: event.data.customer.email,
         amount: event.data.amount / 100,
         products: event.data.metadata.userCart,
-        date: event.data.created_at,
+        date: formatDateToCustom(event.data.created_at),
         status: event.data.status,
         channel: event.data.channel,
       };
