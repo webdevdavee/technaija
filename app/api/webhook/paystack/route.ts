@@ -30,12 +30,10 @@ export async function POST(req: Request, res: Response) {
         email: event.data.customer.email,
         amount: event.data.amount / 100,
         products: event.data.metadata.userCart,
-        date: convertDateFormat(event.data.paid_at),
+        date: event.data.created_at,
         status: event.data.status,
         channel: event.data.channel,
       };
-
-      console.log(order);
 
       const newOrder = await createOrder(order);
 
