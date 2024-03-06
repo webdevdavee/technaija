@@ -28,7 +28,7 @@ export async function POST(req: Request, res: Response) {
         email: event.data.customer.email,
         amount: event.data.amount / 100,
         products: event.data.metadata.userCart,
-        date: new Date(event.data.created_at),
+        date: event.data.paid_at,
         status: event.data.status,
         channel: event.data.channel,
       };
