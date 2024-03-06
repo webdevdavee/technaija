@@ -218,7 +218,7 @@ type CreateOrderParam = {
   email: string;
   amount: number;
   products: string[];
-  date: Date;
+  date: string;
   status: string;
   channel: string;
 };
