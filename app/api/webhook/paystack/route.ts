@@ -1,7 +1,5 @@
 import crypto from "crypto";
 import { createOrder } from "@/libs/actions/orders.action";
-import { convertDateFormat, formatDateToCustom } from "@/libs/utils";
-import { TCartItem } from "@/libs/database/models/cart.model";
 import { NextResponse } from "next/server";
 
 // Secret key from Paystack
@@ -30,14 +28,14 @@ export async function POST(req: Request, res: Response) {
         email: event.data.customer.email,
         amount: event.data.amount / 100,
         products: event.data.metadata.userCart,
-        date: formatDateToCustom(event.data.created_at),
+        date: new Date(event.data.created_at),
         status: event.data.status,
         channel: event.data.channel,
       };
 
       const newOrder = await createOrder(order);
 
-      return NextResponse.json({ message: "OK", user: newOrder });
+      return NextResponse.json({ message: "OK", order: newOrder });
     }
 
     return new Response("Event handled successfully", { status: 200 });
