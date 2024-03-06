@@ -7,7 +7,7 @@ const OrderSchema = new Schema({
   email: { type: String, required: true },
   amount: { type: Number, required: true },
   products: [{ type: String, required: true }],
-  date: { type: String, required: true },
+  date: { type: Date, required: true },
   status: { type: String, required: true },
   channel: { type: String, required: true },
 });
