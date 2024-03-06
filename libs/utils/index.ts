@@ -128,14 +128,14 @@ export const convertDateFormat = (dateString: string) => {
   return formattedDate;
 };
 
-// export const formatDateToCustom = (dateString: string) => {
-//   const inputDate = new Date(dateString);
-//   const year = inputDate.getUTCFullYear();
-//   const month = (inputDate.getUTCMonth() + 1).toString().padStart(2, "0"); // Adjust month to 1-based index
-//   const day = inputDate.getUTCDate().toString().padStart(2, "0");
+export const formatDateToCustom = (dateString: string) => {
+  const inputDate = new Date(dateString);
+  const year = inputDate.getUTCFullYear();
+  const month = (inputDate.getUTCMonth() + 1).toString().padStart(2, "0"); // Adjust month to 1-based index
+  const day = inputDate.getUTCDate().toString().padStart(2, "0");
 
-//   return `${year}-${month}-${day}`;
-// };
+  return `${year}-${month}-${day}`;
+};
 
 // Convert currency
 // export const convertCurrency = async ({

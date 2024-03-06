@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import { createOrder } from "@/libs/actions/orders.action";
 import { NextResponse } from "next/server";
+import { formatDateToCustom } from "@/libs/utils";
 
 // Secret key from Paystack
 const secret = process.env.PAYSTACK_SECRET_KEY!;
@@ -28,7 +29,7 @@ export async function POST(req: Request, res: Response) {
         email: event.data.customer.email,
         amount: event.data.amount / 100,
         products: event.data.metadata.userCart,
-        date: new Date(event.data.paid_at),
+        date: formatDateToCustom(event.data.paid_at),
         status: event.data.status,
         channel: event.data.channel,
       };
