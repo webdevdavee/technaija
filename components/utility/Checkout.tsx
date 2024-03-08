@@ -5,7 +5,6 @@ import CheckoutOrder from "@/components/utility/CheckoutOrder";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TCheckoutSchema, checkoutSchema } from "@/libs/zod";
-import { TCartItem } from "@/libs/database/models/cart.model";
 import { useState } from "react";
 
 type CheckoutProp = {

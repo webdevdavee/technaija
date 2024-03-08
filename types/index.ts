@@ -57,7 +57,7 @@ type FooterMenu5 = {
   text: string;
 };
 
-type UserCart = {
+type TCartItem = {
   _id: string;
   name: string;
   price: number;
@@ -65,6 +65,7 @@ type UserCart = {
   photo: string;
   model: string;
   user: string;
+  category: string;
 };
 
 type UserWishlist = {
@@ -117,10 +118,10 @@ type UpdateUserParams = {
   photo: string;
 };
 
-type UpdateUserMetadata = {
-  userId: string;
-  currency: string;
-};
+// type UpdateUserMetadata = {
+//   userId: string;
+//   currency: string;
+// };
 
 type GetProductsFilterParams = {
   categoryFilterArray?: string[];
@@ -159,17 +160,18 @@ type CreateUserParam = {
   photo: string;
 };
 
-type CartItem = {
+type NewCartItem = {
   name: string;
   price: number;
   quantity: number;
   photo: string;
   model: string;
   user?: string;
+  category: string;
 };
 
 type CartParams = {
-  product: CartItem;
+  product: NewCartItem;
   userId: string;
   path: string;
 };
@@ -201,7 +203,7 @@ type Coupon = {
 type CheckoutFormData = {
   userId: string;
   userPhoto: string;
-  userCart: UserCart[];
+  userCart: TCartItem[];
   firstname: string;
   lastname: string;
   email: string;

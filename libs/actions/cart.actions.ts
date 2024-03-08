@@ -2,7 +2,7 @@
 
 import { connectToDatabase } from "../database";
 import { handleError } from "../utils";
-import Cart, { TCartItem } from "../database/models/cart.model";
+import Cart from "../database/models/cart.model";
 import { revalidatePath } from "next/cache";
 
 export const addProductToCart = async ({

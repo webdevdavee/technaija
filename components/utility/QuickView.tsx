@@ -59,20 +59,21 @@ const QuickView = ({ userId }: Quickview) => {
   // Define an async function that takes a product of type IProduct as a parameter
   const addToCart = async (product: IProduct) => {
     // Create an object of type CartItem with the product's details
-    const cartedProduct: CartItem = {
+    const cartedProduct: NewCartItem = {
       name: product.name,
       model: selectedModel!, // Use the non-null assertion operator to indicate that selectedModel is not null or undefined
       quantity: quantity,
       photo: currentImage,
       price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
+      category: product.original_category,
     };
 
     // Get user carted items or products
-    const userCart: UserCart[] = await getUserCartItems(userId);
+    const userCart: TCartItem[] = await getUserCartItems(userId);
 
     // Check if carted product exists in the cart database of the user
     const itemExists = userCart.some(
-      (product: UserCart) =>
+      (product: TCartItem) =>
         product.name === cartedProduct.name &&
         product.model === cartedProduct.model
     );

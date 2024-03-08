@@ -6,7 +6,6 @@ import QuantityCounter from "../utility/QuantityCounter";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { formatNumber } from "@/libs/utils";
-import { TCartItem } from "@/libs/database/models/cart.model";
 import { removeProductFromCart } from "@/libs/actions/cart.actions";
 import Loader from "../ui/Loader";
 
@@ -33,7 +32,7 @@ const CartListItem = ({ userId, userCart }: CartList) => {
       return a + b;
     }, 0);
 
-  const removeFromCart = async (product: UserCart) => {
+  const removeFromCart = async (product: TCartItem) => {
     // Show loader
     setShowLoader(true);
     await removeProductFromCart({ product, userId, path: pathname });

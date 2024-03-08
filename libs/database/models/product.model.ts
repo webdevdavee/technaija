@@ -57,7 +57,6 @@ const ProductSchema = new Schema({
       },
     ],
   },
-  category: { type: Schema.Types.ObjectId, ref: "categories" },
   original_category: { type: String, required: true },
   gallery: [{ image: { type: String } }],
   featured_image: { type: String, required: true },
