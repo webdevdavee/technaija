@@ -64,6 +64,7 @@ type UserCart = {
   quantity: number;
   photo: string;
   model: string;
+  user: string;
 };
 
 type UserWishlist = {
@@ -200,7 +201,7 @@ type Coupon = {
 type CheckoutFormData = {
   userId: string;
   userPhoto: string;
-  userCart: string[];
+  userCart: UserCart[];
   firstname: string;
   lastname: string;
   email: string;
