@@ -24,7 +24,7 @@ export async function POST(req: Request, res: Response) {
     if (eventType === "charge.success") {
       console.log(event);
 
-      const order = {
+      const order: CreateOrderParam = {
         orderId: event.data.id,
         firstname: event.data.customer.first_name,
         lastname: event.data.customer.last_name,

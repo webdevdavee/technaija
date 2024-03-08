@@ -226,7 +226,7 @@ type CreateOrderParam = {
   lastname: string;
   email: string;
   amount: number;
-  products: TCartItem[];
+  products: NewCartItem[];
   date: string;
   status: string;
   channel: string;
