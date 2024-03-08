@@ -10,7 +10,6 @@ import { setSlideInCart } from "@/libs/redux-state/features/slide-in-cart/slideI
 import Loader from "../ui/Loader";
 import { slideInCartState } from "@/libs/redux-state/features/slide-in-cart/slideInCart";
 import { formatNumber } from "@/libs/utils";
-import { TCartItem } from "@/libs/database/models/cart.model";
 import { removeProductFromCart } from "@/libs/actions/cart.actions";
 import { usePathname } from "next/navigation";
 
@@ -48,7 +47,7 @@ const SlideInCart = ({ userId, userCart }: SlideInCartProps) => {
     document.body.classList.remove("no_scroll");
   };
 
-  const removeFromCart = async (product: UserCart) => {
+  const removeFromCart = async (product: TCartItem) => {
     // Show loader
     setShowLoader(true);
     await removeProductFromCart({ product, userId, path: pathname });

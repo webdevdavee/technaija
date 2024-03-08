@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
 import { updateCartItem } from "@/libs/actions/cart.actions";
-import { TCartItem } from "@/libs/database/models/cart.model";
 import { usePathname } from "next/navigation";
 
 type QuantityCounterProps = {

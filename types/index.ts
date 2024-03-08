@@ -171,7 +171,7 @@ type NewCartItem = {
 };
 
 type CartParams = {
-  product: NewCartItem;
+  product: TCartItem;
   userId: string;
   path: string;
 };
