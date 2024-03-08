@@ -1,4 +1,3 @@
-import { TCartItem } from "@/libs/database/models/cart.model";
 import Coupon from "./Coupon";
 import { formatNumber } from "@/libs/utils";
 import { PaystackButton } from "react-paystack";
