@@ -171,6 +171,12 @@ type NewCartItem = {
 };
 
 type CartParams = {
+  product: NewCartItem;
+  userId: string;
+  path: string;
+};
+
+type CartRemoveParams = {
   product: TCartItem;
   userId: string;
   path: string;

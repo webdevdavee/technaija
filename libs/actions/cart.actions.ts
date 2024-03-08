@@ -74,7 +74,7 @@ export const removeProductFromCart = async ({
   product,
   userId,
   path,
-}: CartParams) => {
+}: CartRemoveParams) => {
   try {
     await connectToDatabase();
 
