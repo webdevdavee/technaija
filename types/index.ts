@@ -226,16 +226,7 @@ type CreateOrderParam = {
   lastname: string;
   email: string;
   amount: number;
-  products: {
-    _id: string;
-    name: string;
-    price: number;
-    quantity: number;
-    photo: string;
-    model: string;
-    user: string;
-    category: string;
-  }[];
+  products: TCartItem[];
   date: string;
   status: string;
   channel: string;
