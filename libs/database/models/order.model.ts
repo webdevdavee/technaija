@@ -20,7 +20,7 @@ const OrderSchema = new Schema({
   date: { type: String, required: true },
   status: { type: String, required: true },
   channel: { type: String, required: true },
-  userId: { type: String, required: true, unique: true },
+  userId: { type: String, required: true },
   userPhoto: { type: String, required: true },
 });
 
