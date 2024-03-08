@@ -24,21 +24,23 @@ export async function POST(req: Request, res: Response) {
     if (eventType === "charge.success") {
       console.log(event);
 
-      // const order = {
-      //   orderId: event.data.id,
-      //   firstname: event.data.customer.first_name,
-      //   lastname: event.data.customer.last_name,
-      //   email: event.data.customer.email,
-      //   amount: event.data.amount / 100,
-      //   products: event.data.metadata.userCart,
-      //   date: formatDateToCustom(event.data.paid_at),
-      //   status: event.data.status,
-      //   channel: event.data.channel,
-      // };
+      const order = {
+        orderId: event.data.id,
+        firstname: event.data.customer.first_name,
+        lastname: event.data.customer.last_name,
+        email: event.data.customer.email,
+        amount: event.data.amount / 100,
+        products: event.data.metadata.userCart,
+        date: formatDateToCustom(event.data.paid_at),
+        status: event.data.status,
+        channel: event.data.channel,
+        userId: event.data.metadata.userId,
+        userPhoto: event.data.metadata.userPhoto,
+      };
 
-      // const newOrder = await createOrder(order);
+      const newOrder = await createOrder(order);
 
-      // return NextResponse.json({ message: "OK", order: newOrder });
+      return NextResponse.json({ message: "OK", order: newOrder });
     }
 
     return new Response("Event handled successfully", { status: 200 });
