@@ -31,6 +31,8 @@ const ProductDetails = ({ product, userId }: Prop) => {
 
   const [selectedModel, setSelectedModel] = useState(
     product.additional_information?.model?.[0]?.text
+      ? product.additional_information?.model?.[0]?.text
+      : "N/A"
   );
 
   const [currentImage, setCurrentImage] = useState(product.featured_image);
@@ -56,7 +58,7 @@ const ProductDetails = ({ product, userId }: Prop) => {
       price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
       quantity: quantity,
       photo: currentImage,
-      model: selectedModel ? selectedModel : "", // Use the non-null assertion operator to indicate that selectedModel is not null or undefined
+      model: selectedModel, // Use the non-null assertion operator to indicate that selectedModel is not null or undefined
       category: product.original_category,
     };
 

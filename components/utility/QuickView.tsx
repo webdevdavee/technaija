@@ -41,6 +41,8 @@ const QuickView = ({ userId }: Quickview) => {
 
   const [selectedModel, setSelectedModel] = useState(
     product.additional_information?.model?.[0]?.text
+      ? product.additional_information?.model?.[0]?.text
+      : "N/A"
   );
 
   const [showCartAlertBox, setShowCartAlertBox] = useState(false);
@@ -61,7 +63,7 @@ const QuickView = ({ userId }: Quickview) => {
     // Create an object of type CartItem with the product's details
     const cartedProduct: NewCartItem = {
       name: product.name,
-      model: selectedModel ? selectedModel : "N/A", // Use the non-null assertion operator to indicate that selectedModel is not null or undefined
+      model: selectedModel, // Use the non-null assertion operator to indicate that selectedModel is not null or undefined
       quantity: quantity,
       photo: currentImage,
       price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price

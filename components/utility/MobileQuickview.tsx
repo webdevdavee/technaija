@@ -18,8 +18,8 @@ type MobileQuickviewProp = {
   closeQuickview: () => void;
   addToCart: (product: IProduct) => Promise<void>;
   addToWishlist: (product: IProduct) => Promise<void>;
-  selectedModel: string | undefined;
-  setSelectedModel: Dispatch<SetStateAction<string | undefined>>;
+  selectedModel: string;
+  setSelectedModel: Dispatch<SetStateAction<string>>;
   quantity: number;
   setQuantity: Dispatch<SetStateAction<number>>;
   setModelError: Dispatch<SetStateAction<boolean>>;

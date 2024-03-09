@@ -11,8 +11,8 @@ import LinkButton from "../ui/LinkButton";
 
 type ProductOptionProp = {
   product: IProduct;
-  selectedModel: string | undefined;
-  setSelectedModel: Dispatch<SetStateAction<string | undefined>>;
+  selectedModel: string;
+  setSelectedModel: Dispatch<SetStateAction<string>>;
   quantity: number;
   setQuantity: Dispatch<SetStateAction<number>>;
   addToCart: (product: IProduct) => Promise<void>;
