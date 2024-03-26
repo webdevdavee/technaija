@@ -1,6 +1,7 @@
 import { IProduct } from "@/libs/database/models/product.model";
 import Image from "next/image";
 import { formatNumber } from "@/libs/utils";
+import DOMPurify from "dompurify";
 
 type ProductInfoProp = {
   product: IProduct;
@@ -9,8 +10,12 @@ type ProductInfoProp = {
 const ProductInfo = ({ product }: ProductInfoProp) => {
   const stars = ["1", "2", "3", "4", "5"];
 
+  const shortDescription = DOMPurify.sanitize(
+    product.short_description ? product.short_description : ""
+  );
+
   return (
-    <section className="flex flex-col items-start gap-8 m:mt-12 xl:gap-4">
+    <section className="flex flex-col items-start gap-8 m:mt-12 xl:gap-4 w-full">
       <span className="w-full flex items-center justify-between sm:flex-col sm:items-start sm:gap-4">
         <p className="text-gray-400 text-sm">{product.original_category}</p>
         <span className="flex items-center gap-1 xl:hidden">
@@ -41,7 +46,12 @@ const ProductInfo = ({ product }: ProductInfoProp) => {
       ) : (
         <p className="text-2xl">{formatNumber(product.price, "₦")}</p>
       )}
-      <p className="text-sm">{product.short_description}</p>
+      <p
+        className="text-sm"
+        dangerouslySetInnerHTML={{
+          __html: shortDescription,
+        }}
+      />
     </section>
   );
 };

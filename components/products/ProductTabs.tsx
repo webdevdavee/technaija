@@ -4,6 +4,7 @@ import { useState } from "react";
 import { IProduct } from "@/libs/database/models/product.model";
 import Image from "next/image";
 import ReviewForm from "../forms/ReviewForm";
+import DOMPurify from "dompurify";
 
 type Prop = {
   product: IProduct;
@@ -41,6 +42,10 @@ const ProductTabs = ({ product }: Prop) => {
     return <div className="flex gap-1">{stars}</div>;
   }
 
+  const longDescription = DOMPurify.sanitize(
+    product.description ? product.description : ""
+  );
+
   return (
     <div className="w-full mt-12">
       <span className="flex items-center justify-center gap-12 mb-4 m:flex-col m:items-start m:gap-6">
@@ -73,7 +78,12 @@ const ProductTabs = ({ product }: Prop) => {
       <div>
         {activeTab === 0 && (
           <div className="w-full flex items-center justify-center mt-8">
-            <p className="w-[65%] text-sm m:w-full">{product.description}</p>
+            <p
+              className="w-[65%] text-sm m:w-full"
+              dangerouslySetInnerHTML={{
+                __html: longDescription,
+              }}
+            />
           </div>
         )}
         {activeTab === 1 && (
