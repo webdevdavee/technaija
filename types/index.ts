@@ -95,7 +95,7 @@ type UpdateProductParams = {
     sku?: string;
     additional_information?: {
       model?: {
-        id: string;
+        _id: string;
         text: string;
       }[];
     };
