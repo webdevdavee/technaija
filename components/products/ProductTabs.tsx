@@ -93,7 +93,7 @@ const ProductTabs = ({ product }: Prop) => {
               <div className="flex flex-wrap items-center">
                 {product.additional_information?.model?.map((info) => (
                   <span
-                    key={info.id}
+                    key={info._id}
                     className="text-sm px-2"
                   >{`${info.text},`}</span>
                 ))}

@@ -16,12 +16,13 @@ export interface IProduct extends Document {
     rating: number;
     saveDetails: boolean;
   }[];
-  sku?: string;
   additional_information?: {
-    model?: {
-      id: string;
-      text: string;
-    }[];
+    model?: [
+      {
+        _id: string;
+        text: string;
+      }
+    ];
   };
   category: string;
   original_category: string;
@@ -48,11 +49,9 @@ const ProductSchema = new Schema({
       saveDetails: { type: Boolean, default: false },
     },
   ],
-  sku: { type: String },
   additional_information: {
     model: [
       {
-        id: String,
         text: String,
       },
     ],

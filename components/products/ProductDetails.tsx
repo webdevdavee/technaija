@@ -58,14 +58,14 @@ const ProductDetails = ({ product, userId }: Prop) => {
       price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
       quantity: quantity,
       photo: currentImage,
-      model: selectedModel, // Use the non-null assertion operator to indicate that selectedModel is not null or undefined
+      model: selectedModel,
       category: product.original_category,
     };
 
     // Get user carted items or products
     const userCart: TCartItem[] = await getUserCartItems(userId);
 
-    // Check if carted product exists in the cart database of the user
+    // Check if carted product exists in the user's cart
     const itemExists = userCart.some(
       (product: TCartItem) =>
         product.name === cartedProduct.name &&

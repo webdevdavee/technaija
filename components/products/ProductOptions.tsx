@@ -88,7 +88,7 @@ const ProductOptions = ({
                     <option value="Choose an option">Choose an option</option>
                   )}
                   {product.additional_information?.model?.map((data) => (
-                    <option key={data.id} value={`${data.text}`}>
+                    <option key={data._id} value={`${data.text}`}>
                       {data.text}
                     </option>
                   ))}
@@ -110,7 +110,7 @@ const ProductOptions = ({
         <SignedOut>
           <LinkButton
             link="sign-in"
-            classname={`w-[13rem] py-2 px-10 bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition m:w-full ${
+            classname={`w-[13rem] py-2 px-10 bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition m:w-full text-center ${
               selectedModel === "" || showLoader
                 ? "bg-gray-300 cursor-not-allowed hover:bg-gray-300 transition duration-500"
                 : ""
@@ -144,7 +144,7 @@ const ProductOptions = ({
         <Link href="/sign-in" className="m:w-full">
           <button
             type="button"
-            className={`flex gap-4 items-center py-2 px-6 transition duration-500 border-[1px] border-gray-300 m:justify-center ${
+            className={`flex gap-4 items-center py-2 px-6 transition duration-500 border-[1px] border-gray-300 m:justify-center m:w-full text-center ${
               selectedModel === "" || showLoader
                 ? "bg-gray-300 cursor-not-allowed transition duration-500"
                 : ""
