@@ -223,7 +223,7 @@ type CheckoutFormData = {
 type CreateOrderParam = {
   orderId: string;
   firstname: string;
-  lastname: string;
+  lastname?: string;
   email: string;
   amount: number;
   products: TCartItem[];
