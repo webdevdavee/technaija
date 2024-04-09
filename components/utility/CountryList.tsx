@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { countryList } from "@/constants";
 import { TCheckoutSchema } from "@/libs/zod";
 import { UseFormSetValue } from "react-hook-form";
@@ -19,6 +19,10 @@ const CountryList = ({ setValue, error }: CountryListProp) => {
   const [country, setCountry] = useState("Nigeria");
   const [showCountryList, setShowCountryList] = useState(false);
   const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    setValue("country", country);
+  }, []);
 
   const filteredCountrySearch = countryList.filter((country) =>
     country.name.toLowerCase().includes(query.toLowerCase())
