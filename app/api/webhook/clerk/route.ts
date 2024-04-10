@@ -58,7 +58,7 @@ export async function POST(req: Request) {
 
     let user;
 
-    if (last_name !== null || last_name) {
+    if (last_name) {
       user = {
         clerkId: id,
         email: email_addresses[0].email_address,
@@ -73,6 +73,7 @@ export async function POST(req: Request) {
         email: email_addresses[0].email_address,
         username: username!,
         firstName: first_name,
+        lastName: first_name,
         photo: image_url,
       };
     }

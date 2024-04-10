@@ -156,7 +156,7 @@ type CreateUserParam = {
   email: string;
   username: string;
   firstName: string;
-  lastName?: string;
+  lastName: string;
   photo: string;
 };
 
@@ -223,7 +223,7 @@ type CheckoutFormData = {
 type CreateOrderParam = {
   orderId: string;
   firstname: string;
-  lastname?: string;
+  lastname: string;
   email: string;
   amount: number;
   products: TCartItem[];
