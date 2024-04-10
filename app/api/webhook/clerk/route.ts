@@ -58,7 +58,7 @@ export async function POST(req: Request) {
 
     let user;
 
-    if (last_name) {
+    if (last_name !== null || last_name) {
       user = {
         clerkId: id,
         email: email_addresses[0].email_address,
