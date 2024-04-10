@@ -61,7 +61,7 @@ export async function POST(req: Request) {
       email: email_addresses[0].email_address,
       username: username!,
       firstName: first_name,
-      lastName: last_name ?? first_name, // This will use first_name if last_name is null or undefined,
+      lastName: last_name ?? "Unknown", // This will use first_name if last_name is null or undefined,
       photo: image_url,
     };
 
