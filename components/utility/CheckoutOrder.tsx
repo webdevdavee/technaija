@@ -76,16 +76,28 @@ const CheckoutOrder = async ({
         setCouponPrice={setCouponPrice}
       />
       {formReady ? (
-        <PaystackButton
-          text="Place order"
-          className="w-full py-3 px-5 bg-[#272829] text-white mt-14"
-          publicKey={paystackPublicKey}
-          firstname={user?.firstName}
-          lastname={user?.lastName}
-          email={user?.email as string}
-          amount={couponPrice ? couponPrice * 100 : grandTotal * 100}
-          metadata={formData && formData}
-        />
+        user?.lastName ? (
+          <PaystackButton
+            text="Place order"
+            className="w-full py-3 px-5 bg-[#272829] text-white mt-14"
+            publicKey={paystackPublicKey}
+            firstname={user?.firstName}
+            lastname={user?.lastName}
+            email={user?.email as string}
+            amount={couponPrice ? couponPrice * 100 : grandTotal * 100}
+            metadata={formData && formData}
+          />
+        ) : (
+          <PaystackButton
+            text="Place order"
+            className="w-full py-3 px-5 bg-[#272829] text-white mt-14"
+            publicKey={paystackPublicKey}
+            firstname={user?.firstName}
+            email={user?.email as string}
+            amount={couponPrice ? couponPrice * 100 : grandTotal * 100}
+            metadata={formData && formData}
+          />
+        )
       ) : (
         <EventButton
           type="button"
