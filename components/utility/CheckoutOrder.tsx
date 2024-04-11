@@ -3,6 +3,8 @@ import { formatNumber } from "@/libs/utils";
 import { PaystackButton } from "react-paystack";
 import { useState } from "react";
 import EventButton from "../ui/EventButton";
+import { useRouter } from "next/navigation";
+import { clearUserCart } from "@/libs/actions/cart.actions";
 
 type CheckoutOrderProp = {
   formData: CheckoutFormData | undefined | any;
@@ -10,6 +12,7 @@ type CheckoutOrderProp = {
   userCart: TCartItem[];
   user: Users;
   formReady: boolean;
+  userId: string;
 };
 
 const CheckoutOrder = async ({
@@ -18,7 +21,10 @@ const CheckoutOrder = async ({
   userCart,
   user,
   formReady,
+  userId,
 }: CheckoutOrderProp) => {
+  const router = useRouter();
+
   const [formattedGrandTotal, setFormattedGrandTotal] = useState<string>();
   const [couponPrice, setCouponPrice] = useState<number>();
 
@@ -34,6 +40,11 @@ const CheckoutOrder = async ({
     totals.reduce((a: number, b: number) => {
       return a + b;
     }, 0);
+
+  const afterPayment = async () => {
+    await clearUserCart(userId);
+    router.push("/");
+  };
 
   return (
     <section className="w-[30%] m:w-full xl:w-[45%]">
@@ -85,6 +96,7 @@ const CheckoutOrder = async ({
           email={user?.email as string}
           amount={couponPrice ? couponPrice * 100 : grandTotal * 100}
           metadata={formData && formData}
+          onSuccess={() => afterPayment()}
         />
       ) : (
         <EventButton

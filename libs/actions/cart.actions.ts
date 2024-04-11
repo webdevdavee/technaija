@@ -85,3 +85,15 @@ export const removeProductFromCart = async ({
     handleError(error);
   }
 };
+
+export const clearUserCart = async (user: string) => {
+  try {
+    await connectToDatabase();
+
+    await Cart.deleteMany({ user: user });
+
+    revalidatePath("/cart");
+  } catch (error) {
+    handleError(error);
+  }
+};

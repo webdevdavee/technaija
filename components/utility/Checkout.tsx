@@ -11,9 +11,15 @@ type CheckoutProp = {
   paystackPublicKey: string;
   userCart: TCartItem[];
   user: Users;
+  userId: string;
 };
 
-const Checkout = ({ paystackPublicKey, userCart, user }: CheckoutProp) => {
+const Checkout = ({
+  paystackPublicKey,
+  userCart,
+  user,
+  userId,
+}: CheckoutProp) => {
   const [formData, setFormData] = useState<CheckoutFormData>();
   const [formReady, setFormReady] = useState<boolean>(false);
 
@@ -49,6 +55,7 @@ const Checkout = ({ paystackPublicKey, userCart, user }: CheckoutProp) => {
         userCart={userCart}
         user={user}
         formReady={formReady}
+        userId={userId}
       />
     </section>
   );
