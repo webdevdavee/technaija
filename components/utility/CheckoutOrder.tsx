@@ -41,6 +41,7 @@ const CheckoutOrder = async ({
       return a + b;
     }, 0);
 
+  // Function to clear the user's cart and redirect the user to home page
   const afterPayment = async () => {
     await clearUserCart(userId);
     router.push("/");
