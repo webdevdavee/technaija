@@ -22,7 +22,7 @@ const Coupon = ({
     if (couponQuery) {
       const coupon = await getCoupon(couponQuery.toUpperCase());
       if (coupon.length > 0) {
-        discount.current = coupon[0].percentoff;
+        discount.current = coupon[0].discount;
         const theFinalPrice = discountPrice(grandTotal, discount.current);
         setFormattedGrandTotal(theFinalPrice.formatedPrice);
         setCouponPrice(theFinalPrice.discountedPrice);

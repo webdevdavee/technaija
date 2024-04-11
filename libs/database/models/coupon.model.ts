@@ -1,10 +1,11 @@
 import { Schema, model, models } from "mongoose";
 
 const CouponSchema = new Schema({
-  coupon: { type: String, required: true },
-  percentoff: { type: Number, required: true },
+  code: { type: String, required: true },
+  discount: { type: Number, required: true },
+  limit: { type: Number, required: true },
 });
 
-const coupons = models.coupons || model("coupons", CouponSchema);
+const Coupons = models.Coupons || model("Coupons", CouponSchema);
 
-export default coupons;
+export default Coupons;
