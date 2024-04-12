@@ -7,14 +7,17 @@ type CouponProps = {
   grandTotal: number;
   setFormattedGrandTotal: Dispatch<SetStateAction<string | undefined>>;
   setCouponPrice: Dispatch<SetStateAction<number | undefined>>;
+  couponQuery: string;
+  setCouponQuery: Dispatch<SetStateAction<string>>;
 };
 
 const Coupon = ({
   grandTotal,
   setFormattedGrandTotal,
   setCouponPrice,
+  couponQuery,
+  setCouponQuery,
 }: CouponProps) => {
-  const [couponQuery, setCouponQuery] = useState<string>("");
   const discount = useRef(0);
   const [couponError, setCouponError] = useState<string>("");
 

@@ -234,6 +234,10 @@ type CreateOrderParam = {
   userPhoto: string;
 };
 
+type ReduceCouponLimit = {
+  couponCode: string;
+};
+
 // type CurrencyConverter = {
 //   salesPrice?: number;
 //   price: number;

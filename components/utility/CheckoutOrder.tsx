@@ -5,6 +5,7 @@ import { useState } from "react";
 import EventButton from "../ui/EventButton";
 import { useRouter } from "next/navigation";
 import { clearUserCart } from "@/libs/actions/cart.actions";
+import { reduceCouponLimit } from "@/libs/actions/coupon.actions";
 
 type CheckoutOrderProp = {
   formData: CheckoutFormData | undefined | any;
@@ -27,6 +28,7 @@ const CheckoutOrder = async ({
 
   const [formattedGrandTotal, setFormattedGrandTotal] = useState<string>();
   const [couponPrice, setCouponPrice] = useState<number>();
+  const [couponQuery, setCouponQuery] = useState<string>("");
 
   // Array to hold total amounts for each cart item
   const totals = userCart?.map((item: TCartItem) => {
@@ -43,6 +45,7 @@ const CheckoutOrder = async ({
 
   // Function to clear the user's cart and redirect the user to home page
   const afterPayment = async () => {
+    await reduceCouponLimit({ couponCode: couponQuery.toUpperCase() });
     await clearUserCart(userId);
     router.push("/");
   };
@@ -86,6 +89,8 @@ const CheckoutOrder = async ({
         grandTotal={grandTotal}
         setFormattedGrandTotal={setFormattedGrandTotal}
         setCouponPrice={setCouponPrice}
+        couponQuery={couponQuery}
+        setCouponQuery={setCouponQuery}
       />
       {formReady ? (
         <PaystackButton
