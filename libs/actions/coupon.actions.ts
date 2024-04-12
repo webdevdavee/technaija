@@ -25,20 +25,17 @@ export const reduceCouponLimit = async ({ couponCode }: ReduceCouponLimit) => {
     // activeCouponArray returns an array. Get the first object in it
     const activeCoupon = activeCouponArray[0];
 
-    // // Destructure the object and get the limit property
-    // const { limit } = activeCoupon;
+    // Update the limit property
+    const updatedCouponLimit = activeCoupon.limit - 1;
 
-    // // Update the limit property
-    // const updatedCouponLimit = limit - 1;
+    // Set the updated limit to the coupon
+    const updatedCoupon = await Coupons.findByIdAndUpdate(
+      activeCoupon._id,
+      { limit: updatedCouponLimit },
+      { new: true }
+    );
 
-    // // Set the updated limit to the coupon
-    // const updatedCoupon = await Coupons.findByIdAndUpdate(
-    //   activeCoupon._id,
-    //   { limit: updatedCouponLimit },
-    //   { new: true }
-    // );
-
-    console.log(activeCoupon);
+    console.log(updatedCoupon);
   } catch (error) {
     handleError(error);
   }
