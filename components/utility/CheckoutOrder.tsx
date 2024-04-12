@@ -28,7 +28,7 @@ const CheckoutOrder = async ({
 
   const [formattedGrandTotal, setFormattedGrandTotal] = useState<string>();
   const [couponPrice, setCouponPrice] = useState<number>();
-  const [couponQuery, setCouponQuery] = useState<string>("");
+  const [selectedCoupon, setSelectedCoupon] = useState<string>("");
 
   // Array to hold total amounts for each cart item
   const totals = userCart?.map((item: TCartItem) => {
@@ -43,9 +43,13 @@ const CheckoutOrder = async ({
       return a + b;
     }, 0);
 
-  // Function to clear the user's cart and redirect the user to home page
+  // Function to clear the user's cart, subtract the coupon limit and redirect the user to home page
   const afterPayment = async () => {
-    await reduceCouponLimit({ couponCode: couponQuery.toUpperCase() });
+    if (selectedCoupon && selectedCoupon.length > 0) {
+      await reduceCouponLimit({
+        couponCode: selectedCoupon,
+      });
+    }
     await clearUserCart(userId);
     router.push("/");
   };
@@ -89,8 +93,8 @@ const CheckoutOrder = async ({
         grandTotal={grandTotal}
         setFormattedGrandTotal={setFormattedGrandTotal}
         setCouponPrice={setCouponPrice}
-        couponQuery={couponQuery}
-        setCouponQuery={setCouponQuery}
+        selectedCoupon={selectedCoupon}
+        setSelectedCoupon={setSelectedCoupon}
       />
       {formReady ? (
         <PaystackButton

@@ -5,27 +5,23 @@ import CheckoutOrder from "@/components/utility/CheckoutOrder";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TCheckoutSchema, checkoutSchema } from "@/libs/zod";
-import { useEffect, useState } from "react";
-import { getUserCartItems } from "@/libs/actions/cart.actions";
+import { useState } from "react";
 
 type CheckoutProp = {
   paystackPublicKey: string;
+  userCart: TCartItem[];
   user: Users;
   userId: string;
 };
 
-const Checkout = ({ paystackPublicKey, user, userId }: CheckoutProp) => {
+const Checkout = ({
+  paystackPublicKey,
+  userCart,
+  user,
+  userId,
+}: CheckoutProp) => {
   const [formData, setFormData] = useState<CheckoutFormData>();
   const [formReady, setFormReady] = useState<boolean>(false);
-  const [userCart, setUserCart] = useState<TCartItem[]>([]);
-
-  useEffect(() => {
-    const fetchUserCart = async () => {
-      const userCart = await getUserCartItems(userId);
-      setUserCart(userCart);
-    };
-    fetchUserCart();
-  }, []);
 
   const {
     register,

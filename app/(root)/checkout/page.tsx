@@ -7,7 +7,7 @@ const page = async () => {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
 
-  // const userCart = await getUserCartItems(userId);
+  const userCart = await getUserCartItems(userId);
   const user = await getUserById(userId);
 
   const paystackPublicKey = process.env.PAYSTACK_PUBLIC_KEY;
@@ -17,7 +17,7 @@ const page = async () => {
       <h1 className="text-center text-3xl font-medium py-6 mb-6">Checkout</h1>
       <Checkout
         paystackPublicKey={paystackPublicKey!}
-        // userCart={userCart}
+        userCart={userCart}
         user={user && user}
         userId={userId}
       />

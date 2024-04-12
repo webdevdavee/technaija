@@ -7,29 +7,31 @@ type CouponProps = {
   grandTotal: number;
   setFormattedGrandTotal: Dispatch<SetStateAction<string | undefined>>;
   setCouponPrice: Dispatch<SetStateAction<number | undefined>>;
-  couponQuery: string;
-  setCouponQuery: Dispatch<SetStateAction<string>>;
+  selectedCoupon: string;
+  setSelectedCoupon: Dispatch<SetStateAction<string>>;
 };
 
 const Coupon = ({
   grandTotal,
   setFormattedGrandTotal,
   setCouponPrice,
-  couponQuery,
-  setCouponQuery,
+  selectedCoupon,
+  setSelectedCoupon,
 }: CouponProps) => {
   const discount = useRef(0);
+  const [couponQuery, setCouponQuery] = useState<string>("");
   const [couponError, setCouponError] = useState<string>("");
 
   const fetchCoupon = async () => {
     if (couponQuery) {
-      const coupon = await getCoupon(couponQuery.toUpperCase());
-      if (coupon.length > 0) {
+      const coupon = await getCoupon(couponQuery.toUpperCase().trim());
+      if (coupon && coupon.length > 0) {
         discount.current = coupon[0].discount;
         const theFinalPrice = discountPrice(grandTotal, discount.current);
         setFormattedGrandTotal(theFinalPrice.formatedPrice);
         setCouponPrice(theFinalPrice.discountedPrice);
         setCouponError("");
+        setSelectedCoupon(coupon[0].code);
       } else {
         setCouponError("Coupon code does not exists.");
       }
