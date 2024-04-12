@@ -20,7 +20,7 @@ export const reduceCouponLimit = async ({ couponCode }: ReduceCouponLimit) => {
     await connectToDatabase();
 
     // Find the coupon based on the coupon code received from the params
-    const activeCouponArray = await Coupons.find({ coupon: couponCode });
+    const activeCouponArray = await Coupons.find({ code: couponCode });
 
     // activeCouponArray returns an array. Get the first object in it
     const activeCoupon = activeCouponArray[0];
