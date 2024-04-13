@@ -23,7 +23,7 @@ const Order = ({ order }: OrderProps) => {
         </span>
         <span className="flex flex-col gap-6">
           {order.products.map((product) => (
-            <div className="flex gap-10">
+            <div key={product._id} className="flex gap-10">
               <Image
                 src={product.photo}
                 width={100}
