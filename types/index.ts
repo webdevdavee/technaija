@@ -66,6 +66,7 @@ type TCartItem = {
   model: string;
   user: string;
   category: string;
+  productId: string;
 };
 
 type UserWishlist = {
@@ -168,6 +169,7 @@ type NewCartItem = {
   model: string;
   user?: string;
   category: string;
+  productId: string;
 };
 
 type CartParams = {
@@ -220,6 +222,31 @@ type CheckoutFormData = {
   phone: string;
 };
 
+type TOrders = {
+  _id: string;
+  orderId: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  amount: number;
+  products: {
+    _id: string;
+    name: string;
+    price: number;
+    quantity: number;
+    photo: string;
+    model: string;
+    user: string;
+    category: string;
+    productId: string;
+  }[];
+  date: string;
+  status: string;
+  channel: string;
+  userId: string;
+  userPhoto: string;
+};
+
 type CreateOrderParam = {
   orderId: string;
   firstname: string;
@@ -232,6 +259,13 @@ type CreateOrderParam = {
   channel: string;
   userId: string;
   userPhoto: string;
+};
+
+type GetUserOrdersParams = {
+  limit: number;
+  page?: number;
+  userId: string;
+  status?: string;
 };
 
 type ReduceCouponLimit = {

@@ -59,7 +59,7 @@ const Search = () => {
         </button>
       </div>
       <div>
-        <SearchBox query={query} setQuery={setQuery} />
+        <SearchBox query={query} setQuery={setQuery} placeholder="products" />
         <div className="flex flex-col gap-4 mt-6 pt-6 border-t-[1px] border-t-gray-400 custom-scrollbar overflow-y-scroll h-[30rem]">
           {products.length >= 1 ? (
             products.map((product) => (

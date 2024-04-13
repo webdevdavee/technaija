@@ -68,6 +68,7 @@ const QuickView = ({ userId }: Quickview) => {
       photo: currentImage,
       price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
       category: product.original_category,
+      productId: product._id,
     };
 
     // Get user carted items or products

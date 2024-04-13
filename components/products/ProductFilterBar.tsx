@@ -14,7 +14,7 @@ type ProductFilterBarProp = {
   setShowMobileFilter: Dispatch<SetStateAction<boolean>>;
 };
 
-const ProductFilterBar = async ({
+const ProductFilterBar = ({
   productsWithNoLimit,
   newProductsWithNoLimit,
   setNewProductsWithNoLimit,

@@ -8,6 +8,7 @@ const CartSchema = new Schema({
   model: { type: String, required: true },
   user: { type: String, required: true },
   category: { type: String, required: true },
+  productId: { type: String, required: true },
 });
 
 const Cart = models.Cart || model("Cart", CartSchema);

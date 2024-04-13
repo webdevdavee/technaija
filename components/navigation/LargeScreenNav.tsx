@@ -67,6 +67,17 @@ const LargeScreenNav = ({ pathname, cartCount }: LargeScreenNavProps) => {
             alt="search"
           />
         </button>
+        <SignedIn>
+          <Link href="/profile">
+            <Image
+              className="text-lg"
+              width={20}
+              height={20}
+              src="/user.svg"
+              alt="user"
+            />
+          </Link>
+        </SignedIn>
         <SignedOut>
           <Link href="/sign-up">
             <Image

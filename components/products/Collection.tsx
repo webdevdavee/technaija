@@ -11,7 +11,7 @@ type CollectionProps = {
   userWishlist: TWishlistItem[];
 };
 
-const Collection = async ({
+const Collection = ({
   products,
   type,
   title,

@@ -1,13 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
 import { Dispatch, SetStateAction } from "react";
 import { ChangeEvent } from "react";
 import { IProduct } from "@/libs/database/models/product.model";
 import { getProductsByFilter } from "@/libs/actions/product.action";
-import { setModelFilterArray } from "@/libs/redux-state/features/shop-filter/shopFilter";
 import { useSelector } from "react-redux";
 import { shopFilterState } from "@/libs/redux-state/features/shop-filter/shopFilter";
 import { usePathname, useRouter } from "next/navigation";

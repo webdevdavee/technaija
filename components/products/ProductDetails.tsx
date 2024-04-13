@@ -60,6 +60,7 @@ const ProductDetails = ({ product, userId }: Prop) => {
       photo: currentImage,
       model: selectedModel,
       category: product.original_category,
+      productId: product._id,
     };
 
     // Get user carted items or products
