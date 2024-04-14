@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { countryList } from "@/constants";
-import { TCheckoutSchema } from "@/libs/zod";
+import { TBillingSchema } from "@/libs/zod";
 import { UseFormSetValue } from "react-hook-form";
 
 type CountryListProp = {
-  setValue: UseFormSetValue<TCheckoutSchema>;
+  setValue: UseFormSetValue<TBillingSchema>;
   error?: any;
 };
 
