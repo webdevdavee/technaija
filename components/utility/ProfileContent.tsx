@@ -1,15 +1,21 @@
+"use client";
+
 import Orders from "./Orders";
 import BillingDetails from "./BillingDetails";
-import { usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 type ProfileContentProp = {
   userId: string;
-  currentMenu: string | null;
 };
 
-const ProfileContent = ({ userId, currentMenu }: ProfileContentProp) => {
+const ProfileContent = ({ userId }: ProfileContentProp) => {
+  const searchParams = useSearchParams();
+
+  const UrlSearchParams = new URLSearchParams(searchParams.toString());
+  const currentMenu = UrlSearchParams.get("menu");
+
   return (
-    <section className="w-[85%]">
+    <section>
       <div className="pl-10 border-solid border-l-[1px] border-l-[#272829]">
         {currentMenu === "Orders" || !currentMenu ? (
           <Orders userId={userId} />

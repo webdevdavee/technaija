@@ -17,7 +17,9 @@ const ProfileMenu = ({
   const pathname = usePathname();
   const router = useRouter();
 
-  const selectMenu = async (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+  const selectMenu = async (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
     const text = e.currentTarget.textContent;
 
     UrlSearchParams.set(urlKey, text ? text : "");
@@ -31,22 +33,33 @@ const ProfileMenu = ({
     <aside className="w-[15%]">
       <nav>
         <ul className="flex flex-col gap-6">
-          <li
+          <Link
+            href="/profile?menu=Orders"
             className={`cursor-pointer hover:duration-200 hover:transition hover:text-red-400 ${
-              currentMenu === "Orders" || !currentMenu ? "text-red-400" : ""
+              currentMenu === "Orders" ||
+              (pathname !== "/profile/create-billing-details" &&
+                pathname !== "/profile/edit-billing-details" &&
+                currentMenu !== "Billing details")
+                ? "text-red-400"
+                : ""
             }`}
             onClick={(e) => selectMenu(e)}
           >
             Orders
-          </li>
-          <li
+          </Link>
+          <Link
+            href="/profile?menu=Billing+details"
             className={`cursor-pointer hover:duration-200 hover:transition hover:text-red-400 ${
-              currentMenu === "Billing details" && "text-red-400"
+              currentMenu === "Billing details" ||
+              pathname === "/profile/create-billing-details" ||
+              pathname === "/profile/edit-billing-details"
+                ? "text-red-400"
+                : ""
             }`}
             onClick={(e) => selectMenu(e)}
           >
             Billing details
-          </li>
+          </Link>
           <Link
             href="/cart"
             className="cursor-pointer hover:duration-200 hover:transition hover:text-red-400"

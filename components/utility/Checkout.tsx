@@ -4,7 +4,7 @@ import CheckoutDetails from "@/components/forms/CheckoutDetails";
 import CheckoutOrder from "@/components/utility/CheckoutOrder";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TCheckoutSchema, checkoutSchema } from "@/libs/zod";
+import { TBillingSchema, billingSchema } from "@/libs/zod";
 import { useState } from "react";
 
 type CheckoutProp = {
@@ -28,9 +28,9 @@ const Checkout = ({
     handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
-  } = useForm<TCheckoutSchema>({ resolver: zodResolver(checkoutSchema) });
+  } = useForm<TBillingSchema>({ resolver: zodResolver(billingSchema) });
 
-  const onSubmit = async (data: TCheckoutSchema) => {
+  const onSubmit = async (data: TBillingSchema) => {
     setFormData({
       ...data,
       userId: user._id,

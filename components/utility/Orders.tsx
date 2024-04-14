@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import Order from "./Order";
 import { getUserOrders } from "@/libs/actions/orders.action";

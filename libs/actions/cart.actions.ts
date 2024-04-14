@@ -8,12 +8,17 @@ import { revalidatePath } from "next/cache";
 export const addProductToCart = async ({
   product,
   userId,
+  productId,
   path,
 }: CartParams) => {
   try {
     await connectToDatabase();
 
-    const cartedProduct = await Cart.create({ ...product, user: userId });
+    const cartedProduct = await Cart.create({
+      ...product,
+      user: userId,
+      productId: productId,
+    });
 
     revalidatePath(path);
 

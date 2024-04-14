@@ -16,7 +16,7 @@ type CheckoutOrderProp = {
   userId: string;
 };
 
-const CheckoutOrder = async ({
+const CheckoutOrder = ({
   formData,
   paystackPublicKey,
   userCart,

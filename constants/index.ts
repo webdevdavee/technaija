@@ -118,6 +118,17 @@ export const productSortList: ProductSortList[] = [
   { id: 4, text: "Sort by price: high to low" },
 ];
 
+export const billingDetailsDefaultValues = {
+  firstname: "",
+  lastname: "",
+  email: "",
+  country: "",
+  address: "",
+  city: "",
+  zipcode: "",
+  phone: "",
+};
+
 export const countryList = [
   { id: 1, name: "Afghanistan" },
   { id: 2, name: "Albania" },

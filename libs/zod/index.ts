@@ -21,7 +21,7 @@ export const contactSchema = z.object({
 export type TContactSchema = z.infer<typeof contactSchema>;
 
 // CHECKOUT SCHEMA
-export const checkoutSchema = z.object({
+export const billingSchema = z.object({
   firstname: z.string().min(3, "Use 3 characters or more"),
   lastname: z.string().min(3, "Use 3 characters or more"),
   email: z.string().email(),
@@ -32,4 +32,4 @@ export const checkoutSchema = z.object({
   phone: z.string().regex(/^(0|\+?[1-9])[0-9]{7,14}$/, "Invalid phone number"),
 });
 
-export type TCheckoutSchema = z.infer<typeof checkoutSchema>;
+export type TBillingSchema = z.infer<typeof billingSchema>;

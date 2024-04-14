@@ -38,7 +38,17 @@ const Order = ({ order }: OrderProps) => {
                 >
                   {product.name} - {product.model}
                 </Link>
-                <p>{product.category}</p>
+                <Link
+                  href={
+                    product.category === "iPhone Cases"
+                      ? "/shop?category=iPhone+Cases&iPhone+Cases=true"
+                      : product.category === "Android Cases"
+                      ? "/shop?category=Android+Cases&Android+Cases=true"
+                      : "/shop?category=Accessories&Accessories=true"
+                  }
+                >
+                  {product.category}
+                </Link>
                 <p>
                   {formatNumber(product.price, "₦")} x {product.quantity}
                 </p>

@@ -167,14 +167,13 @@ type NewCartItem = {
   quantity: number;
   photo: string;
   model: string;
-  user?: string;
   category: string;
-  productId: string;
 };
 
 type CartParams = {
   product: NewCartItem;
   userId: string;
+  productId: string;
   path: string;
 };
 
@@ -270,6 +269,42 @@ type GetUserOrdersParams = {
 
 type ReduceCouponLimit = {
   couponCode: string;
+};
+
+type TBilling = {
+  _id: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  country: string;
+  address: string;
+  city: string;
+  zipcode: string;
+  phone: string;
+  isDefault: boolean;
+};
+
+type NewBilling = {
+  firstname: string;
+  lastname: string;
+  email: string;
+  country: string;
+  address: string;
+  city: string;
+  zipcode: string;
+  phone: string;
+  isDefault: false;
+};
+
+type CreateBillingDetailsParams = {
+  detail: NewBilling;
+  path: string;
+};
+
+type UpdateBillingDetailParams = {
+  detailId: string;
+  detail: NewBilling;
+  path: string;
 };
 
 // type CurrencyConverter = {
