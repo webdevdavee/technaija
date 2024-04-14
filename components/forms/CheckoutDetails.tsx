@@ -6,7 +6,7 @@ import {
   UseFormSetValue,
   FieldErrors,
 } from "react-hook-form";
-import { TCheckoutSchema } from "@/libs/zod";
+import { TBillingSchema } from "@/libs/zod";
 import EventButton from "../ui/EventButton";
 
 type CheckoutDetailsProp = {
@@ -20,7 +20,7 @@ type CheckoutDetailsProp = {
     zipcode: string;
     phone: string;
   }>;
-  onSubmit: (data: TCheckoutSchema) => Promise<void>;
+  onSubmit: (data: TBillingSchema) => Promise<void>;
   register: UseFormRegister<{
     firstname: string;
     lastname: string;
