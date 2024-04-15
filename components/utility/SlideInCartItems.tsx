@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import QuantityCounter from "./QuantityCounter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
 import { setSlideInCart } from "@/libs/redux-state/features/slide-in-cart/slideInCart";
@@ -26,6 +26,11 @@ const SlideInCart = ({ userId, userCart }: SlideInCartProps) => {
   const { showSlideInCart } = theCart;
 
   const [showLoader, setShowLoader] = useState(false);
+  const [windowSize, setWindowSize] = useState<number>();
+
+  useEffect(() => {
+    setWindowSize(window.innerWidth);
+  }, []);
 
   // Array to hold total amounts for each cart item
   const totals = userCart?.map((item) => {
@@ -54,8 +59,6 @@ const SlideInCart = ({ userId, userCart }: SlideInCartProps) => {
     // Remove loader
     setShowLoader(false);
   };
-
-  const windowSize = window.innerWidth;
 
   return (
     <section

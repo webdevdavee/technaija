@@ -18,9 +18,14 @@ const Search = () => {
   const dispatch = useDispatch();
   const [query, setQuery] = useState("");
   const [products, setProducts] = useState<IProduct[]>([]);
+  const [windowSize, setWindowSize] = useState<number>();
 
   const theSlideInSearch = useSelector(slideInSearchState);
   const { showSlideInSearch } = theSlideInSearch;
+
+  useEffect(() => {
+    setWindowSize(window.innerWidth);
+  }, []);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -38,8 +43,6 @@ const Search = () => {
     dispatch(setSlideInSearch(false));
     document.body.classList.remove("no_scroll");
   };
-
-  const windowSize = window.innerWidth;
 
   return (
     <section
