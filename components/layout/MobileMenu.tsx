@@ -57,6 +57,7 @@ const MobileMenu = () => {
               className={`text-xl hover:text-red-400 hover:transition cursor-pointer ${
                 activeProfilePage && "text-red-400"
               }`}
+              onClick={handleCloseMenu}
             >
               Profile
             </Link>

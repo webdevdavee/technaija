@@ -104,9 +104,10 @@ const Orders = ({ userId }: OrdersProps) => {
           ))}
         </div>
       ) : (
-        <section className="h-[70%] my-10 flex items-center justify-center">
-          <Loader className="loader" />
-        </section>
+        <p className="my-10 text-center">No orders yet</p>
+        // <section className="h-[70%] my-10 flex items-center justify-center">
+        //   <Loader className="loader" />
+        // </section>
       )}
       {orders && orders.length > 0 && (
         <div className="w-full flex justify-end mt-4">
