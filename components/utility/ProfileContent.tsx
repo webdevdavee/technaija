@@ -16,7 +16,7 @@ const ProfileContent = ({ userId }: ProfileContentProp) => {
 
   return (
     <section>
-      <div className="pl-10 border-solid border-l-[1px] border-l-[#272829]">
+      <div className="pl-10 border-solid border-l-[1px] border-l-gray-300 m:border-none m:pl-0">
         {currentMenu === "Orders" || !currentMenu ? (
           <Orders userId={userId} />
         ) : (

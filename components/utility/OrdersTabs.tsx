@@ -38,17 +38,17 @@ const OrdersTabs = ({
   };
 
   return (
-    <div className="w-fit mt-4 border-[1px] border-gray-300 p-2 flex items-center gap-2">
-      <div
-        className={`flex gap-2 text-sm p-2 hover:bg-red-400 hover:text-white hover:transition rounded cursor-pointer ${
+    <div className="w-fit mt-4 border-[1px] border-gray-300 p-2 flex items-center gap-2 m:overflow-x-auto m:w-full">
+      <p
+        className={`text-sm p-2 hover:bg-red-400 hover:text-white hover:transition rounded cursor-pointer m:min-w-fit ss:text-xs ${
           UrlSearchParams.get("status") === null ? "bg-red-400 text-white" : ""
         }`}
         onClick={() => removeTabFromURL()}
       >
-        <p>All Orders ({ordersCount && ordersCount})</p>
-      </div>
+        All Orders ({ordersCount && ordersCount})
+      </p>
       <p
-        className={`text-sm p-2 hover:bg-red-400 hover:text-white hover:transition rounded cursor-pointer ${
+        className={`text-sm p-2 hover:bg-red-400 hover:text-white hover:transition rounded cursor-pointer  m:min-w-fit ss:text-xs ${
           UrlSearchParams.get("status") === "success"
             ? "bg-red-400 text-white"
             : ""
@@ -58,7 +58,7 @@ const OrdersTabs = ({
         Success ({ordersSuccessCount && ordersSuccessCount})
       </p>
       <p
-        className={`text-sm p-2 hover:bg-red-400 hover:text-white hover:transition rounded cursor-pointer ${
+        className={`text-sm p-2 hover:bg-red-400 hover:text-white hover:transition rounded cursor-pointer m:min-w-fit ss:text-xs ${
           UrlSearchParams.get("status") === "pending"
             ? "bg-red-400 text-white"
             : ""
@@ -68,7 +68,7 @@ const OrdersTabs = ({
         Pending ({ordersPendingCount && ordersPendingCount})
       </p>
       <p
-        className={`text-sm p-2 hover:bg-red-400 hover:text-white hover:transition rounded cursor-pointer ${
+        className={`text-sm p-2 hover:bg-red-400 hover:text-white hover:transition rounded cursor-pointer m:min-w-fit ss:text-xs ${
           UrlSearchParams.get("status") === "failed"
             ? "bg-red-400 text-white"
             : ""

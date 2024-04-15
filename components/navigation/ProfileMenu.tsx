@@ -30,12 +30,12 @@ const ProfileMenu = ({
   };
 
   return (
-    <aside className="w-[15%]">
+    <aside className="w-[15%] m:w-full m:overflow-hidden">
       <nav>
-        <ul className="flex flex-col gap-6">
+        <ul className="flex flex-col gap-6 m:w-full m:flex-row m:gap-3 m:items-center m:justify-between">
           <Link
             href="/profile?menu=Orders"
-            className={`cursor-pointer hover:duration-200 hover:transition hover:text-red-400 ${
+            className={`cursor-pointer hover:duration-200 hover:transition hover:text-red-400 ss:text-xs ${
               currentMenu === "Orders" ||
               (pathname !== "/profile/create-billing-details" &&
                 pathname !== "/profile/edit-billing-details" &&
@@ -49,7 +49,7 @@ const ProfileMenu = ({
           </Link>
           <Link
             href="/profile?menu=Billing+details"
-            className={`cursor-pointer hover:duration-200 hover:transition hover:text-red-400 ${
+            className={`cursor-pointer hover:duration-200 hover:transition hover:text-red-400 ss:text-xs ${
               currentMenu === "Billing details" ||
               pathname === "/profile/create-billing-details" ||
               pathname === "/profile/edit-billing-details"
@@ -62,13 +62,13 @@ const ProfileMenu = ({
           </Link>
           <Link
             href="/cart"
-            className="cursor-pointer hover:duration-200 hover:transition hover:text-red-400"
+            className="cursor-pointer hover:duration-200 hover:transition hover:text-red-400 ss:text-xs"
           >
             Cart
           </Link>
           <Link
             href="/wishlist"
-            className="cursor-pointer hover:duration-200 hover:transition hover:text-red-400"
+            className="cursor-pointer hover:duration-200 hover:transition hover:text-red-400 ss:text-xs"
           >
             Wishlist
           </Link>

@@ -42,9 +42,9 @@ const BillingDetailsCard = ({
 
   return (
     <section>
-      <div className="w-fit flex flex-col gap-4">
+      <div className="w-fit flex flex-col gap-4 m:w-full">
         {details?.map((detail) => (
-          <div key={detail._id} className="p-4 border-[1px] border-[#272829]">
+          <div key={detail._id} className="p-4 border-[1px] border-gray-300">
             {detail.isDefault && (
               <p className="bg-red-100 text-red-400 py-2 px-3 w-fit rounded text-sm mb-2">
                 default
@@ -72,7 +72,11 @@ const BillingDetailsCard = ({
               >
                 Delete
               </button>
-              <button type="button" onClick={() => makeDefault(detail._id)}>
+              <button
+                type="button"
+                onClick={() => makeDefault(detail._id)}
+                style={{ display: detail.isDefault ? "none" : "block" }}
+              >
                 Set as default
               </button>
             </span>

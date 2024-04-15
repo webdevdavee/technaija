@@ -103,7 +103,7 @@ export const getDefaultBillingDetail = async () => {
 
     const billingDetail = await Billing.findOne({ isDefault: true });
 
-    if (!billingDetail) throw new Error("Billing detail not found");
+    if (!billingDetail) return;
 
     return JSON.parse(JSON.stringify(billingDetail));
   } catch (error) {
