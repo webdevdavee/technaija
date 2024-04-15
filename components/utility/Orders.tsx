@@ -24,6 +24,7 @@ const Orders = ({ userId }: OrdersProps) => {
   const [ordersPendingCount, setOrdersPendingCount] = useState<number>();
   const [ordersFailedCount, setOrdersFailedCount] = useState<number>();
   const [query, setQuery] = useState("");
+  const [showLoader, setShowLoader] = useState(true);
 
   const searchParams = useSearchParams();
   const UrlSearchParams = new URLSearchParams(searchParams.toString());
@@ -45,6 +46,7 @@ const Orders = ({ userId }: OrdersProps) => {
       setOrdersPendingCount(userOrders?.ordersPendingCount);
       setOrdersFailedCount(userOrders?.ordersFailedCount);
       setPageNumbers(userOrders?.pageNumbers);
+      setShowLoader(false);
     };
     getOrders();
   }, [currentStatus, currentPage]);
@@ -97,17 +99,32 @@ const Orders = ({ userId }: OrdersProps) => {
           UrlSearchParams={UrlSearchParams}
         />
       </div>
-      {filteredOrdersSearch && filteredOrdersSearch.length > 0 ? (
-        <div className="flex flex-col gap-4 mt-4">
-          {filteredOrdersSearch.map((order) => (
-            <Order key={order._id} order={order} />
-          ))}
-        </div>
+      {!showLoader ? (
+        <>
+          {filteredOrdersSearch && filteredOrdersSearch.length > 0 && (
+            <div className="flex flex-col gap-4 mt-4">
+              {filteredOrdersSearch.map((order) => (
+                <Order key={order._id} order={order} />
+              ))}
+            </div>
+          )}
+          {!orders ? (
+            <p className="w-full mt-4 text-center">
+              There are no orders available
+            </p>
+          ) : (
+            orders &&
+            orders?.length <= 0 && (
+              <p className="w-full mt-4 text-center">
+                There are no orders available
+              </p>
+            )
+          )}
+        </>
       ) : (
-        <p className="my-10 text-center">No orders yet</p>
-        // <section className="h-[70%] my-10 flex items-center justify-center">
-        //   <Loader className="loader" />
-        // </section>
+        <section className="h-[70%] my-10 flex items-center justify-center">
+          <Loader className="loader" />
+        </section>
       )}
       {orders && orders.length > 0 && (
         <div className="w-full flex justify-end mt-4">
