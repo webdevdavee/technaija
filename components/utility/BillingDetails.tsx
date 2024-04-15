@@ -6,6 +6,7 @@ import BillingDetailsCard from "./BillingDetailsCard";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import Loader from "../ui/Loader";
 
 const BillingDetails = () => {
   const searchParams = useSearchParams();
@@ -13,6 +14,7 @@ const BillingDetails = () => {
   // Use state
   const [details, setDetails] = useState<TBilling[] | undefined>([]);
   const [setDefault, setSetDefault] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
 
   const UrlSearchParams = new URLSearchParams(searchParams.toString());
 
@@ -20,20 +22,39 @@ const BillingDetails = () => {
     const fetchBillingDetails = async () => {
       const details = await getBillingDetails();
       setDetails(details);
+      setShowLoader(false);
     };
     fetchBillingDetails();
   }, [setDefault]);
 
   return (
     <section>
-      {details && details.length > 0 ? (
-        <BillingDetailsCard
-          details={details}
-          UrlSearchParams={UrlSearchParams}
-          setSetDefault={setSetDefault}
-        />
+      {!showLoader ? (
+        <>
+          {details && details.length > 0 && (
+            <BillingDetailsCard
+              details={details}
+              UrlSearchParams={UrlSearchParams}
+              setSetDefault={setSetDefault}
+            />
+          )}
+          {!details ? (
+            <p className="w-full mt-4 text-center">
+              You have no billing details
+            </p>
+          ) : (
+            details &&
+            details?.length <= 0 && (
+              <p className="w-full mt-4 text-center">
+                You have no billing details
+              </p>
+            )
+          )}
+        </>
       ) : (
-        <p className="my-10">You have no billing details</p>
+        <section className="h-[70%] my-10 flex items-center">
+          <Loader className="loader" />
+        </section>
       )}
       <Link
         href="/profile/create-billing-details"
