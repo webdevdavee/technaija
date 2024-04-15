@@ -10,6 +10,7 @@ import Image from "next/image";
 const BillingDetails = () => {
   const searchParams = useSearchParams();
 
+  // Use state
   const [details, setDetails] = useState<TBilling[] | undefined>([]);
   const [setDefault, setSetDefault] = useState(false);
 
