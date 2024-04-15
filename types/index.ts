@@ -296,6 +296,17 @@ type NewBilling = {
   isDefault: false;
 };
 
+type UpdateBilling = {
+  firstname: string;
+  lastname: string;
+  email: string;
+  country: string;
+  address: string;
+  city: string;
+  zipcode: string;
+  phone: string;
+};
+
 type CreateBillingDetailsParams = {
   detail: NewBilling;
   path: string;
@@ -303,7 +314,7 @@ type CreateBillingDetailsParams = {
 
 type UpdateBillingDetailParams = {
   detailId: string;
-  detail: NewBilling;
+  detail: UpdateBilling;
   path: string;
 };
 

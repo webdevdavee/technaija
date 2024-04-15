@@ -1,15 +1,21 @@
-import { deleteBillingDetail } from "@/libs/actions/billing.actions";
+import {
+  deleteBillingDetail,
+  setBillingDetailAsDefault,
+} from "@/libs/actions/billing.actions";
 import { createURL } from "@/libs/utils";
 import { useRouter } from "next/navigation";
+import { Dispatch, SetStateAction } from "react";
 
 type BillingDetailsCardProps = {
   details: TBilling[] | undefined;
   UrlSearchParams: URLSearchParams;
+  setSetDefault: Dispatch<SetStateAction<boolean>>;
 };
 
 const BillingDetailsCard = ({
   details,
   UrlSearchParams,
+  setSetDefault,
 }: BillingDetailsCardProps) => {
   const router = useRouter();
 
@@ -17,6 +23,13 @@ const BillingDetailsCard = ({
   const deleteSelectedBillingDetail = async (id: string) => {
     await deleteBillingDetail(id);
     window.location.reload();
+  };
+
+  // Set billing detail as default
+  const makeDefault = async (id: string) => {
+    await setBillingDetailAsDefault(id);
+    // Toggle setDefault state to refetch billing details on "setDefault" state change
+    setSetDefault((prev) => !prev);
   };
 
   const getBillingDetailToEdit = (detailId: string) => {
@@ -32,6 +45,11 @@ const BillingDetailsCard = ({
       <div className="w-fit flex flex-col gap-4">
         {details?.map((detail) => (
           <div key={detail._id} className="p-4 border-[1px] border-[#272829]">
+            {detail.isDefault && (
+              <p className="bg-red-100 text-red-400 py-2 px-3 w-fit rounded text-sm mb-2">
+                default
+              </p>
+            )}
             <span>
               <p className="font-light">
                 {detail.firstname} {detail.lastname}, {detail.phone}
@@ -54,7 +72,9 @@ const BillingDetailsCard = ({
               >
                 Delete
               </button>
-              <button type="button">Set as default</button>
+              <button type="button" onClick={() => makeDefault(detail._id)}>
+                Set as default
+              </button>
             </span>
           </div>
         ))}

@@ -80,3 +80,33 @@ export const updateBillingDetail = async ({
     handleError(error);
   }
 };
+
+export const setBillingDetailAsDefault = async (id: string) => {
+  try {
+    await connectToDatabase();
+
+    // Set all documents' isDefault to false
+    await Billing.updateMany({}, { $set: { isDefault: false } });
+
+    // Set the isDefault of the selected document to true
+    await Billing.updateOne({ _id: id }, { $set: { isDefault: true } });
+
+    revalidatePath("/profile");
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const getDefaultBillingDetail = async () => {
+  try {
+    await connectToDatabase();
+
+    const billingDetail = await Billing.findOne({ isDefault: true });
+
+    if (!billingDetail) throw new Error("Billing detail not found");
+
+    return JSON.parse(JSON.stringify(billingDetail));
+  } catch (error) {
+    handleError(error);
+  }
+};

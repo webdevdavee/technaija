@@ -71,7 +71,7 @@ const BillingDetailsForm = ({ type, detail }: BillingDetailsForm) => {
       try {
         const updatedBillingDetail = await updateBillingDetail({
           detailId: detail._id,
-          detail: { ...data, isDefault: false },
+          detail: data,
           path: pathname,
         });
 

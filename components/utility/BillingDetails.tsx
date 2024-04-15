@@ -11,6 +11,7 @@ const BillingDetails = () => {
   const searchParams = useSearchParams();
 
   const [details, setDetails] = useState<TBilling[] | undefined>([]);
+  const [setDefault, setSetDefault] = useState(false);
 
   const UrlSearchParams = new URLSearchParams(searchParams.toString());
 
@@ -20,7 +21,7 @@ const BillingDetails = () => {
       setDetails(details);
     };
     fetchBillingDetails();
-  }, []);
+  }, [setDefault]);
 
   return (
     <section>
@@ -28,19 +29,18 @@ const BillingDetails = () => {
         <BillingDetailsCard
           details={details}
           UrlSearchParams={UrlSearchParams}
+          setSetDefault={setSetDefault}
         />
       ) : (
         <p className="my-10">You have no billing details</p>
       )}
-      <div className="w-fit mt-4 bg-[#272829] py-2 px-3 text-white">
-        <Link
-          href="/profile/create-billing-details"
-          className="flex gap-2 items-center"
-        >
-          <Image src="/plus-white.svg" width={20} height={20} alt="add" />
-          <p>Add new billing details</p>
-        </Link>
-      </div>
+      <Link
+        href="/profile/create-billing-details"
+        className="flex gap-2 items-center w-fit mt-4 bg-[#272829] py-2 px-3 text-white "
+      >
+        <Image src="/plus-white.svg" width={20} height={20} alt="add" />
+        <p>Add new billing details</p>
+      </Link>
     </section>
   );
 };

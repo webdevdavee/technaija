@@ -5,7 +5,8 @@ import CheckoutOrder from "@/components/utility/CheckoutOrder";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TBillingSchema, billingSchema } from "@/libs/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getDefaultBillingDetail } from "@/libs/actions/billing.actions";
 
 type CheckoutProp = {
   paystackPublicKey: string;
@@ -20,15 +21,41 @@ const Checkout = ({
   user,
   userId,
 }: CheckoutProp) => {
-  const [formData, setFormData] = useState<CheckoutFormData>();
+  const [formData, setFormData] = useState<CheckoutFormData | TBilling>();
+  const [billingDetails, setBillingDetails] = useState<TBilling | undefined>();
   const [formReady, setFormReady] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchDefaultBillingDetail = async () => {
+      const detail = await getDefaultBillingDetail();
+      setBillingDetails(detail);
+    };
+    fetchDefaultBillingDetail();
+  }, []);
+
+  // If billing details exists, make the form ready or allow for payment
+  useEffect(() => {
+    setFormReady(billingDetails ? true : false);
+    setFormData(
+      billingDetails
+        ? {
+            ...billingDetails,
+            userId: user._id,
+            userPhoto: user.photo,
+            userCart: userCart.map((product) => product),
+          }
+        : formData
+    );
+  }, [billingDetails]);
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     setValue,
-  } = useForm<TBillingSchema>({ resolver: zodResolver(billingSchema) });
+  } = useForm<TBillingSchema>({
+    resolver: zodResolver(billingSchema),
+  });
 
   const onSubmit = async (data: TBillingSchema) => {
     setFormData({
@@ -42,13 +69,15 @@ const Checkout = ({
 
   return (
     <section className="flex items-start justify-between gap-8 m:flex-col m:w-full m:gap-16 xl:gap-6">
-      <CheckoutDetails
-        handleSubmit={handleSubmit}
-        onSubmit={onSubmit}
-        register={register}
-        setValue={setValue}
-        errors={errors}
-      />
+      {!billingDetails && (
+        <CheckoutDetails
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+          register={register}
+          setValue={setValue}
+          errors={errors}
+        />
+      )}
       <CheckoutOrder
         paystackPublicKey={paystackPublicKey}
         formData={formData}
@@ -56,6 +85,7 @@ const Checkout = ({
         user={user}
         formReady={formReady}
         userId={userId}
+        billingDetails={billingDetails}
       />
     </section>
   );
