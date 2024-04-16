@@ -59,7 +59,7 @@ const CheckoutOrder = ({
   return (
     <section
       className={`w-[30%] m:w-full xl:w-[45%] ${
-        billingDetails && " w-full xl:px-48 xxl:px-48 xxxl:px-48 ultra:px-48"
+        billingDetails && "w-full xl:w-full xxl:px-48 xxxl:px-48 ultra:px-48"
       }`}
     >
       <h2 className="mb-8 text-lg font-medium">Your order</h2>
