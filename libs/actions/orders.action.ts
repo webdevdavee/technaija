@@ -29,8 +29,13 @@ export const getUserOrders = async ({
     // Aggregation pipeline to get all counts in one go
     const [counts] = await Orders.aggregate([
       {
+        $match: {
+          userId: userId, // filter by userId
+        },
+      },
+      {
         $group: {
-          _id: null,
+          _id: "$userId", // group by userId
           total: { $sum: 1 },
           success: {
             $sum: { $cond: [{ $eq: ["$status", "success"] }, 1, 0] },
