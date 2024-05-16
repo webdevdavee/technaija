@@ -46,7 +46,7 @@ const ProductInfo = ({ product }: ProductInfoProp) => {
       ) : (
         <p className="text-2xl">{formatNumber(product.price, "₦")}</p>
       )}
-      <p
+      <div
         className="text-sm"
         dangerouslySetInnerHTML={{
           __html: shortDescription,

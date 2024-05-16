@@ -53,9 +53,9 @@ const ModelFilter = ({
       // Set the checked state or value of the category input in the URL
       categorySearchParams.set(name, checked.toString());
       // Call a function that creates a URL string with the data from categorySearchParams
-      const categoryURL = createURL(pathname, categorySearchParams);
+      const url = createURL(pathname, categorySearchParams);
       // Push the created URL string to the URL
-      router.push(`${categoryURL}`);
+      router.push(url);
       // Fetch data from data
       const modifiedProducts = await getProductsByFilter({
         modelFilterArray: categorySearchParams.getAll("model"),
@@ -75,9 +75,9 @@ const ModelFilter = ({
       // Delete the category checked state from URL
       categorySearchParams.delete(name);
       // Call a function that creates a URL string with the data from categorySearchParams
-      const categoryURL = createURL(pathname, categorySearchParams);
+      const url = createURL(pathname, categorySearchParams);
       // Push the created URL string to the URL
-      router.push(`${categoryURL}`);
+      router.push(url);
       // Fetch data from data
       const modifiedProducts = await getProductsByFilter({
         modelFilterArray: categorySearchParams.getAll("model"),
