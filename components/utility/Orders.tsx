@@ -49,7 +49,7 @@ const Orders = ({ userId }: OrdersProps) => {
       setShowLoader(false);
     };
     getOrders();
-  }, [currentStatus, currentPage]);
+  }, [currentStatus, userId, currentPage]);
 
   // Go to previous page
   const prevPage = () => {

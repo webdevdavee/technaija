@@ -3,6 +3,7 @@
 import { connectToDatabase } from "../database";
 import { handleError } from "../utils";
 import Orders from "../database/models/order.model";
+import { revalidatePath } from "next/cache";
 
 export const createOrder = async (order: CreateOrderParam) => {
   try {
@@ -105,41 +106,16 @@ export const getUserOrders = async ({
   }
 };
 
-// export const getUserOrders = async ({
-//   limit,
-//   page,
-//   userId,
-// }: GetUserOrdersParams) => {
-//   try {
-//     await connectToDatabase();
+export const clearUserOrders = async (userId: string) => {
+  try {
+    await connectToDatabase();
 
-//     let ordersQuery;
+    const orders = await Orders.deleteMany({ userId });
 
-//     ordersQuery = Orders.find({ userId }).limit(limit).sort({ date: -1 });
+    revalidatePath("/profile");
 
-//     const ordersCount = await Orders.find({}).countDocuments();
-
-//     // Apply pagination if page is provided
-//     if (page) {
-//       ordersQuery = ordersQuery.skip((page - 1) * limit);
-//     }
-
-//     // Get the total number of the current orders query
-//     const totalPages = Math.ceil(ordersCount / limit);
-
-//     const pageNumbers: number[] = [];
-
-//     for (let i = 1; i <= totalPages; i++) {
-//       pageNumbers.push(i);
-//     }
-
-//     const orders = await ordersQuery;
-
-//     return {
-//       orders: JSON.parse(JSON.stringify(orders)),
-//       pageNumbers,
-//     };
-//   } catch (error) {
-//     handleError(error);
-//   }
-// };
+    return JSON.parse(JSON.stringify(orders));
+  } catch (error) {
+    handleError(error);
+  }
+};

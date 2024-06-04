@@ -1,9 +1,17 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
-import { createUser, updateUser } from "@/libs/actions/user.action";
+import {
+  createUser,
+  deleteUserById,
+  getUserByClerkId,
+  updateUser,
+} from "@/libs/actions/user.action";
 import { clerkClient } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+import { clearUserCart } from "@/libs/actions/cart.actions";
+import { clearUserOrders } from "@/libs/actions/orders.action";
+import { clearBillingDetails } from "@/libs/actions/billing.actions";
 
 export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
@@ -65,8 +73,6 @@ export async function POST(req: Request) {
       photo: image_url,
     };
 
-    console.log(user);
-
     const newUser = await createUser(user);
 
     if (newUser) {
@@ -95,6 +101,34 @@ export async function POST(req: Request) {
     const user = await updateUser(id, updatedUser);
 
     return NextResponse.json({ message: "OK", user: user });
+  }
+
+  if (eventType === "user.deleted") {
+    const { id } = evt.data;
+
+    console.log("user deleted");
+
+    const user = await getUserByClerkId(id as string);
+
+    console.log("USER TO DELETE: ", user);
+
+    const items = await clearUserCart(user._id);
+
+    const orders = await clearUserOrders(user._id);
+
+    const billingDetails = await clearBillingDetails(user.email);
+
+    const deletedUser = await deleteUserById(id as string);
+
+    console.log(
+      "USER DATA TO DELETE: ",
+      items,
+      orders,
+      billingDetails,
+      deletedUser
+    );
+
+    return NextResponse.json({ message: "OK" });
   }
 
   return new Response("", { status: 200 });

@@ -6,7 +6,7 @@ import ProductInfo from "../products/ProductInfo";
 import ProductOptions from "../products/ProductOptions";
 import AlertBox from "../ui/AlertBox";
 import { IProduct } from "@/libs/database/models/product.model";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 type LargeQuickviewProp = {
   product: IProduct;
@@ -45,7 +45,11 @@ const LargeQuickview = ({
   setQuantity,
   setModelError,
 }: LargeQuickviewProp) => {
-  const windowSize = window.innerWidth;
+  const [windowSize, setWindowSize] = useState<number>(0);
+
+  useEffect(() => {
+    setWindowSize(window.innerWidth);
+  });
   return (
     <>
       {showQuickview && (

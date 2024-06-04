@@ -50,12 +50,11 @@ const ProductDetails = ({ product, userId }: Prop) => {
   const [productExistsInWishlist, setProductExistsInWishlist] =
     useState<boolean>();
 
-  // Define an async function that takes a product of type IProduct as a parameter
   const addToCart = async (product: IProduct) => {
-    // Create an object of type CartItem with the product's details
+    // Created an object of type CartItem with the product's details
     const cartedProduct: NewCartItem = {
       name: product.name,
-      price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
+      price: product.sales_price ? product.sales_price : product.price,
       quantity: quantity,
       photo: currentImage,
       model: selectedModel,
@@ -78,7 +77,7 @@ const ProductDetails = ({ product, userId }: Prop) => {
       // Show loader on the add to cart button
       setShowLoader(true);
 
-      // Call server function to add product or item to the database Cart collection
+      // Calling server function to add product or item to the database Cart collection
       await addProductToCart({
         product: cartedProduct,
         userId,
@@ -86,10 +85,10 @@ const ProductDetails = ({ product, userId }: Prop) => {
         path: pathname,
       });
 
-      // Call server function to get the user's total carted products
+      // Calling server function to get the user's total carted products
       const userTotalCart = await getTotalUserCart(userId);
 
-      // Set the total carted product number to the redux cartCount state
+      // Setting the total carted product number to the redux cartCount state
       dispatch(setCartCount(userTotalCart[0]?.count));
 
       // Show a success status message or alert box when a product is added to cart
@@ -98,7 +97,7 @@ const ProductDetails = ({ product, userId }: Prop) => {
       // Remove loader from the add to cart button
       setShowLoader(false);
 
-      // After 3 seconds remove the alert message or alert box
+      // After 4 seconds remove the alert message or alert box
       setTimeout(() => {
         setShowCartAlertBox(false);
       }, 4000);
@@ -109,7 +108,7 @@ const ProductDetails = ({ product, userId }: Prop) => {
       // Show a success status message or alert box when a product is added to cart
       setShowCartAlertBox(true);
 
-      // After 3 seconds remove the alert message or alert box
+      // After 4 seconds remove the alert message or alert box
       setTimeout(() => {
         setShowCartAlertBox(false);
       }, 4000);
@@ -117,7 +116,7 @@ const ProductDetails = ({ product, userId }: Prop) => {
   };
 
   const addToWishlist = async (product: IProduct) => {
-    // Create an object of type WishlistItem with the product's details
+    // Created an object of type WishlistItem with the product's details
     const wishlistProduct: WishlistItem = {
       name: product.name,
       price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
@@ -138,7 +137,7 @@ const ProductDetails = ({ product, userId }: Prop) => {
       // Show loader on the add to cart button
       setShowLoader(true);
 
-      // Call server function to add product or item to the database Wishlist collection
+      // Calling server function to add product or item to the database Wishlist collection
       await addProductToWishlist({
         product: wishlistProduct,
         userId,
@@ -151,7 +150,7 @@ const ProductDetails = ({ product, userId }: Prop) => {
       // Remove loader from the add to cart button
       setShowLoader(false);
 
-      // After 3 seconds remove the alert message or alert box
+      // After 4 seconds remove the alert message or alert box
       setTimeout(() => {
         setShowWishlistAlertBox(false);
       }, 4000);
@@ -160,7 +159,7 @@ const ProductDetails = ({ product, userId }: Prop) => {
       // Show a success status message or alert box when a product is added to cart
       setShowWishlistAlertBox(true);
 
-      // After 3 seconds remove the alert message or alert box
+      // After 4 seconds remove the alert message or alert box
       setTimeout(() => {
         setShowWishlistAlertBox(false);
       }, 4000);

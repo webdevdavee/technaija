@@ -41,3 +41,34 @@ export const getUserById = async (userId: string) => {
     handleError(error);
   }
 };
+
+export const getUserByClerkId = async (clerkId: string) => {
+  try {
+    await connectToDatabase();
+
+    const user = await Users.find({ clerkId });
+
+    if (!user) throw new Error("User not found");
+    return JSON.parse(JSON.stringify(user));
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const deleteUserById = async (clerkId: string) => {
+  try {
+    await connectToDatabase();
+
+    const user = await Users.deleteOne(
+      { clerkId },
+      {
+        new: true,
+      }
+    );
+
+    if (!user) throw new Error("User not found");
+    return JSON.parse(JSON.stringify(user));
+  } catch (error) {
+    handleError(error);
+  }
+};

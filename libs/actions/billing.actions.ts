@@ -110,3 +110,17 @@ export const getDefaultBillingDetail = async () => {
     handleError(error);
   }
 };
+
+export const clearBillingDetails = async (email: string) => {
+  try {
+    await connectToDatabase();
+
+    const billingDetails = await Billing.deleteMany({ email });
+
+    revalidatePath("/profile");
+
+    return JSON.parse(JSON.stringify(billingDetails));
+  } catch (error) {
+    handleError(error);
+  }
+};

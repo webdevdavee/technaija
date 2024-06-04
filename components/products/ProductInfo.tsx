@@ -1,7 +1,7 @@
 import { IProduct } from "@/libs/database/models/product.model";
 import Image from "next/image";
 import { formatNumber } from "@/libs/utils";
-import DOMPurify from "dompurify";
+import DOMPurify from "isomorphic-dompurify";
 
 type ProductInfoProp = {
   product: IProduct;

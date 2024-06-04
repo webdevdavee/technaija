@@ -95,9 +95,11 @@ export const clearUserCart = async (user: string) => {
   try {
     await connectToDatabase();
 
-    await Cart.deleteMany({ user: user });
+    const items = await Cart.deleteMany({ user: user });
 
     revalidatePath("/cart");
+
+    return JSON.parse(JSON.stringify(items));
   } catch (error) {
     handleError(error);
   }
