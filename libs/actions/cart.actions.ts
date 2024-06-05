@@ -5,20 +5,11 @@ import { handleError } from "../utils";
 import Cart from "../database/models/cart.model";
 import { revalidatePath } from "next/cache";
 
-export const addProductToCart = async ({
-  product,
-  userId,
-  productId,
-  path,
-}: CartParams) => {
+export const addProductToCart = async ({ product, path }: CartParams) => {
   try {
     await connectToDatabase();
 
-    const cartedProduct = await Cart.create({
-      ...product,
-      userId,
-      productId: productId,
-    });
+    const cartedProduct = await Cart.create(product);
 
     revalidatePath(path);
 
@@ -95,7 +86,12 @@ export const clearUserCart = async (userId: string) => {
   try {
     await connectToDatabase();
 
-    const items = await Cart.deleteMany({ userId });
+    const items = await Cart.deleteMany(
+      { userId },
+      {
+        new: true,
+      }
+    );
 
     revalidatePath("/cart");
 

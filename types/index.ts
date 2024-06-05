@@ -168,12 +168,12 @@ type NewCartItem = {
   photo: string;
   model: string;
   category: string;
+  userId: string;
+  productId: string;
 };
 
 type CartParams = {
   product: NewCartItem;
-  userId: string;
-  productId: string;
   path: string;
 };
 

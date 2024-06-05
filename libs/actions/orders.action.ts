@@ -110,7 +110,12 @@ export const clearUserOrders = async (userId: string) => {
   try {
     await connectToDatabase();
 
-    const orders = await Orders.deleteMany({ userId });
+    const orders = await Orders.deleteMany(
+      { userId },
+      {
+        new: true,
+      }
+    );
 
     revalidatePath("/profile");
 

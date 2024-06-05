@@ -59,6 +59,8 @@ const ProductDetails = ({ product, userId }: Prop) => {
       photo: currentImage,
       model: selectedModel,
       category: product.original_category,
+      userId: userId,
+      productId: product._id,
     };
 
     // Get user carted items or products
@@ -80,8 +82,7 @@ const ProductDetails = ({ product, userId }: Prop) => {
       // Call server function to add product or item to the database Cart collection
       await addProductToCart({
         product: cartedProduct,
-        userId,
-        productId: product._id,
+
         path: pathname,
       });
 

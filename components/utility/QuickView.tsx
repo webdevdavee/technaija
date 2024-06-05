@@ -67,6 +67,8 @@ const QuickView = ({ userId }: Quickview) => {
       photo: currentImage,
       price: product.sales_price ? product.sales_price : product.price,
       category: product.original_category,
+      userId: userId,
+      productId: product._id,
     };
 
     // Get user carted items or products
@@ -89,8 +91,6 @@ const QuickView = ({ userId }: Quickview) => {
       // Call server function to add product or item to the database Cart collection
       await addProductToCart({
         product: cartedProduct,
-        userId,
-        productId: product._id,
         path: pathname,
       });
 
