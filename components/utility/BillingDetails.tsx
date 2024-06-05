@@ -8,7 +8,11 @@ import Link from "next/link";
 import Image from "next/image";
 import Loader from "../ui/Loader";
 
-const BillingDetails = () => {
+type BillingDetailsProps = {
+  userId: string;
+};
+
+const BillingDetails = ({ userId }: BillingDetailsProps) => {
   const searchParams = useSearchParams();
 
   // Use state
@@ -20,7 +24,7 @@ const BillingDetails = () => {
 
   useEffect(() => {
     const fetchBillingDetails = async () => {
-      const details = await getBillingDetails();
+      const details = await getBillingDetails(userId);
       setDetails(details);
       setShowLoader(false);
     };

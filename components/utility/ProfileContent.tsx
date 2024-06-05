@@ -20,7 +20,7 @@ const ProfileContent = ({ userId }: ProfileContentProp) => {
         {currentMenu === "Orders" || !currentMenu ? (
           <Orders userId={userId} />
         ) : (
-          <BillingDetails />
+          <BillingDetails userId={userId} />
         )}
       </div>
     </section>

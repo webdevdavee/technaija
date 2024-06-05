@@ -51,7 +51,7 @@ const ProductDetails = ({ product, userId }: Prop) => {
     useState<boolean>();
 
   const addToCart = async (product: IProduct) => {
-    // Created an object of type CartItem with the product's details
+    // Create an object of type CartItem with the product's details
     const cartedProduct: NewCartItem = {
       name: product.name,
       price: product.sales_price ? product.sales_price : product.price,
@@ -77,7 +77,7 @@ const ProductDetails = ({ product, userId }: Prop) => {
       // Show loader on the add to cart button
       setShowLoader(true);
 
-      // Calling server function to add product or item to the database Cart collection
+      // Call server function to add product or item to the database Cart collection
       await addProductToCart({
         product: cartedProduct,
         userId,
@@ -85,10 +85,10 @@ const ProductDetails = ({ product, userId }: Prop) => {
         path: pathname,
       });
 
-      // Calling server function to get the user's total carted products
+      // Call server function to get the user's total carted products
       const userTotalCart = await getTotalUserCart(userId);
 
-      // Setting the total carted product number to the redux cartCount state
+      // Set the total carted product number to the redux cartCount state
       dispatch(setCartCount(userTotalCart[0]?.count));
 
       // Show a success status message or alert box when a product is added to cart

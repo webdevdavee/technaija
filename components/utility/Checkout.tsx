@@ -27,7 +27,7 @@ const Checkout = ({
 
   useEffect(() => {
     const fetchDefaultBillingDetail = async () => {
-      const detail = await getDefaultBillingDetail();
+      const detail = await getDefaultBillingDetail(userId);
       setBillingDetails(detail);
     };
     fetchDefaultBillingDetail();

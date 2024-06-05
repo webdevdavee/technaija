@@ -22,11 +22,11 @@ export const createBillingDetail = async ({
   }
 };
 
-export const getBillingDetails = async () => {
+export const getBillingDetails = async (userId: string) => {
   try {
     await connectToDatabase();
 
-    const billings = await Billing.find({});
+    const billings = await Billing.find({ userId });
 
     return JSON.parse(JSON.stringify(billings));
   } catch (error) {
@@ -97,11 +97,11 @@ export const setBillingDetailAsDefault = async (id: string) => {
   }
 };
 
-export const getDefaultBillingDetail = async () => {
+export const getDefaultBillingDetail = async (userId: string) => {
   try {
     await connectToDatabase();
 
-    const billingDetail = await Billing.findOne({ isDefault: true });
+    const billingDetail = await Billing.findOne({ userId, isDefault: true });
 
     if (!billingDetail) return;
 

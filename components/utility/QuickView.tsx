@@ -58,15 +58,14 @@ const QuickView = ({ userId }: Quickview) => {
   const [productExistsInWishlist, setProductExistsInWishlist] =
     useState<boolean>();
 
-  // Define an async function that takes a product of type IProduct as a parameter
   const addToCart = async (product: IProduct) => {
     // Create an object of type CartItem with the product's details
     const cartedProduct: NewCartItem = {
       name: product.name,
-      model: selectedModel, // Use the non-null assertion operator to indicate that selectedModel is not null or undefined
+      model: selectedModel,
       quantity: quantity,
       photo: currentImage,
-      price: product.sales_price ? product.sales_price : product.price, // Use the conditional operator to assign the product's sales price if it exists, otherwise use the regular price
+      price: product.sales_price ? product.sales_price : product.price,
       category: product.original_category,
     };
 
@@ -107,7 +106,7 @@ const QuickView = ({ userId }: Quickview) => {
       // Remove loader from the add to cart button
       setShowLoader(false);
 
-      // After 3 seconds remove the alert message or alert box
+      // After 4 seconds remove the alert message or alert box
       setTimeout(() => {
         setShowCartAlertBox(false);
       }, 4000);
@@ -120,7 +119,7 @@ const QuickView = ({ userId }: Quickview) => {
       // Show a success status message or alert box when a product is added to cart
       setShowCartAlertBox(true);
 
-      // After 3 seconds remove the alert message or alert box
+      // After 4 seconds remove the alert message or alert box
       setTimeout(() => {
         setShowCartAlertBox(false);
       }, 4000);
@@ -161,7 +160,7 @@ const QuickView = ({ userId }: Quickview) => {
       // Remove loader from the add to cart button
       setShowLoader(false);
 
-      // After 3 seconds remove the alert message or alert box
+      // After 4 seconds remove the alert message or alert box
       setTimeout(() => {
         setShowWishlistAlertBox(false);
       }, 4000);
@@ -171,7 +170,7 @@ const QuickView = ({ userId }: Quickview) => {
       // Show a success status message or alert box when a product is added to cart
       setShowWishlistAlertBox(true);
 
-      // After 3 seconds remove the alert message or alert box
+      // After 4 seconds remove the alert message or alert box
       setTimeout(() => {
         setShowWishlistAlertBox(false);
       }, 4000);

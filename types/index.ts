@@ -293,6 +293,7 @@ type NewBilling = {
   city: string;
   zipcode: string;
   phone: string;
+  userId?: string;
   isDefault: false;
 };
 

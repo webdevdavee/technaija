@@ -9,6 +9,7 @@ const BillingSchema = new Schema({
   city: { type: String, required: true },
   zipcode: { type: String, required: true },
   phone: { type: String, required: true },
+  userId: { type: String, required: true },
   isDefault: { type: Boolean, required: true },
 });
 

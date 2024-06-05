@@ -15,9 +15,10 @@ import { billingDetailsDefaultValues } from "@/constants";
 type BillingDetailsForm = {
   type: string;
   detail?: TBilling;
+  userId?: string;
 };
 
-const BillingDetailsForm = ({ type, detail }: BillingDetailsForm) => {
+const BillingDetailsForm = ({ type, detail, userId }: BillingDetailsForm) => {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -46,7 +47,7 @@ const BillingDetailsForm = ({ type, detail }: BillingDetailsForm) => {
     if (type === "create") {
       try {
         const newBillingDetail = await createBillingDetail({
-          detail: { ...data, isDefault: false },
+          detail: { ...data, userId, isDefault: false },
           path: pathname,
         });
 
