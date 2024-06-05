@@ -116,7 +116,7 @@ export async function POST(req: Request) {
 
     const orders = await clearUserOrders(user._id);
 
-    const billingDetails = await clearBillingDetails(user.email);
+    const billingDetails = await clearBillingDetails(user._id);
 
     const deletedUser = await deleteUserById(id as string);
 

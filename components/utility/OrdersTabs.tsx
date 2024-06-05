@@ -40,17 +40,19 @@ const OrdersTabs = ({
   return (
     <div className="w-fit mt-4 border-[1px] border-gray-300 p-2 flex items-center gap-2 m:overflow-x-auto m:w-full">
       <p
-        className={`text-sm p-2 hover:bg-red-400 hover:text-white hover:transition rounded cursor-pointer m:min-w-fit ss:text-xs ${
-          UrlSearchParams.get("status") === null ? "bg-red-400 text-white" : ""
+        className={`text-sm p-2 hover:bg-[#272829da] hover:text-white hover:transition rounded cursor-pointer m:min-w-fit ss:text-xs ${
+          UrlSearchParams.get("status") === null
+            ? "bg-[#272829] text-white"
+            : ""
         }`}
         onClick={() => removeTabFromURL()}
       >
         All Orders ({ordersCount && ordersCount})
       </p>
       <p
-        className={`text-sm p-2 hover:bg-red-400 hover:text-white hover:transition rounded cursor-pointer  m:min-w-fit ss:text-xs ${
+        className={`text-sm p-2 hover:bg-[#272829da] hover:text-white hover:transition rounded cursor-pointer  m:min-w-fit ss:text-xs ${
           UrlSearchParams.get("status") === "success"
-            ? "bg-red-400 text-white"
+            ? "bg-[#272829] text-white"
             : ""
         }`}
         onClick={() => handleTabChange("success")}
@@ -58,9 +60,9 @@ const OrdersTabs = ({
         Success ({ordersSuccessCount && ordersSuccessCount})
       </p>
       <p
-        className={`text-sm p-2 hover:bg-red-400 hover:text-white hover:transition rounded cursor-pointer m:min-w-fit ss:text-xs ${
+        className={`text-sm p-2 hover:bg-[#272829da] hover:text-white hover:transition rounded cursor-pointer m:min-w-fit ss:text-xs ${
           UrlSearchParams.get("status") === "pending"
-            ? "bg-red-400 text-white"
+            ? "bg-[#272829] text-white"
             : ""
         }`}
         onClick={() => handleTabChange("pending")}
@@ -68,9 +70,9 @@ const OrdersTabs = ({
         Pending ({ordersPendingCount && ordersPendingCount})
       </p>
       <p
-        className={`text-sm p-2 hover:bg-red-400 hover:text-white hover:transition rounded cursor-pointer m:min-w-fit ss:text-xs ${
+        className={`text-sm p-2 hover:bg-[#272829da] hover:text-white hover:transition rounded cursor-pointer m:min-w-fit ss:text-xs ${
           UrlSearchParams.get("status") === "failed"
-            ? "bg-red-400 text-white"
+            ? "bg-[#272829] text-white"
             : ""
         }`}
         onClick={() => handleTabChange("failed")}

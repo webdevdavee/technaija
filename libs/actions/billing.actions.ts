@@ -111,11 +111,11 @@ export const getDefaultBillingDetail = async (userId: string) => {
   }
 };
 
-export const clearBillingDetails = async (email: string) => {
+export const clearBillingDetails = async (userId: string) => {
   try {
     await connectToDatabase();
 
-    const billingDetails = await Billing.deleteMany({ email });
+    const billingDetails = await Billing.deleteMany({ userId });
 
     revalidatePath("/profile");
 
