@@ -4,14 +4,10 @@ import { WebhookEvent } from "@clerk/nextjs/server";
 import {
   createUser,
   deleteUserById,
-  getUserByClerkId,
   updateUser,
 } from "@/libs/actions/user.action";
 import { clerkClient } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import { clearUserCart } from "@/libs/actions/cart.actions";
-import { clearUserOrders } from "@/libs/actions/orders.action";
-import { clearBillingDetails } from "@/libs/actions/billing.actions";
 
 export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
@@ -106,27 +102,7 @@ export async function POST(req: Request) {
   if (eventType === "user.deleted") {
     const { id } = evt.data;
 
-    console.log("user deleted");
-
-    const user = await getUserByClerkId(id as string);
-
-    console.log("USER TO DELETE: ", user);
-
-    const items = await clearUserCart(user._id);
-
-    const orders = await clearUserOrders(user._id);
-
-    const billingDetails = await clearBillingDetails(user._id);
-
-    const deletedUser = await deleteUserById(id as string);
-
-    console.log(
-      "USER DATA TO DELETE: ",
-      items,
-      orders,
-      billingDetails,
-      deletedUser
-    );
+    await deleteUserById(id as string);
 
     return NextResponse.json({ message: "OK" });
   }
