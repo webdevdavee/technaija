@@ -228,17 +228,7 @@ type TOrders = {
   lastname: string;
   email: string;
   amount: number;
-  products: {
-    _id: string;
-    name: string;
-    price: number;
-    quantity: number;
-    photo: string;
-    model: string;
-    userId: string;
-    category: string;
-    productId: string;
-  }[];
+  products: TCartItem[];
   date: string;
   status: string;
   channel: string;

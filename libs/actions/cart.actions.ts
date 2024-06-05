@@ -50,7 +50,7 @@ export const getUserCartItems = async (userId: string) => {
     await connectToDatabase();
 
     // find all the items that match the user id
-    const items = await Cart.find({ userId }).lean();
+    const items = await Cart.find({ userId });
 
     return JSON.parse(JSON.stringify(items));
   } catch (error) {
