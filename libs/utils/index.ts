@@ -1,8 +1,7 @@
 // Handle error
-export const handleError = (error: unknown) => {
+export const handleError = (error: any) => {
   console.error(error);
-  console.log(error);
-  throw new Error(typeof error === "string" ? error : JSON.stringify(error));
+  throw new Error(error.message);
 };
 
 // Format date

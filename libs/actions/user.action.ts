@@ -3,6 +3,9 @@
 import { connectToDatabase } from "../database";
 import { handleError } from "../utils";
 import Users from "../database/models/user.model";
+import { clearUserCart } from "./cart.actions";
+import { clearUserOrders } from "./orders.action";
+import { clearBillingDetails } from "./billing.actions";
 
 export const createUser = async (user: CreateUserParam) => {
   try {
@@ -55,20 +58,26 @@ export const getUserByClerkId = async (clerkId: string) => {
   }
 };
 
-export const deleteUserById = async (clerkId: string) => {
+export const deleteUser = async (clerkId: string) => {
   try {
     await connectToDatabase();
 
-    const user = await Users.deleteOne(
+    await Users.deleteOne(
       { clerkId },
       {
         new: true,
       }
     );
 
+    const user = await Users.findOne({ clerkId: clerkId });
     if (!user) throw new Error("User not found");
+
+    await clearUserCart(user._id);
+    await clearUserOrders(user._id);
+    await clearBillingDetails(user._id);
+
     return JSON.parse(JSON.stringify(user));
-  } catch (error) {
+  } catch (error: any) {
     handleError(error);
   }
 };

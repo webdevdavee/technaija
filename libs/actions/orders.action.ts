@@ -110,17 +110,10 @@ export const clearUserOrders = async (userId: string) => {
   try {
     await connectToDatabase();
 
-    const orders = await Orders.deleteMany(
-      { userId },
-      {
-        new: true,
-      }
-    );
+    await Orders.deleteMany({ userId: userId });
 
     revalidatePath("/profile");
-
-    return JSON.parse(JSON.stringify(orders));
-  } catch (error) {
+  } catch (error: any) {
     handleError(error);
   }
 };

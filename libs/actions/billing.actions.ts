@@ -115,17 +115,10 @@ export const clearBillingDetails = async (userId: string) => {
   try {
     await connectToDatabase();
 
-    const billingDetails = await Billing.deleteMany(
-      { userId },
-      {
-        new: true,
-      }
-    );
+    await Billing.deleteMany({ userId: userId });
 
     revalidatePath("/profile");
-
-    return JSON.parse(JSON.stringify(billingDetails));
-  } catch (error) {
+  } catch (error: any) {
     handleError(error);
   }
 };
