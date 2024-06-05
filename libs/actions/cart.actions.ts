@@ -34,9 +34,9 @@ export const getTotalUserCart = async (userId: string) => {
 
     const cartCount = await Cart.aggregate([
       // Filter documents by user id
-      { $match: { user: userId } },
+      { $match: { userId: userId } },
       // Count documents for that user id
-      { $group: { _id: "$user", count: { $sum: 1 } } },
+      { $group: { _id: "$userId", count: { $sum: 1 } } },
     ]).exec();
 
     return JSON.parse(JSON.stringify(cartCount));
@@ -50,7 +50,7 @@ export const getUserCartItems = async (userId: string) => {
     await connectToDatabase();
 
     // find all the items that match the user id
-    const items = await Cart.find({ user: userId }).lean();
+    const items = await Cart.find({ userId }).lean();
 
     return JSON.parse(JSON.stringify(items));
   } catch (error) {
@@ -83,7 +83,7 @@ export const removeProductFromCart = async ({
   try {
     await connectToDatabase();
 
-    await Cart.deleteOne({ ...product, user: userId });
+    await Cart.deleteOne({ ...product, userId });
 
     revalidatePath(path);
   } catch (error) {
@@ -91,11 +91,11 @@ export const removeProductFromCart = async ({
   }
 };
 
-export const clearUserCart = async (user: string) => {
+export const clearUserCart = async (userId: string) => {
   try {
     await connectToDatabase();
 
-    const items = await Cart.deleteMany({ user });
+    const items = await Cart.deleteMany({ userId });
 
     revalidatePath("/cart");
 

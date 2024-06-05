@@ -12,6 +12,12 @@ const page = async () => {
   }
 
   const userCart = await getUserCartItems(userId);
+
+  // If user has no item in cart and they try to access the checkout page, redirect them to the home page
+  if (userCart.length <= 0) {
+    redirect("/");
+  }
+
   const user = await getUserById(userId);
 
   const paystackPublicKey = process.env.PAYSTACK_PUBLIC_KEY;

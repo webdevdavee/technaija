@@ -64,7 +64,7 @@ type TCartItem = {
   quantity: number;
   photo: string;
   model: string;
-  user: string;
+  userId: string;
   category: string;
   productId: string;
 };
