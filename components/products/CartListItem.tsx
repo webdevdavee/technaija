@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import QuantityCounter from "../utility/QuantityCounter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { formatNumber } from "@/libs/utils";
 import { removeProductFromCart } from "@/libs/actions/cart.actions";
@@ -18,6 +18,7 @@ const CartListItem = ({ userId, userCart }: CartList) => {
   const pathname = usePathname();
 
   const [showLoader, setShowLoader] = useState(false);
+  const [windowSize, setWindowSize] = useState<number>(0);
 
   // Array to hold total amounts for each cart item
   const totals = userCart.map((item) => {
@@ -40,13 +41,15 @@ const CartListItem = ({ userId, userCart }: CartList) => {
     setShowLoader(false);
   };
 
-  const windowSize = window.innerWidth;
+  useEffect(() => {
+    setWindowSize(window.innerWidth);
+  });
 
   return (
     <section className="flex gap-20 mt-6 m:flex-col">
-      <div className="flex flex-col gap-6 w-full">
+      <div className="relative flex flex-col gap-6 w-full">
         {showLoader && (
-          <section className="absolute w-full h-full top-0 bottom-0 left-0 right-0 transition-[0.3] ease-in-out duration-300 bg-white opacity-70 z-[56]">
+          <section className="absolute w-full h-[13rem] flex items-center justify-center transition-[0.3] ease-in-out duration-300 bg-white opacity-70 z-[56]">
             <Loader className="loader3" />
           </section>
         )}
