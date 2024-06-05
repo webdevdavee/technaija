@@ -2,10 +2,14 @@ import Checkout from "@/components/utility/Checkout";
 import { auth } from "@clerk/nextjs";
 import { getUserCartItems } from "@/libs/actions/cart.actions";
 import { getUserById } from "@/libs/actions/user.action";
+import { redirect } from "next/navigation";
 
 const page = async () => {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
+  if (!userId) {
+    redirect("/");
+  }
 
   const userCart = await getUserCartItems(userId);
   const user = await getUserById(userId);

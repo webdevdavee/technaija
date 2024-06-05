@@ -16,7 +16,7 @@ export const addProductToCart = async ({
 
     const cartedProduct = await Cart.create({
       ...product,
-      user: userId,
+      userId,
       productId: productId,
     });
 

@@ -1,10 +1,14 @@
 import WishlistItem from "@/components/products/WishlistItem";
 import { auth } from "@clerk/nextjs";
 import { getUserWishlistItems } from "@/libs/actions/wishlist.actions";
+import { redirect } from "next/navigation";
 
 const WishlistPage = async () => {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
+  if (!userId) {
+    redirect("/");
+  }
 
   const userWishlist = await getUserWishlistItems(userId);
 
