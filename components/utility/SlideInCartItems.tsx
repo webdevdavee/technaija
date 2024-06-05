@@ -79,9 +79,9 @@ const SlideInCart = ({ userId, userCart }: SlideInCartProps) => {
             />
           </button>
         </div>
-        <div className="custom-scrollbar overflow-y-scroll h-[19rem] w-full flex flex-col gap-4 items-start">
+        <div className="relative custom-scrollbar overflow-y-scroll h-[19rem] w-full flex flex-col gap-4 items-start">
           {showLoader && (
-            <section className="absolute w-full h-screen top-0 bottom-0 transition-[0.3] ease-in-out duration-300 left-0 right-0 bg-white opacity-70 z-[56]">
+            <section className="absolute w-full h-96 flex items-center justify-center transition-[0.3] ease-in-out duration-300 bg-white opacity-90 z-[56]">
               <Loader className="loader3" />
             </section>
           )}
