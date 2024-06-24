@@ -35,7 +35,7 @@ const ProductPage = async ({ params: { id } }: Params) => {
 };
 
 export async function generateStaticParams() {
-  const fetchedProducts = await getAllProducts(4);
+  const fetchedProducts = await getAllProducts(16);
   let products: IProduct[] = [];
   if (fetchedProducts !== undefined) {
     products = fetchedProducts.products;

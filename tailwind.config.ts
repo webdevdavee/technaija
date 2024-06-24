@@ -20,6 +20,7 @@ const config: Config = {
     screens: {
       ss: { max: "290px" },
       sm: { max: "320px" },
+      smd: { max: "430px" },
       m: { max: "767px" },
       xl: { min: "768px", max: "1023px" },
       xxl: { min: "1024px", max: "1279px" },

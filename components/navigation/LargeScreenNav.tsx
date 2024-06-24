@@ -46,8 +46,8 @@ const LargeScreenNav = ({ pathname, cartCount }: LargeScreenNavProps) => {
           return (
             <Link
               key={navigation.id}
-              href={`${navigation.link}`}
-              className={`text-sm hover:text-red-400 hover:transition cursor-pointer ${
+              href={navigation.link}
+              className={`hover:text-red-400 hover:transition cursor-pointer ${
                 isActive && "text-red-400"
               }`}
             >
