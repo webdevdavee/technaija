@@ -35,7 +35,7 @@ cd technaija
 npm install
 ```
 3. Set up environment variables
-- Create a .env.local file in the root directory
+- Create a `.env.local` file in the root directory
 - Add necessary environment variables (MongoDB URI, Clerk secret, Paystack API key, etc.)
 4. Run the development server
 ```bash
