@@ -39,82 +39,73 @@ const ProductOptions = ({
     setModelError && setModelError(false);
   };
 
-  // Define a function that increments the quantity state by one
-  const incrementQuantity = () => {
-    setQuantity((prev) => prev + 1);
-  };
-
-  // Define a function that decrements the quantity state by one
-  // But only if the quantity is greater than one
-  const decrementQuantity = () => {
+  const incrementQuantity = () => setQuantity((prev) => prev + 1);
+  const decrementQuantity = () =>
     setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
+
+  const renderModelSelection = () => {
+    if (!product.additional_information?.model?.length) return null;
+
+    return (
+      <>
+        <span className="w-full flex items-center justify-between">
+          <p>
+            model: <span className="font-semibold">{selectedModel}</span>
+          </p>
+          <Image
+            className="cursor-pointer"
+            src="/close.svg"
+            width={20}
+            height={20}
+            alt="close"
+            onClick={() => setSelectedModel("")}
+          />
+        </span>
+        <span className="relative w-full">
+          <Image
+            className="absolute right-3 top-3"
+            src="/arrow-down.svg"
+            width={20}
+            height={20}
+            alt="arrow"
+          />
+          <select
+            className="p-2 border-[1px] border-gray-300 focus:outline-none w-full appearance-none cursor-pointer"
+            name="options"
+            onChange={selectAModel}
+            value={selectedModel || "Choose an option"}
+          >
+            {!selectedModel && (
+              <option value="Choose an option">Choose an option</option>
+            )}
+            {product.additional_information.model.map((data) => (
+              <option key={data._id} value={data.text}>
+                {data.text}
+              </option>
+            ))}
+          </select>
+          {modelError && (
+            <p className="text-red-500 text-base">Select a model</p>
+          )}
+        </span>
+      </>
+    );
   };
 
-  return (
-    <section className="w-full flex flex-col items-start gap-8 m:gap-4 m:my-4 xl:gap-4 xl:mb-6">
-      {product.additional_information?.model?.length
-        ? product.additional_information?.model?.length >= 1 && (
-            <>
-              <span className="w-full flex items-center justify-between">
-                <p>
-                  model: <span className="font-semibold">{selectedModel}</span>
-                </p>
-                <Image
-                  className="cursor-pointer"
-                  src="/close.svg"
-                  width={20}
-                  height={20}
-                  alt="close"
-                  onClick={() => setSelectedModel("")}
-                />
-              </span>
-              <span className="relative w-full">
-                <Image
-                  className="absolute right-3 top-3"
-                  src="/arrow-down.svg"
-                  width={20}
-                  height={20}
-                  alt="arrow"
-                />
-                <select
-                  className="p-2 border-[1px] border-gray-300 focus:outline-none w-full appearance-none cursor-pointer"
-                  name="options"
-                  onChange={(e) => selectAModel(e)}
-                  value={
-                    selectedModel === "" ? "Choose an option" : selectedModel
-                  }
-                >
-                  {selectedModel === "" && (
-                    <option value="Choose an option">Choose an option</option>
-                  )}
-                  {product.additional_information?.model?.map((data) => (
-                    <option key={data._id} value={`${data.text}`}>
-                      {data.text}
-                    </option>
-                  ))}
-                </select>
-                {modelError && (
-                  <p className="text-red-500 text-base">Select a model</p>
-                )}
-              </span>
-            </>
-          )
-        : ""}
-      <span className="flex items-center gap-4 m:flex-col m:w-full">
-        <QuantityCounter
-          type="productpage"
-          quantity={quantity}
-          incrementQuantity={incrementQuantity}
-          decrementQuantity={decrementQuantity}
-        />
+  const renderActionButtons = () => {
+    const buttonClass = `w-[13rem] py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition m:w-full ${
+      selectedModel === "" || showLoader
+        ? "bg-gray-300 cursor-not-allowed hover:bg-gray-300 transition duration-500"
+        : ""
+    }`;
+    const isDisabled = selectedModel === "" || showLoader;
+
+    return (
+      <>
         <SignedOut>
           <LinkButton
             link="sign-in"
-            classname={`w-[13rem] py-2 px-10 bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition m:w-full text-center ${
-              selectedModel === "" || showLoader
-                ? "bg-gray-300 cursor-not-allowed hover:bg-gray-300 transition duration-500"
-                : ""
-            }`}
+            classname={buttonClass}
             text={
               showLoader ? (
                 <Loader className={"loader2"} />
@@ -122,34 +113,51 @@ const ProductOptions = ({
                 <p className="capitalize">add to cart</p>
               )
             }
-            disabled={selectedModel === "" || showLoader ? true : false}
+            disabled={isDisabled}
           />
         </SignedOut>
         <SignedIn>
           <button
             type="button"
-            className={`w-[13rem] py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition m:w-full ${
-              selectedModel === "" || showLoader
-                ? "bg-gray-300 cursor-not-allowed hover:bg-gray-300 transition duration-500"
-                : ""
-            }`}
-            disabled={selectedModel === "" || showLoader ? true : false}
+            className={buttonClass}
+            disabled={isDisabled}
             onClick={() => addToCart(product)}
           >
             {showLoader ? <Loader className={"loader2"} /> : "add to cart"}
           </button>
         </SignedIn>
-      </span>
-      <SignedOut>
-        <Link href="/sign-in" className="m:w-full">
+      </>
+    );
+  };
+
+  const renderWishlistButton = () => {
+    const buttonClass = `flex gap-4 items-center py-2 px-6 transition duration-500 border-[1px] border-gray-300 m:w-full m:justify-center ${
+      selectedModel === "" || showLoader
+        ? "bg-gray-300 cursor-not-allowed transition duration-500"
+        : ""
+    }`;
+    const isDisabled = selectedModel === "" || showLoader;
+
+    return (
+      <>
+        <SignedOut>
+          <Link href="/sign-in" className="m:w-full">
+            <button type="button" className={buttonClass} disabled={isDisabled}>
+              {showLoader ? (
+                <Loader className={"loader2"} />
+              ) : (
+                <p className="capitalize">wishlist</p>
+              )}
+              <Image src="/heart.svg" width={20} height={20} alt="wishlist" />
+            </button>
+          </Link>
+        </SignedOut>
+        <SignedIn>
           <button
             type="button"
-            className={`flex gap-4 items-center py-2 px-6 transition duration-500 border-[1px] border-gray-300 m:justify-center m:w-full text-center ${
-              selectedModel === "" || showLoader
-                ? "bg-gray-300 cursor-not-allowed transition duration-500"
-                : ""
-            }`}
-            disabled={selectedModel === "" || showLoader ? true : false}
+            className={buttonClass}
+            disabled={isDisabled}
+            onClick={() => addToWishlist(product)}
           >
             {showLoader ? (
               <Loader className={"loader2"} />
@@ -158,27 +166,24 @@ const ProductOptions = ({
             )}
             <Image src="/heart.svg" width={20} height={20} alt="wishlist" />
           </button>
-        </Link>
-      </SignedOut>
-      <SignedIn>
-        <button
-          type="button"
-          className={`flex gap-4 items-center py-2 px-6 transition duration-500 border-[1px] border-gray-300 m:w-full m:justify-center ${
-            selectedModel === "" || showLoader
-              ? "bg-gray-300 cursor-not-allowed transition duration-500"
-              : ""
-          }`}
-          disabled={selectedModel === "" || showLoader ? true : false}
-          onClick={() => addToWishlist(product)}
-        >
-          {showLoader ? (
-            <Loader className={"loader2"} />
-          ) : (
-            <p className="capitalize">wishlist</p>
-          )}
-          <Image src="/heart.svg" width={20} height={20} alt="wishlist" />
-        </button>
-      </SignedIn>
+        </SignedIn>
+      </>
+    );
+  };
+
+  return (
+    <section className="w-full flex flex-col items-start gap-8 m:gap-4 m:my-4 xl:gap-4 xl:mb-6">
+      {renderModelSelection()}
+      <span className="flex items-center gap-4 m:flex-col m:w-full">
+        <QuantityCounter
+          type="productpage"
+          quantity={quantity}
+          incrementQuantity={incrementQuantity}
+          decrementQuantity={decrementQuantity}
+        />
+        {renderActionButtons()}
+      </span>
+      {renderWishlistButton()}
     </section>
   );
 };
