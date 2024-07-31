@@ -6,7 +6,11 @@ import Search from "@/components/layout/Search";
 import BottomNav from "@/components/layout/BottomNav";
 import MobileMenu from "@/components/layout/MobileMenu";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({
+  children,
+}: {
+  readonly children: React.ReactNode;
+}) {
   return (
     <>
       <Navbar />

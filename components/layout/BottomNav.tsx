@@ -78,7 +78,7 @@ const BottomNav = () => {
         <p className="text-sm sm:text-xs">Cart</p>
         <span className="w-5 h-5 flex items-center justify-center absolute -top-2 -right-1 bg-red-400 rounded-full">
           <p className="text-xs font-medium text-white text-center">
-            {cartCount ? cartCount : 0}
+            {cartCount ?? 0}
           </p>
         </span>
       </button>

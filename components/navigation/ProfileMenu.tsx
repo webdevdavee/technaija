@@ -22,7 +22,7 @@ const ProfileMenu = ({
   ) => {
     const text = e.currentTarget.textContent;
 
-    UrlSearchParams.set(urlKey, text ? text : "");
+    UrlSearchParams.set(urlKey, text ?? "");
     // Call the function that creates a URL string with the data from UrlSearchParams
     const pageURL = createURL(pathname, UrlSearchParams);
     // Push the created URL string to the URL

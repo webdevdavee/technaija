@@ -112,7 +112,7 @@ const LargeScreenNav = ({ pathname, cartCount }: LargeScreenNavProps) => {
             />
             <span className="w-5 h-5 flex items-center justify-center absolute -top-3 -right-3 bg-red-400 rounded-full">
               <p className="text-xs font-medium text-white text-center">
-                {cartCount ? cartCount : 0}
+                {cartCount ?? 0}
               </p>
             </span>
           </button>
@@ -127,7 +127,7 @@ const LargeScreenNav = ({ pathname, cartCount }: LargeScreenNavProps) => {
             />
             <span className="w-5 h-5 flex items-center justify-center absolute -top-3 -right-3 bg-red-400 rounded-full">
               <p className="text-xs font-medium text-white text-center">
-                {cartCount ? cartCount : 0}
+                {cartCount ?? 0}
               </p>
             </span>
           </Link>

@@ -1,10 +1,9 @@
 "use client";
 
-import { ChangeEvent } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { productSortList } from "@/constants";
 import Image from "next/image";
 import { IProduct } from "@/libs/database/models/product.model";
-import { Dispatch, SetStateAction } from "react";
 
 type ProductSort = {
   products: IProduct[];

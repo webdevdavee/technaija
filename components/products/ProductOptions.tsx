@@ -1,12 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, ChangeEvent } from "react";
 import QuantityCounter from "../utility/QuantityCounter";
 import { IProduct } from "@/libs/database/models/product.model";
 import Loader from "../ui/Loader";
-import { ChangeEvent } from "react";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
-import EventButton from "../ui/EventButton";
 import LinkButton from "../ui/LinkButton";
 
 type ProductOptionProp = {
@@ -36,7 +34,7 @@ const ProductOptions = ({
 }: ProductOptionProp) => {
   const selectAModel = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedModel(e.target.value);
-    setModelError && setModelError(false);
+    setModelError?.(false);
   };
 
   const incrementQuantity = () => setQuantity((prev) => prev + 1);
@@ -93,7 +91,7 @@ const ProductOptions = ({
   };
 
   const renderActionButtons = () => {
-    const buttonClass = `w-[13rem] py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition m:w-full ${
+    const buttonClass = `w-[13rem] text-center py-2 px-10 capitalize bg-[#272829] text-white transition duration-500 hover:bg-black hover:transition m:w-full ${
       selectedModel === "" || showLoader
         ? "bg-gray-300 cursor-not-allowed hover:bg-gray-300 transition duration-500"
         : ""
@@ -123,7 +121,7 @@ const ProductOptions = ({
             disabled={isDisabled}
             onClick={() => addToCart(product)}
           >
-            {showLoader ? <Loader className={"loader2"} /> : "add to cart"}
+            {showLoader ? <Loader className={"loader2"} /> : <p>add to cart</p>}
           </button>
         </SignedIn>
       </>

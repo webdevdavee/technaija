@@ -1,9 +1,11 @@
 import Image from "next/image";
-import { footerMenu1 } from "@/constants";
-import { footerMenu2 } from "@/constants";
-import { footerMenu3 } from "@/constants";
-import { footerMenu4 } from "@/constants";
-import { footerMenu5 } from "@/constants";
+import {
+  footerMenu1,
+  footerMenu2,
+  footerMenu3,
+  footerMenu4,
+  footerMenu5,
+} from "@/constants";
 import FooterList from "../utility/FooterList";
 import Link from "next/link";
 

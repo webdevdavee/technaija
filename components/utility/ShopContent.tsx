@@ -16,7 +16,6 @@ type ShopContent = {
   fetchedProducts: IProduct[];
   productsWithNoLimit: IProduct[];
   page: number;
-  newLimit: number | undefined;
   userId: string;
   userWishlist: TWishlistItem[];
 };
@@ -25,7 +24,6 @@ const ShopContent = ({
   fetchedProducts,
   productsWithNoLimit,
   page,
-  newLimit,
   userId,
   userWishlist,
 }: ShopContent) => {
@@ -40,13 +38,9 @@ const ShopContent = ({
   const [newProductsWithNoLimit, setNewProductsWithNoLimit] =
     useState<IProduct[]>(productsWithNoLimit);
 
-  const [allProductsFetched, setAllProductsFetched] = useState<boolean>();
-
   const categorySearchParams = new URLSearchParams(searchParams.toString());
 
-  // When the page, fetchedProducts, modelFilterArray changes, update the products data (without the useEffect, the products data will effect the change on the next render)
   useEffect(() => {
-    // Check if you are filtering through the original products data, if so, then load more products from that filtered data.
     if (
       categorySearchParams.getAll("category").length >= 1 ||
       categorySearchParams.getAll("model").length >= 1
@@ -55,33 +49,23 @@ const ShopContent = ({
         const modifiedProducts = await getProductsByFilter({
           categoryFilterArray: categorySearchParams.getAll("category"),
           modelFilterArray: categorySearchParams.getAll("model"),
-          limit: 8,
+          limit: 8 * page,
           page,
         });
-        setProducts(modifiedProducts && modifiedProducts.data);
-        setAllProductsFetched(
-          modifiedProducts &&
-            modifiedProducts.newLimit > modifiedProducts.data.length
-        );
+        setProducts(modifiedProducts?.data);
       };
       setLoadMoreFilteredProduct();
     } else {
       // If not, load more data from the original data.
       setProducts(fetchedProducts);
-      if (newLimit) {
-        // Check if all products have been fetched from the database after pagination. If true, setAllProductsFetched to true (This will hide the load more button).
-        setAllProductsFetched(newLimit >= productsWithNoLimit.length);
-      }
     }
   }, [page, fetchedProducts]);
 
-  // Increment the page number and save the new page number in this nextPage variable.
-  const nextPage = page + 1;
-
-  const paginate = () => {
-    categorySearchParams.set("page", nextPage.toString());
-    const categoryURL = createURL(pathname, categorySearchParams);
-    router.push(`${categoryURL}`);
+  const loadMoreProducts = () => {
+    const newPage = page + 1;
+    categorySearchParams.set("page", newPage.toString());
+    const url = createURL(pathname, categorySearchParams);
+    router.push(url);
   };
 
   return (
@@ -133,18 +117,17 @@ const ShopContent = ({
           title="Shop"
           userWishlist={userWishlist}
         />
-        {!allProductsFetched && (
-          <div className="mt-12 flex items-center justify-center">
-            <p
-              className="w-fit py-2 px-4 bg-transparent
+        <div className="mt-12 flex gap-6 items-center justify-center">
+          <button
+            type="button"
+            className="w-fit py-2 px-4 bg-transparent
             text-[#272829] border-[1px] border-solid border-[#272829]
             cursor-pointer hover:transition hover:bg-[#272829] hover:text-white"
-              onClick={paginate}
-            >
-              Load More
-            </p>
-          </div>
-        )}
+            onClick={loadMoreProducts}
+          >
+            Load More
+          </button>
+        </div>
       </div>
     </section>
   );

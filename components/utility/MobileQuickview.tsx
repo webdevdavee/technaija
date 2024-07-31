@@ -88,7 +88,7 @@ const MobileQuickview = ({
             <span className="flex items-center gap-1 px-3 my-4">
               {stars.map((_, index) => (
                 <Image
-                  key={index}
+                  key={`star-${index}`}
                   src="/star.svg"
                   width={15}
                   height={15}
@@ -96,7 +96,7 @@ const MobileQuickview = ({
                 />
               ))}
               <p className="text-sm ml-4">
-                Reviews ({product.reviews && product.reviews.length})
+                Reviews ({product.reviews?.length})
               </p>
             </span>
             <div className="flex flex-col gap-3 px-3">

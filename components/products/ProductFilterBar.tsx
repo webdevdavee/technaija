@@ -49,12 +49,12 @@ const ProductFilterBar = ({
   let uniqueModels: Set<string> = new Set();
 
   // Loop through the products array and the model array of each element
-  for (let i = 0; i < newProductsWithNoLimit.length; i++) {
-    const models = newProductsWithNoLimit[i].additional_information?.model;
+  for (const product of newProductsWithNoLimit) {
+    const models = product.additional_information?.model;
     if (models) {
-      for (let j = 0; j < models.length; j++) {
+      for (const model of models) {
         // Add the model text to the set, which will automatically remove duplicates
-        uniqueModels.add(models[j].text);
+        uniqueModels.add(model.text);
       }
     }
   }

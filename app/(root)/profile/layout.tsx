@@ -1,6 +1,10 @@
 import ProfileMenuWrapper from "@/components/utility/ProfileMenuWrapper";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({
+  children,
+}: {
+  readonly children: React.ReactNode;
+}) {
   return (
     <section className="relative px-20 pt-6 pb-12 m:px-6 xl:px-12">
       <h1 className="text-center text-3xl font-medium py-6 capitalize">

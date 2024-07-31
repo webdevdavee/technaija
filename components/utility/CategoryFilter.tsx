@@ -57,59 +57,36 @@ const CategoryFilter = ({
   const handleCategoryFilter = async (
     e: ChangeEvent<HTMLInputElement>,
     category: string
-  ) => {
-    if (e.currentTarget.checked === true) {
-      // Get the name and checked values or state from the event
-      const name = e.target.name;
-      const checked = e.target.checked;
-      // Set the category data in the array created from the ".append" method, in the URL
+  ): Promise<void> => {
+    const { checked, name } = e.target;
+
+    if (checked) {
       categorySearchParams.append("category", category);
-      // Set the checked state or value of the category input in the URL
-      categorySearchParams.set(name, checked.toString());
-      // Call a function that creates a URL string with the data from categorySearchParams
-      const url = createURL(pathname, categorySearchParams);
-      // Push the created URL string to the URL
-      router.push(url);
-      // Fetch data from data
-      const modifiedProducts = await getProductsByFilter({
-        categoryFilterArray: categorySearchParams.getAll("category"),
-        limit: 8,
-        page,
-      });
-      // Set the main products data to the retrieved data from the database
-      setProducts(modifiedProducts && modifiedProducts.data);
-      // Set the ProductsWithNoLimit array to get it's new data from the retrieved data from the database
-      setNewProductsWithNoLimit(modifiedProducts && modifiedProducts.data);
-    } else if (e.currentTarget.checked === false) {
-      // Get the name value or state from the event
-      const name = e.target.name;
-      // Delete the category from URL "category" array
+    } else {
       categorySearchParams.delete("category", category);
-      // Delete the category checked state from URL
-      categorySearchParams.delete(name);
-      // Call a function that creates a URL string with the data from categorySearchParams
-      const url = createURL(pathname, categorySearchParams);
-      // Push the created URL string to the URL
-      router.push(url);
-      // Fetch data from data
-      const modifiedProducts = await getProductsByFilter({
-        categoryFilterArray: categorySearchParams.getAll("category"),
-        limit: 8,
-        page,
-      });
-      setProducts(
-        modifiedProducts && modifiedProducts.data.length >= 1
-          ? modifiedProducts.data
-          : fetchedProducts
-      );
-      setNewProductsWithNoLimit(
-        modifiedProducts && modifiedProducts.data.length >= 1
-          ? modifiedProducts.data
-          : productsWithNoLimit
-      );
+    }
+
+    categorySearchParams.set(name, checked.toString());
+
+    const url = createURL(pathname, categorySearchParams);
+    router.push(url);
+
+    const filterParams = {
+      categoryFilterArray: categorySearchParams.getAll("category"),
+      limit: 8,
+      page,
+    };
+
+    const modifiedProducts = await getProductsByFilter(filterParams);
+
+    if (modifiedProducts?.data.length >= 1) {
+      setProducts(modifiedProducts?.data);
+      setNewProductsWithNoLimit(modifiedProducts?.data);
     } else {
       setProducts(fetchedProducts);
+      setNewProductsWithNoLimit(productsWithNoLimit);
     }
+
     setShowMobileFilter(false);
   };
 
@@ -145,7 +122,10 @@ const CategoryFilter = ({
           <span className="flex flex-col gap-4">
             {uniqueCategories.map((category, index) => {
               return (
-                <div key={index} className="flex items-center gap-3">
+                <div
+                  key={`${category}-${index}`}
+                  className="flex items-center gap-3"
+                >
                   <input
                     name={category}
                     className="cursor-pointer"

@@ -5,8 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
-import { mobileMenuState } from "@/libs/redux-state/features/mobile-menu/mobileMenuSlice";
-import { setOpenMobileMenu } from "@/libs/redux-state/features/mobile-menu/mobileMenuSlice";
+import {
+  mobileMenuState,
+  setOpenMobileMenu,
+} from "@/libs/redux-state/features/mobile-menu/mobileMenuSlice";
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
 
 const MobileMenu = () => {

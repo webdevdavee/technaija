@@ -1,7 +1,6 @@
 import { IProduct } from "@/libs/database/models/product.model";
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import Image from "next/image";
-import { Dispatch, SetStateAction } from "react";
 
 type GalleryProp = {
   data: IProduct;
@@ -28,18 +27,17 @@ const ProductGallery = ({
   return (
     <span className="flex gap-2 items-start overflow-hidden m:flex-col">
       <span className="custom-scrollbar h-[90%] flex flex-col gap-8 hover:overflow-y-scroll m:overflow-x-scroll m:order-2 m:flex-row">
-        {data.gallery &&
-          data.gallery.map((img, index) => (
-            <Image
-              key={index}
-              className="cursor-pointer"
-              width={100}
-              height={100}
-              src={img.image}
-              alt="image"
-              onClick={() => setCurrentImage(img.image)}
-            />
-          ))}
+        {data.gallery?.map((img, index) => (
+          <Image
+            key={`${img}-${index}`}
+            className="cursor-pointer"
+            width={100}
+            height={100}
+            src={img.image}
+            alt="image"
+            onClick={() => setCurrentImage(img.image)}
+          />
+        ))}
       </span>
       <span className="overflow-hidden m:order-1">
         <Image

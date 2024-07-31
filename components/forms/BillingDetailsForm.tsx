@@ -185,7 +185,7 @@ const BillingDetailsForm = ({ type, detail, userId }: BillingDetailsForm) => {
             ? "bg-gray-100 text-[#272829]"
             : "bg-[#272829] text-white"
         }`}
-        disabled={isSubmitting ? true : false}
+        disabled={isSubmitting}
       >
         {isSubmitting
           ? "...submitting"

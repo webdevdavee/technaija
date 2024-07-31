@@ -19,7 +19,7 @@ const EditBillingDetails = () => {
       try {
         // If `detailId` is present, call `getBillingDetailById` to fetch details.
         // Otherwise, pass an empty string to avoid invalid requests.
-        const detail = await getBillingDetailById(detailId ? detailId : "");
+        const detail = await getBillingDetailById(detailId ?? "");
         // Update the state with the fetched details for editing.
         setDetailToEdit(detail);
       } catch (error) {

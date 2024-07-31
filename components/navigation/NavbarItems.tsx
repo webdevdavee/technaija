@@ -3,16 +3,16 @@
 import { useScrollHeader } from "@/hooks/useScrollHeader";
 import { useSelector, useDispatch } from "react-redux";
 import { usePathname } from "next/navigation";
-import { cartCountState } from "@/libs/redux-state/features/cart-count/cartCountSlice";
+import {
+  cartCountState,
+  setCartCount,
+} from "@/libs/redux-state/features/cart-count/cartCountSlice";
 import { useEffect } from "react";
-import { setCartCount } from "@/libs/redux-state/features/cart-count/cartCountSlice";
 import LargeScreenNav from "./LargeScreenNav";
 import MobileNav from "./MobileNav";
-// import CurrencyConverter from "./CurrencyConverter";
 
 type NavBarProps = {
   userCart: UserCartCount[];
-  userId: string;
 };
 
 const NavbarItems = ({ userCart }: NavBarProps) => {

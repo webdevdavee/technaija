@@ -24,7 +24,7 @@ const StarRating = ({ setValue, error }: StarRatingProp) => {
         {stars.map((_, index) => (
           <Image
             className="cursor-pointer transition"
-            key={index}
+            key={`star-${index}`}
             onMouseEnter={() => setActiveIndex(index)}
             onClick={() => handleClick(index)}
             src={`${index <= activeIndex ? "/star.svg" : "/gray-star.svg"}`}

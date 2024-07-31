@@ -7,11 +7,24 @@ type OrderProps = {
 };
 
 const Order = ({ order }: OrderProps) => {
+  const getCategoryLink = (category: string) => {
+    switch (category) {
+      case "iPhone Cases":
+        return "/shop?category=iPhone+Cases&iPhone+Cases=true";
+      case "Android Cases":
+        return "/shop?category=Android+Cases&Android+Cases=true";
+      default:
+        return "/shop?category=Accessories&Accessories=true";
+    }
+  };
+
   return (
     <section>
       <div className="border-[1px] border-gray-300 p-4 flex flex-col gap-3">
         <span className="flex justify-between items-center border-b-[1px] border-b-gray-400 pb-3 ss:flex-col gap-4">
-          <h2 className="capitalize font-medium m:text-sm ss:text-left">{order.status}</h2>
+          <h2 className="capitalize font-medium m:text-sm ss:text-left">
+            {order.status}
+          </h2>
           <span className="flex flex-col gap-2 ss:text-left">
             <p className="text-sm font-light m:text-sm">
               <b>Order date:</b> {convertDateFormat(order.date)}
@@ -42,13 +55,7 @@ const Order = ({ order }: OrderProps) => {
                   {product.name} - {product.model}
                 </Link>
                 <Link
-                  href={
-                    product.category === "iPhone Cases"
-                      ? "/shop?category=iPhone+Cases&iPhone+Cases=true"
-                      : product.category === "Android Cases"
-                      ? "/shop?category=Android+Cases&Android+Cases=true"
-                      : "/shop?category=Accessories&Accessories=true"
-                  }
+                  href={getCategoryLink(product.category)}
                   className="m:text-right"
                 >
                   {product.category}

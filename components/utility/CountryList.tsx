@@ -56,13 +56,14 @@ const CountryList = ({ setValue, error }: CountryListProp) => {
           />
           <ul className="w-full bg-white absolute flex flex-col max-h-40 overflow-x-hidden overflow-y-auto custom-scrollbar border-[1px] border-gray-400">
             {filteredCountrySearch.map((country) => (
-              <li
+              <button
+                type="button"
                 key={country.id}
                 className="py-2 px-3 text-sm cursor-pointer hover:bg-gray-200 transition"
                 onClick={() => handleSelectCountry(country)}
               >
                 {country.name}
-              </li>
+              </button>
             ))}
           </ul>
         </div>

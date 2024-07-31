@@ -35,7 +35,7 @@ const Checkout = ({
 
   // If billing details exists, make the form ready or allow for payment
   useEffect(() => {
-    setFormReady(billingDetails ? true : false);
+    setFormReady(!!billingDetails);
     setFormData(
       billingDetails
         ? {

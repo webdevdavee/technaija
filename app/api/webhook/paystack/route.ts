@@ -16,7 +16,7 @@ export async function POST(req: Request, res: Response) {
   // Verify the event origin
   if (verify(body, signature)) {
     // Acknowledge the event
-    new Response("", { status: 200 });
+    new Response("Event received", { status: 200 });
 
     let event = body;
     const eventType = event?.event;

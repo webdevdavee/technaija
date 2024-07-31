@@ -49,30 +49,33 @@ const ProductTabs = ({ product }: Prop) => {
   return (
     <div className="w-full mt-12">
       <span className="flex items-center justify-center gap-12 mb-4 m:flex-col m:items-start m:gap-6">
-        <p
+        <button
+          type="button"
           className={`capitalize text-sm cursor-pointer font-medium hover:text-red-400 hover:transition m:text-base ${
             activeTab === 0 && "text-red-400 border-b-[1px] border-b-red-400"
           }`}
           onClick={() => setActiveTab(0)}
         >
           description
-        </p>
-        <p
+        </button>
+        <button
+          type="button"
           className={`capitalize text-sm cursor-pointer font-medium hover:text-red-400 hover:transition m:text-base ${
             activeTab === 1 && "text-red-400 border-b-[1px] border-b-red-400"
           }`}
           onClick={() => setActiveTab(1)}
         >
           additional information
-        </p>
-        <p
+        </button>
+        <button
+          type="button"
           className={`capitalize text-sm cursor-pointer font-medium hover:text-red-400 hover:transition m:text-base ${
             activeTab === 2 && "text-red-400 border-b-[1px] border-b-red-400"
           }`}
           onClick={() => setActiveTab(2)}
         >
           reviews
-        </p>
+        </button>
       </span>
       <div className="border-[1px]"></div>
       <div>
@@ -110,7 +113,7 @@ const ProductTabs = ({ product }: Prop) => {
                     <>
                       {/*------------------------------ Larger screens --------------*/}
                       <span
-                        key={index}
+                        key={`review-${index}`}
                         className={`relative flex items-start justify-between overflow-hidden pb-10 m:hidden ${
                           product.reviews &&
                           index === product.reviews.length - 1
@@ -143,7 +146,7 @@ const ProductTabs = ({ product }: Prop) => {
                       </span>
                       {/*----------------------------- Mobile screens------------------- */}
                       <span
-                        key={index}
+                        key={`review-${index}`}
                         className={`relative flex items-start justify-between overflow-hidden pb-10 sm:pt-8 xl:hidden xxl:hidden xxxl:hidden ultra:hidden ${
                           product.reviews &&
                           index === product.reviews.length - 1

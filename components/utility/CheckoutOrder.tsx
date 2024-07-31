@@ -109,9 +109,9 @@ const CheckoutOrder = ({
           publicKey={paystackPublicKey}
           firstname={user?.firstName}
           lastname={user?.lastName}
-          email={user?.email as string}
+          email={user?.email}
           amount={couponPrice ? couponPrice * 100 : grandTotal * 100}
-          metadata={formData && formData}
+          metadata={formData}
           onSuccess={() => afterPayment()}
         />
       ) : (

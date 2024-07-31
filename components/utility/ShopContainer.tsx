@@ -20,15 +20,15 @@ const ShopContainer = async ({
 
   let products: IProduct[] = [];
   let productsWithNoLimit: IProduct[] = [];
-  let newLimit: number | undefined;
   if (fetchedProducts !== undefined) {
     products = fetchedProducts.products;
 
-    // The productsWithNoLimit will be used to render the filter bar or options. This was separated from the above products data because when limits are set for the number of products to fetch from the database, it does not affect the number of categories rendered or displayed. So essentially, the categories filter will represent how many categories are present for EVERY product in the database.
+    /**  The productsWithNoLimit array is used to render the filter bar or options.
+     * This is separate from the products data array, which may have limits on the number of products fetched from the database.
+     * By using productsWithNoLimit, we ensure that the filter bar or options reflect all available categories across the entire database, regardless of any limits applied to the number of products displayed.
+     * This means the categories filter represents all categories present in the database, not just those for the displayed products.
+     */
     productsWithNoLimit = fetchedProducts.productsNoLimit;
-
-    // The fetchedProducts.newLimit returns the multiple of the current page and the limit passed into the getAllProducts function(8)
-    if (fetchedProducts.newLimit) newLimit = fetchedProducts?.newLimit;
   }
 
   return (
@@ -37,7 +37,6 @@ const ShopContainer = async ({
         fetchedProducts={products}
         productsWithNoLimit={productsWithNoLimit}
         page={page}
-        newLimit={newLimit && newLimit}
         userId={userId}
         userWishlist={userWishlist}
       />

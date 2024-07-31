@@ -2,8 +2,10 @@
 
 import { useSelector, useDispatch } from "react-redux";
 import { productState } from "@/libs/redux-state/features/product/productSlice";
-import { quickviewState } from "@/libs/redux-state/features/quickview/quickviewSlice";
-import { setQuickview } from "@/libs/redux-state/features/quickview/quickviewSlice";
+import {
+  quickviewState,
+  setQuickview,
+} from "@/libs/redux-state/features/quickview/quickviewSlice";
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
 import { useState } from "react";
 import { IProduct } from "@/libs/database/models/product.model";

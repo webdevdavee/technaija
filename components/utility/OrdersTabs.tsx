@@ -39,7 +39,8 @@ const OrdersTabs = ({
 
   return (
     <div className="w-fit mt-4 border-[1px] border-gray-300 p-2 flex items-center gap-2 m:overflow-x-auto m:w-full">
-      <p
+      <button
+        type="button"
         className={`text-sm p-2 hover:bg-[#272829da] hover:text-white hover:transition rounded cursor-pointer m:min-w-fit ss:text-xs ${
           UrlSearchParams.get("status") === null
             ? "bg-[#272829] text-white"
@@ -47,9 +48,10 @@ const OrdersTabs = ({
         }`}
         onClick={() => removeTabFromURL()}
       >
-        All Orders ({ordersCount && ordersCount})
-      </p>
-      <p
+        All Orders ({ordersCount})
+      </button>
+      <button
+        type="button"
         className={`text-sm p-2 hover:bg-[#272829da] hover:text-white hover:transition rounded cursor-pointer  m:min-w-fit ss:text-xs ${
           UrlSearchParams.get("status") === "success"
             ? "bg-[#272829] text-white"
@@ -57,9 +59,10 @@ const OrdersTabs = ({
         }`}
         onClick={() => handleTabChange("success")}
       >
-        Success ({ordersSuccessCount && ordersSuccessCount})
-      </p>
-      <p
+        Success ({ordersSuccessCount})
+      </button>
+      <button
+        type="button"
         className={`text-sm p-2 hover:bg-[#272829da] hover:text-white hover:transition rounded cursor-pointer m:min-w-fit ss:text-xs ${
           UrlSearchParams.get("status") === "pending"
             ? "bg-[#272829] text-white"
@@ -67,9 +70,10 @@ const OrdersTabs = ({
         }`}
         onClick={() => handleTabChange("pending")}
       >
-        Pending ({ordersPendingCount && ordersPendingCount})
-      </p>
-      <p
+        Pending ({ordersPendingCount})
+      </button>
+      <button
+        type="button"
         className={`text-sm p-2 hover:bg-[#272829da] hover:text-white hover:transition rounded cursor-pointer m:min-w-fit ss:text-xs ${
           UrlSearchParams.get("status") === "failed"
             ? "bg-[#272829] text-white"
@@ -77,8 +81,8 @@ const OrdersTabs = ({
         }`}
         onClick={() => handleTabChange("failed")}
       >
-        Failed ({ordersFailedCount && ordersFailedCount})
-      </p>
+        Failed ({ordersFailedCount})
+      </button>
     </div>
   );
 };

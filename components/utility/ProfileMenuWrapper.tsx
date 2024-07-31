@@ -10,13 +10,11 @@ const ProfileMenuWrapper = () => {
   const currentMenu = UrlSearchParams.get("menu");
 
   return (
-    <>
-      <ProfileMenu
-        UrlSearchParams={UrlSearchParams}
-        urlKey="menu"
-        currentMenu={currentMenu}
-      />
-    </>
+    <ProfileMenu
+      UrlSearchParams={UrlSearchParams}
+      urlKey="menu"
+      currentMenu={currentMenu}
+    />
   );
 };
 

@@ -1,9 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import { Dispatch, SetStateAction } from "react";
-import { ChangeEvent } from "react";
+import { useState, Dispatch, SetStateAction, ChangeEvent } from "react";
 import { IProduct } from "@/libs/database/models/product.model";
 import { getProductsByFilter } from "@/libs/actions/product.action";
 import { useSelector } from "react-redux";
@@ -43,55 +41,37 @@ const ModelFilter = ({
   const handleModelFilter = async (
     e: ChangeEvent<HTMLInputElement>,
     model: string
-  ) => {
-    if (e.currentTarget.checked === true && e.currentTarget.id === model) {
-      // Get the name and checked values or state from the event
-      const name = e.target.name;
-      const checked = e.target.checked;
-      // Set the category data in the array created from the ".append" method, in the URL
-      categorySearchParams.append("model", model);
-      // Set the checked state or value of the category input in the URL
-      categorySearchParams.set(name, checked.toString());
-      // Call a function that creates a URL string with the data from categorySearchParams
-      const url = createURL(pathname, categorySearchParams);
-      // Push the created URL string to the URL
-      router.push(url);
-      // Fetch data from data
-      const modifiedProducts = await getProductsByFilter({
-        modelFilterArray: categorySearchParams.getAll("model"),
-        limit: 8,
-        page,
-      });
-      // Set the main products data to the retrieved data from the database
-      setProducts(modifiedProducts && modifiedProducts.data);
-    } else if (
-      e.currentTarget.checked === false &&
-      e.currentTarget.id === model
-    ) {
-      // Get the name value or state from the event
-      const name = e.target.name;
-      // Delete the category from URL "category" array
-      categorySearchParams.delete("model", model);
-      // Delete the category checked state from URL
-      categorySearchParams.delete(name);
-      // Call a function that creates a URL string with the data from categorySearchParams
-      const url = createURL(pathname, categorySearchParams);
-      // Push the created URL string to the URL
-      router.push(url);
-      // Fetch data from data
-      const modifiedProducts = await getProductsByFilter({
-        modelFilterArray: categorySearchParams.getAll("model"),
-        limit: 8,
-        page,
-      });
-      setProducts(
-        modifiedProducts && modifiedProducts.data.length >= 1
-          ? modifiedProducts.data
-          : fetchedProducts
-      );
-    } else {
-      setProducts(fetchedProducts);
+  ): Promise<void> => {
+    const { checked, name, id } = e.target;
+
+    if (id !== model) {
+      return;
     }
+
+    if (checked) {
+      categorySearchParams.append("model", model);
+    } else {
+      categorySearchParams.delete("model", model);
+    }
+
+    categorySearchParams.set(name, checked.toString());
+
+    const url = createURL(pathname, categorySearchParams);
+    router.push(url);
+
+    const filterParams = {
+      modelFilterArray: categorySearchParams.getAll("model"),
+      limit: 8,
+      page,
+    };
+
+    const modifiedProducts = await getProductsByFilter(filterParams);
+
+    setProducts(
+      modifiedProducts?.data.length >= 1
+        ? modifiedProducts?.data
+        : fetchedProducts
+    );
     setShowMobileFilter(false);
   };
 

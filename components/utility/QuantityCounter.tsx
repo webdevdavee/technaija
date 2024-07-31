@@ -25,7 +25,9 @@ const QuantityCounter = ({
   const incrementCartProductQuantity = async () => {
     // Check if item is defined
     if (item && type === "cart") {
-      const cartItem: TCartItem = { ...item, quantity: (quantity += 1) };
+      let quantity = item.quantity;
+      quantity += 1;
+      const cartItem: TCartItem = { ...item, quantity };
 
       setShowLoader && setShowLoader(true);
       // Update the cart in the database using the updateCartItem function
@@ -40,11 +42,11 @@ const QuantityCounter = ({
     if (item && type === "cart") {
       const cartItem: TCartItem = { ...item, quantity: (quantity -= 1) };
 
-      setShowLoader && setShowLoader(true);
+      setShowLoader?.(true);
       // Update the cart in the database using the updateCartItem function
       await updateCartItem(cartItem, pathname);
 
-      setShowLoader && setShowLoader(false);
+      setShowLoader?.(false);
     }
   };
 
@@ -52,7 +54,7 @@ const QuantityCounter = ({
     <span className="w-fit flex gap-8 items-center p-2 border-[1px] border-gray-300 m:justify-between m:w-full">
       <button
         className="disabled:cursor-not-allowed"
-        disabled={quantity === 1 && true}
+        disabled={quantity === 1}
         type="button"
         onClick={
           type === "productpage"

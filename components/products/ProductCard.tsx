@@ -4,7 +4,7 @@ import { IProduct } from "@/libs/database/models/product.model";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setProduct } from "@/libs/redux-state/features/product/productSlice";
 import { setQuickview } from "@/libs/redux-state/features/quickview/quickviewSlice";
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
@@ -15,7 +15,6 @@ import {
   removeProductFromWishlist,
 } from "@/libs/actions/wishlist.actions";
 import { usePathname } from "next/navigation";
-import { currencyState } from "@/libs/redux-state/features/currency/currencySlice";
 
 type CardProp = {
   type: string;
@@ -30,36 +29,7 @@ const ProductCard = ({ type, product, userWishlist, userId }: CardProp) => {
   const dispatch = useDispatch();
   const pathname = usePathname();
 
-  const theCurrentCurrency = useSelector(currencyState);
-  const { currentCurrency } = theCurrentCurrency;
-
   const { _id, name, price, sales_price, featured_image } = product;
-
-  // const [convertedSalesPrice, setConvertedSalesPrice] = useState<number>();
-  // const [convertedPrice, setConvertedPrice] = useState<number>();
-
-  // const storedCurrentCurrency = localStorage.getItem("current-currency");
-  // const retrivedCurrentCurrency =
-  //   storedCurrentCurrency && JSON.parse(storedCurrentCurrency);
-
-  // const storedPreviousCurrency = localStorage.getItem("previous-currency");
-  // const previousCurrency =
-  //   storedPreviousCurrency && JSON.parse(storedPreviousCurrency);
-
-  // useEffect(() => {
-  //   const getConvertedValue = async () => {
-  //     const convertedCurrency = await convertCurrency({
-  //       salesPrice: sales_price,
-  //       price: price,
-  //       currentCurrency: retrivedCurrentCurrency.text,
-  //       previousCurrency: previousCurrency.text,
-  //     });
-
-  //     setConvertedSalesPrice(convertedCurrency?.convertedSalePrice);
-  //     setConvertedPrice(convertedCurrency?.convertedPrice);
-  //   };
-  //   getConvertedValue();
-  // }, [currentCurrency]);
 
   const [itemExists, setItemExists] = useState(false);
   const [showIconLoader, setShowIconLoader] = useState(false);
@@ -116,6 +86,33 @@ const ProductCard = ({ type, product, userWishlist, userId }: CardProp) => {
     }
   };
 
+  const renderWishlistIcon = () => {
+    if (showIconLoader) {
+      return (
+        <Image
+          className="animate-spin"
+          width={20}
+          height={20}
+          src="/loading-spinner.svg"
+          alt="wishlist"
+        />
+      );
+    }
+
+    if (itemExists) {
+      return (
+        <Image
+          width={20}
+          height={20}
+          src="/full-heart-black.svg"
+          alt="wishlist"
+        />
+      );
+    }
+
+    return <Image width={20} height={20} src="/heart.svg" alt="wishlist" />;
+  };
+
   return (
     <section className="w-fit group">
       <div className="relative mb-4 overflow-hidden">
@@ -129,39 +126,24 @@ const ProductCard = ({ type, product, userWishlist, userId }: CardProp) => {
             style={{ objectFit: "cover" }}
           />
         </Link>
-        <div
+        <button
+          type="button"
           className="absolute bg-white drop-shadow-md p-2 transition duration-300 cursor-pointer top-[5%] right-[10%] rounded-full hover:bg-gray-100 translate-x-[1000%] group-hover:-translate-x-0 group-hover:transition group-hover:duration-300"
           onClick={() => addToWishlist(product)}
         >
-          {showIconLoader ? (
-            <Image
-              className="animate-spin"
-              width={20}
-              height={20}
-              src="/loading-spinner.svg"
-              alt="wishlist"
-            />
-          ) : itemExists ? (
-            <Image
-              width={20}
-              height={20}
-              src="/full-heart-black.svg"
-              alt="wishlist"
-            />
-          ) : (
-            <Image width={20} height={20} src="/heart.svg" alt="wishlist" />
-          )}
-        </div>
+          {renderWishlistIcon()}
+        </button>
         <button
           type="button"
           className="absolute translate-y-full transition duration-500 bg-[#272829] w-full p-2 cursor-pointer group-hover:-translate-y-full group-hover:transition group-hover:duration-500"
         >
-          <p
+          <button
+            type="button"
             className="text-white capitalize text-center text-sm"
             onClick={handleQuickview}
           >
             quick view
-          </p>
+          </button>
         </button>
       </div>
       <div>

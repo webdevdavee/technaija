@@ -6,9 +6,11 @@ import QuantityCounter from "./QuantityCounter";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setOverlay } from "@/libs/redux-state/features/overlay/overSlice";
-import { setSlideInCart } from "@/libs/redux-state/features/slide-in-cart/slideInCart";
+import {
+  setSlideInCart,
+  slideInCartState,
+} from "@/libs/redux-state/features/slide-in-cart/slideInCart";
 import Loader from "../ui/Loader";
-import { slideInCartState } from "@/libs/redux-state/features/slide-in-cart/slideInCart";
 import { formatNumber } from "@/libs/utils";
 import { removeProductFromCart } from "@/libs/actions/cart.actions";
 import { usePathname } from "next/navigation";
@@ -39,11 +41,9 @@ const SlideInCart = ({ userId, userCart }: SlideInCartProps) => {
   });
 
   // Use reduce to sum up the numbers
-  const grandTotal =
-    totals &&
-    totals.reduce((a, b) => {
-      return a + b;
-    }, 0);
+  const grandTotal = totals?.reduce((a, b) => {
+    return a + b;
+  }, 0);
 
   // Close cart
   const handleCloseCart = () => {

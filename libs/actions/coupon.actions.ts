@@ -3,7 +3,6 @@
 import { connectToDatabase } from "../database";
 import { handleError } from "../utils";
 import Coupons from "../database/models/coupon.model";
-import Coupon from "@/components/utility/Coupon";
 
 export const getCoupon = async (query: string) => {
   try {

@@ -28,7 +28,7 @@ const Orders = ({ userId }: OrdersProps) => {
 
   const searchParams = useSearchParams();
   const UrlSearchParams = new URLSearchParams(searchParams.toString());
-  const currentPage = parseInt(UrlSearchParams.get("page") || "1", 10);
+  const currentPage = parseInt(UrlSearchParams.get("page") ?? "1", 10);
   const currentStatus = UrlSearchParams.get("status");
 
   // Fetch user's orders
@@ -37,8 +37,8 @@ const Orders = ({ userId }: OrdersProps) => {
       const userOrders = await getUserOrders({
         limit: 5,
         userId,
-        page: currentPage ? currentPage : undefined,
-        status: currentStatus ? currentStatus : undefined,
+        page: currentPage ?? undefined,
+        status: currentStatus ?? undefined,
       });
       setOrders(userOrders?.orders);
       setOrdersCount(userOrders?.ordersCount);
@@ -58,9 +58,9 @@ const Orders = ({ userId }: OrdersProps) => {
       (currentPage - 1 > 0 ? currentPage - 1 : 1).toString()
     );
     // Call the function that creates a URL string with the data from UrlSearchParams
-    const pageURL = createURL(pathname, UrlSearchParams);
+    const url = createURL(pathname, UrlSearchParams);
     // Push the created URL string to the URL
-    router.push(`${pageURL}`);
+    router.push(url);
   };
 
   // Go to next page
@@ -73,9 +73,9 @@ const Orders = ({ userId }: OrdersProps) => {
       ).toString()
     );
     // Call the function that creates a URL string with the data from UrlSearchParams
-    const statusURL = createURL(pathname, UrlSearchParams);
+    const url = createURL(pathname, UrlSearchParams);
     // Push the created URL string to the URL
-    router.push(`${statusURL}`);
+    router.push(url);
   };
 
   // Create an array based on the search input and if no input, return the original array
@@ -92,10 +92,10 @@ const Orders = ({ userId }: OrdersProps) => {
           placeholder="by order ID"
         />
         <OrdersTabs
-          ordersCount={ordersCount ? ordersCount : 0}
-          ordersSuccessCount={ordersSuccessCount ? ordersSuccessCount : 0}
-          ordersPendingCount={ordersPendingCount ? ordersPendingCount : 0}
-          ordersFailedCount={ordersFailedCount ? ordersFailedCount : 0}
+          ordersCount={ordersCount ?? 0}
+          ordersSuccessCount={ordersSuccessCount ?? 0}
+          ordersPendingCount={ordersPendingCount ?? 0}
+          ordersFailedCount={ordersFailedCount ?? 0}
           UrlSearchParams={UrlSearchParams}
         />
       </div>

@@ -8,10 +8,10 @@ type Props = {
   disabled?: boolean;
 };
 
-const LinkButton = ({ link, classname, text, icon, disabled }: Props) => {
+const LinkButton = ({ link, classname, text, disabled }: Props) => {
   return (
     <Link className={`w-fit ${classname}`} href={`/${link}`}>
-      <button disabled={disabled && disabled}>{text}</button>
+      <button disabled={disabled}>{text}</button>
     </Link>
   );
 };

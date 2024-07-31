@@ -27,11 +27,7 @@ const CartListItem = ({ userId, userCart }: CartList) => {
   });
 
   // Use reduce to sum up the numbers
-  const grandTotal =
-    totals &&
-    totals.reduce((a, b) => {
-      return a + b;
-    }, 0);
+  const grandTotal = totals?.reduce((a, b) => a + b, 0);
 
   const removeFromCart = async (product: TCartItem) => {
     // Show loader

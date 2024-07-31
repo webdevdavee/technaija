@@ -1,5 +1,4 @@
 import EditBillingDetails from "@/components/utility/EditBillingDetails";
-import { auth } from "@clerk/nextjs";
 
 const page = () => {
   return (

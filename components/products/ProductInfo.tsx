@@ -21,16 +21,14 @@ const ProductInfo = ({ product }: ProductInfoProp) => {
         <span className="flex items-center gap-1 xl:hidden">
           {stars.map((_, index) => (
             <Image
-              key={index}
+              key={`star-${index}`}
               src="/star.svg"
               width={20}
               height={20}
               alt="star"
             />
           ))}
-          <p className="text-sm ml-2">
-            Reviews ({product.reviews && product.reviews.length})
-          </p>
+          <p className="text-sm ml-2">Reviews ({product.reviews?.length})</p>
         </span>
       </span>
       <h1 className="text-2xl font-semibold sm:text-xl">{product.name}</h1>

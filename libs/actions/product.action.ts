@@ -26,13 +26,10 @@ export const getAllProducts = async (limit: number, page?: number) => {
     const productsNoLimit: IProduct[] = await productsQueryNoLimit;
     const productsCount = await Products.countDocuments({});
 
-    const newLimit = page && page * limit;
-
     return {
       products: JSON.parse(JSON.stringify(productsData)),
       productsNoLimit: JSON.parse(JSON.stringify(productsNoLimit)),
       totalPages: Math.ceil(productsCount / limit),
-      newLimit,
     };
   } catch (error) {
     handleError(error);
@@ -84,61 +81,29 @@ export async function getProductsByFilter({
   try {
     await connectToDatabase();
 
-    let productsQuery;
-    let conditions;
+    const conditions: any = {};
 
-    if (categoryFilterArray && categoryFilterArray.length >= 1) {
-      conditions = {
-        original_category: { $in: categoryFilterArray },
-      };
-    } else if (categoryFilterArray === undefined) {
-      conditions = {
-        "additional_information.model": {
-          $elemMatch: { text: { $in: modelFilterArray } },
-        },
-      };
-    } else if (modelFilterArray && modelFilterArray.length >= 1) {
-      conditions = {
-        "additional_information.model": {
-          $elemMatch: { text: { $in: modelFilterArray } },
-        },
-      };
-    } else if (modelFilterArray === undefined) {
-      conditions = {
-        original_category: { $in: categoryFilterArray },
-      };
-    } else if (
-      modelFilterArray &&
-      categoryFilterArray &&
-      modelFilterArray.length >= 1 &&
-      categoryFilterArray.length >= 1
-    ) {
-      conditions = {
-        original_category: { $in: categoryFilterArray },
-        "additional_information.model": {
-          $elemMatch: { text: { $in: modelFilterArray } },
-        },
-      };
-    } else {
-      conditions = {};
+    if (categoryFilterArray?.length) {
+      conditions.original_category = { $in: categoryFilterArray };
     }
 
-    const newLimit = page * limit;
-
-    if (page !== undefined) {
-      const modifiedLimit = page * limit;
-      productsQuery = Products.find(conditions).limit(modifiedLimit);
-    } else {
-      productsQuery = Products.find(conditions).limit(limit);
+    if (modelFilterArray?.length) {
+      conditions["additional_information.model"] = {
+        $elemMatch: { text: { $in: modelFilterArray } },
+      };
     }
 
-    const productsData: IProduct[] = await productsQuery;
-    const productsCount = await Products.countDocuments(conditions);
+    const productsQuery = Products.find(conditions).limit(limit);
+
+    const [productsData, productsCount] = await Promise.all([
+      productsQuery.exec(),
+      Products.countDocuments(conditions),
+    ]);
 
     return {
       data: JSON.parse(JSON.stringify(productsData)),
       totalPages: Math.ceil(productsCount / limit),
-      newLimit,
+      totalCount: productsCount,
     };
   } catch (error) {
     handleError(error);
