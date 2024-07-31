@@ -308,16 +308,3 @@ type UpdateBillingDetailParams = {
   detail: UpdateBilling;
   path: string;
 };
-
-// type CurrencyConverter = {
-//   salesPrice?: number;
-//   price: number;
-//   previousCurrency: string;
-//   currentCurrency: string;
-// };
-
-// type Country = {
-//   id: number;
-//   text: string;
-//   flag: string;
-// };

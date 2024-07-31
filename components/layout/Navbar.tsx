@@ -9,7 +9,7 @@ const Navbar = async () => {
   // Call server function to get the user's total carted products
   const userCart = await getTotalUserCart(userId);
 
-  return <NavbarItems userCart={userCart} userId={userId} />;
+  return <NavbarItems userCart={userCart} />;
 };
 
 export default Navbar;

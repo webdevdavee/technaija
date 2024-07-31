@@ -3,7 +3,6 @@
 import { connectToDatabase } from "../database";
 import { handleError } from "../utils";
 import { revalidatePath } from "next/cache";
-import Users from "../database/models/user.model";
 import Wishlist from "../database/models/wishlist.model";
 
 export const addProductToWishlist = async ({

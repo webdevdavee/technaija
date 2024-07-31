@@ -28,8 +28,8 @@ export const billingSchema = z.object({
   country: z.string(),
   address: z.string().min(3, "Use 3 characters or more"),
   city: z.string().min(3, "Use 3 characters or more"),
-  zipcode: z.string().regex(/^[1-9][0-9]{5}$/, "Invalid zipcode"),
-  phone: z.string().regex(/^(0|\+?[1-9])[0-9]{7,14}$/, "Invalid phone number"),
+  zipcode: z.string().regex(/^[1-9]\d{5}$/, "Invalid zipcode"),
+  phone: z.string().regex(/^(0|\+?[1-9])\d{7,14}$/, "Invalid phone number"),
 });
 
 export type TBillingSchema = z.infer<typeof billingSchema>;

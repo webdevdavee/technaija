@@ -133,7 +133,6 @@ export async function getProductsBySearchInput(query: string) {
         products: JSON.parse(JSON.stringify(productsData)),
       };
     } else {
-      conditions = {};
       const productsData: IProduct[] = [];
       return {
         products: JSON.parse(JSON.stringify(productsData)),
