@@ -1,5 +1,5 @@
 import SlideInCartItems from "../utility/SlideInCartItems";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { getUserCartItems } from "@/libs/actions/cart.actions";
 
 const SlideInCart = async () => {

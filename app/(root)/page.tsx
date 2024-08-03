@@ -4,7 +4,7 @@ import FeaturedProduct from "@/components/products/FeaturedProduct";
 import CollectionBanner from "@/components/utility/CollectionBanner";
 import Newsletter from "@/components/forms/Newsletter";
 import QuickView from "@/components/utility/QuickView";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
 export default async function Home() {
   const { sessionClaims } = auth();

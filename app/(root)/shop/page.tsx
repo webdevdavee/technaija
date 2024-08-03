@@ -1,6 +1,6 @@
 import QuickView from "@/components/utility/QuickView";
 import ShopContainer from "@/components/utility/ShopContainer";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { getUserWishlistItems } from "@/libs/actions/wishlist.actions";
 
 const Shop = async ({ searchParams }: SearchParamProps) => {

@@ -1,5 +1,5 @@
 import NavbarItems from "../navigation/NavbarItems";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { getTotalUserCart } from "@/libs/actions/cart.actions";
 
 const Navbar = async () => {

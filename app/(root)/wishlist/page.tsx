@@ -1,5 +1,5 @@
 import WishlistItem from "@/components/products/WishlistItem";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { getUserWishlistItems } from "@/libs/actions/wishlist.actions";
 import { redirect } from "next/navigation";
 

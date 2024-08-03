@@ -1,5 +1,5 @@
 import CartListItem from "@/components/products/CartListItem";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { getUserCartItems } from "@/libs/actions/cart.actions";
 import { redirect } from "next/navigation";
 

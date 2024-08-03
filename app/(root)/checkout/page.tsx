@@ -1,5 +1,5 @@
 import Checkout from "@/components/utility/Checkout";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { getUserCartItems } from "@/libs/actions/cart.actions";
 import { getUserById } from "@/libs/actions/user.action";
 import { redirect } from "next/navigation";

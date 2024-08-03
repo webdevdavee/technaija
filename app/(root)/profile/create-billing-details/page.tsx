@@ -1,5 +1,5 @@
 import BillingDetailsForm from "@/components/forms/BillingDetailsForm";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
 const page = () => {
   const { sessionClaims } = auth();

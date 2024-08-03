@@ -112,9 +112,9 @@ type UpdateProductParams = {
 };
 
 type UpdateUserParams = {
-  firstName: string;
-  lastName: string;
-  username: string;
+  firstName: string | null;
+  lastName: string | null;
+  username: string | null;
   email: string;
   photo: string;
 };
@@ -155,9 +155,9 @@ type Users = {
 type CreateUserParam = {
   clerkId: string;
   email: string;
-  username: string;
-  firstName: string;
-  lastName: string;
+  username: string | null;
+  firstName: string | null;
+  lastName: string | null;
   photo: string;
 };
 
